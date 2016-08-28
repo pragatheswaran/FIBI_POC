@@ -1,0 +1,7 @@
+Following needs to be added as part of base application: 
+------------------------------------------------------------
+
+1) Unit test
+2) LogBack.xml
+.
+.
