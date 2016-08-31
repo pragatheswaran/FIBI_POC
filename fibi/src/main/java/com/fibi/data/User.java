@@ -2,8 +2,6 @@ package com.fibi.data;
 
 import org.springframework.data.annotation.Id;
 
-import com.sun.istack.internal.NotNull;
-
 /**
  * Data class for User
  *
@@ -15,7 +13,6 @@ public class User
 	@Id
 	private String id;
 	
-	@NotNull
 	private String email;
 	private String firstName;
 	private String lastName;
