@@ -1,0 +1,94 @@
+<div id="wrapper" [ngClass]="{ '': isOn, 'toggled': !isOn}">
+
+  <div class="overlay custom-scroll-1" [ngClass]="{ 'hide': isOn, 'show': !isOn}"></div>
+  <!-- Sidebar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+    <ul class="nav sidebar-nav">
+      <li class="sidebar-brand">
+        <a href="#">
+          <div class="ib logo">
+            <img src="../images/logo.png"/>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/home"><i class="fa fa-fw fa-home"></i> Home</a>
+      </li>
+      <li class="dropdown" [ngClass]="{ 'open': isDropdownMenuOpen, '': !isDropdownMenuOpen}"
+          (click)="toggleDropdownMenu()" data-toggle="offcanvas">
+        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-bank"></i> Investments
+          <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Pension Funds</a></li>
+          <li><a href="#">NSC</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-fw fa-suitcase"></i> Assets</a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-fw fa-users"></i> Accounts</a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-fw fa-file-o"></i> Reports</a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-fw fa-cog"></i> Settings</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="page-content-wrapper">
+    <div class="module header-module">
+      <button type="button" class="hamburger animated fadeInLeft"
+              [ngClass]="{ 'is-closed': isOn, 'is-open': !isOn}"
+              (click)="toggleHamClass()" data-toggle="offcanvas">
+        <span class="hamb-top"></span>
+        <span class="hamb-middle"></span>
+        <span class="hamb-bottom"></span>
+      </button>
+
+      <div class="ib logo pull-left">
+        <img src=""/>
+      </div>
+      <div class="ib menu pull-left">
+        <ul class="nav navbar-nav">
+          <li><a routerLink="/home">Home</a></li>
+          <li class="active"><a routerLink="/investments">Investments</a></li>
+          <li><a>Assets</a></li>
+          <li><a>Reports</a></li>
+          <li><a>Settings</a></li>
+        </ul>
+      </div>
+      <div class="ib rightpoint-tip">Sign Out</div>
+      <div class="ib sign-out">
+        <i class="fa fa-2 fa-sign-out"></i>
+      </div>
+
+      <div class="ib user-settings pull-right">
+        <ul>
+          <li class="dropdown" [ngClass]="{ 'open': isUserDropdownmenuOpen, 'closed': !isUserDropdownmenuOpen}"
+              (click)="toggleUserDropdownMenu()" >
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Jeyasarathi
+              Singaravel <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Profile Settings</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container main">
+      <div class="row">
+        <router-outlet>
+
+        </router-outlet>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p class="container">Made by LatentView &copy; 2016</p>
+  </div>
+</div>

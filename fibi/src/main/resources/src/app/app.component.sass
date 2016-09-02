@@ -1,0 +1,732 @@
+$primary-color: #33b5e5
+$primary-green: #008000
+$primary-color-hover: #178ab4
+$primary-red: #E24E2E
+$primary-orange: #F18B08
+@mixin gray-gradient()
+  background: rgba(219, 219, 219, 1)
+  background: -moz-linear-gradient(left, rgba(219, 219, 219, 1) 0%, rgba(219, 219, 219, 1) 7%, rgba(226, 226, 226, 1) 16%, rgba(209, 209, 209, 1) 99%, rgba(254, 254, 254, 1) 100%)
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(219, 219, 219, 1)), color-stop(7%, rgba(219, 219, 219, 1)), color-stop(16%, rgba(226, 226, 226, 1)), color-stop(99%, rgba(209, 209, 209, 1)), color-stop(100%, rgba(254, 254, 254, 1)))
+  background: -webkit-linear-gradient(left, rgba(219, 219, 219, 1) 0%, rgba(219, 219, 219, 1) 7%, rgba(226, 226, 226, 1) 16%, rgba(209, 209, 209, 1) 99%, rgba(254, 254, 254, 1) 100%)
+  background: -o-linear-gradient(left, rgba(219, 219, 219, 1) 0%, rgba(219, 219, 219, 1) 7%, rgba(226, 226, 226, 1) 16%, rgba(209, 209, 209, 1) 99%, rgba(254, 254, 254, 1) 100%)
+  background: -ms-linear-gradient(left, rgba(219, 219, 219, 1) 0%, rgba(219, 219, 219, 1) 7%, rgba(226, 226, 226, 1) 16%, rgba(209, 209, 209, 1) 99%, rgba(254, 254, 254, 1) 100%)
+  background: linear-gradient(to right, rgba(219, 219, 219, 1) 0%, rgba(219, 219, 219, 1) 7%, rgba(226, 226, 226, 1) 16%, rgba(209, 209, 209, 1) 99%, rgba(254, 254, 254, 1) 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dbdbdb', endColorstr='#fefefe', GradientType=1)
+
+@mixin header-footer-gradient()
+  background: rgba(255, 255, 255, 1)
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 79%, rgba(246, 246, 246, 1) 100%)
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(79%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(246, 246, 246, 1)))
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 79%, rgba(246, 246, 246, 1) 100%)
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 79%, rgba(246, 246, 246, 1) 100%)
+  background: -ms-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 79%, rgba(246, 246, 246, 1) 100%)
+  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 79%, rgba(246, 246, 246, 1) 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=1)
+
+@mixin transition()
+  -moz-transition: all 0.5s ease
+  -o-transition: all 0.5s ease
+  -webkit-transition: all 0.5s ease
+  transition: all 0.5s ease
+
+/* Global styles */
+body
+  @include gray-gradient()
+  color: #666666
+  font-family: 'RobotoDraft', 'Roboto', sans-serif
+  font-size: 14px
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  margin: 0
+  background-repeat: no-repeat
+  background-attachment: fixed
+a
+  text-decoration: none
+  outline: none
+  transition: 0.5s ease
+.primary-color
+  color: $primary-color
+.primary-green
+  color: $primary-green
+.primary-red
+  color: $primary-red
+.primary-orange
+  color: $primary-orange
+.ib
+  display: inline-block
+.border-top
+  border-top: 3px solid $primary-color
+.border-top-primary
+  border-top: 1px solid $primary-color !important
+.border-top-green
+  border-top: 1px solid $primary-green !important
+.border-top-red
+  border-top: 1px solid $primary-red !important
+.border-top-orange
+  border-top: 1px solid $primary-orange !important
+.border-left-primary
+  border-left: 3px solid $primary-color
+.border-left-green
+  border-left: 3px solid $primary-green
+.border-left-red
+  border-left: 3px solid $primary-red
+.border-left-orange
+  border-left: 3px solid $primary-orange
+
+.fa-2
+  font-size: 2em
+
+.text-primary
+  color: $primary-color
+
+.pd-top
+  padding-top: 5px !important
+
+.show
+  display: block
+
+.hide
+  display: none
+
+.collapse
+  display: none
+
+.collapse.in
+  display: block
+
+.collapsing
+  position: relative
+  height: 0
+  overflow: hidden
+  -webkit-transition-timing-function: ease
+  -o-transition-timing-function: ease
+  transition-timing-function: ease
+  -webkit-transition-duration: .35s
+  -o-transition-duration: .35s
+  transition-duration: .35s
+  -webkit-transition-property: height, visibility, padding
+  -o-transition-property: height, visibility, padding
+  transition-property: height, visibility, padding
+
+/* Custom Scrollbar */
+/*-----------------------------------------------------------------------*/
+/*Vertical Scroll bar - Customized*/
+/*-----------------------------------------------------------------------*/
+.scrollbar
+  overflow-y: scroll
+
+/*.force-overflow{min-height:350px    */
+
+.custom-scroll::-webkit-scrollbar-track
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3)
+  background-color: #F5F5F5
+
+.custom-scroll::-webkit-scrollbar
+  width: 6px
+  background-color: #F5F5F5
+
+.custom-scroll::-webkit-scrollbar-thumb
+  background-color: #2196f3
+
+/*-----------------------------------------------------------------------*/
+/*Horizontal Scroll bar - Customized*/
+/*-----------------------------------------------------------------------*/
+.scrollbar-x
+  overflow-x: scroll
+
+
+/*.force-overflow{min-height:350px    */
+
+.custom-scroll-x::-webkit-scrollbar-track
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3)
+  background-color: #F5F5F5
+
+
+.custom-scroll-x::-webkit-scrollbar
+  height: 5px
+  background-color: #F5F5F5
+
+
+.custom-scroll-x::-webkit-scrollbar-thumb
+  background-color: #2196f3
+
+
+/* End of Global stlyes*/
+/* File Upload Modal */
+.bfd-dropfield
+  display: inline
+  padding: 5px
+
+
+.bfd-dropfield-inner
+  height: 200px !important
+  padding-top: 50px !important
+  border: 5px dashed #888
+  color: #888
+  cursor: pointer
+  font-size: 32px
+  text-align: center
+
+
+.bfd-dropfield-inner:hover, .bfd-dropfield-inner.bfd-dragover
+  border-color: #bbb
+  color: #bbb
+
+
+.bfd-progress
+  margin-top: 8px
+
+
+.bfd-info
+  overflow: hidden
+  white-space: nowrap
+
+
+.bfd-error-message
+  text-align: center
+
+
+.bfd-remove
+  cursor: pointer
+
+
+/* End of file upload */
+
+/* Tooltip */
+.tip
+  display: block
+  color: #ffffff
+  position: absolute
+  top: 5px
+  background: rgba(0, 0, 0, 0.6)
+  width: auto
+  padding: 5px
+  font-size: 10px
+  line-height: 1
+  text-transform: uppercase
+
+
+.tip-caret
+  content: ''
+  position: absolute
+  top: 5px
+  border-top: 5px solid transparent
+  border-bottom: 5px solid transparent
+
+  display: block
+
+
+.rightpoint-tip
+  @extend .tip
+  right: 53px
+
+
+.leftpoint-tip
+  @extend .tip
+  right: -65px
+
+
+.rightpoint-tip:before
+  @extend .tip-caret
+  left: 54px
+  border-left: 5px solid rgba(0, 0, 0, 0.6)
+
+
+.leftpoint-tip:before
+  @extend .tip-caret
+  left: -5px
+  border-right: 5px solid rgba(0, 0, 0, 0.6)
+
+
+/* End of Tooltip */
+
+/* Login header */
+.login-header
+  text-align: center
+  height: 135px
+
+
+.login-title
+  padding: 20px 0
+  text-align: center
+  letter-spacing: 2px
+  h1
+    margin: 0 0 20px
+    font-size: 48px
+    font-weight: 300
+
+  span
+    font-size: 12px
+
+
+
+.form-module
+  position: relative
+  background: #ffffff
+  max-width: 320px
+  width: 100%
+  border-top: 5px solid $primary-color
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1)
+  margin: 0 auto
+  .toggle
+    cursor: pointer
+    position: absolute
+    top: -0
+    right: -0
+    background: $primary-color
+    width: 30px
+    height: 30px
+    margin: -5px 0 0
+    color: #ffffff
+    font-size: 12px
+    line-height: 30px
+    text-align: center
+
+  .form
+    display: none
+    padding: 40px
+
+  .form:nth-child(2)
+    display: block
+
+  h2
+    margin: 0 0 20px
+    color: $primary-color
+    font-size: 18px
+    font-weight: 400
+    line-height: 1
+
+  input
+    outline: none
+    display: block
+    width: 100%
+    border: 1px solid #d9d9d9
+    margin: 0 0 20px
+    padding: 10px 15px
+    box-sizing: border-box
+    font-wieght: 400
+    -webkit-transition: 0.3s ease
+    transition: 0.3s ease
+
+  input:focus
+    border: 1px solid $primary-color
+    color: #333333
+
+  button
+    cursor: pointer
+    background: $primary-color
+    width: 100%
+    border: 0
+    padding: 10px 15px
+    color: #ffffff
+    -webkit-transition: 0.3s ease
+    transition: 0.3s ease
+
+  button:hover
+    background: $primary-color-hover
+
+  .cta
+    background: #f2f2f2
+    width: 100%
+    padding: 15px 40px
+    box-sizing: border-box
+    font-size: 12px
+    text-align: center
+    margin-top: 20px
+    a
+      color: #333333
+      text-decoration: none
+
+
+  .cta:hover
+    background: #ccc
+    cursor: pointer
+
+
+
+/* End of Login header */
+
+/* App Header Navigation */
+
+.header-module
+  @include header-footer-gradient()
+  @extend .border-top
+  width: 100%
+  height: 70px
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1)
+  margin-top: -70px
+  border-bottom: 1px solid #ccc
+  .sign-out
+    cursor: pointer
+    position: absolute
+    top: -0
+    right: -0
+    background: $primary-color
+    width: 40px
+    height: 30px
+    margin: 3px 0 0 5px
+    color: #ffffff
+    font-size: 12px
+    text-align: center
+    i
+      margin-top: 1px
+
+
+  .menu
+    margin-left: 50px
+
+  .nav
+    li
+      margin-top: 35px
+      width: 125px
+      padding: 0 10px 7px 0px
+      text-align: center
+      cursor: pointer
+
+    a
+      padding: 0 0 0 0
+      height: 100%
+      width: 100%
+      color: #444
+      cursor: pointer
+
+
+  .menu
+    ul
+      li:hover
+        border-bottom: solid 2px #c0c0c0
+
+      li.active
+        border-bottom: solid 2px $primary-color
+
+
+
+
+  .user-settings
+    margin-top: 35px
+    margin-right: 10px
+
+  .dropdown-menu
+    top: 31px
+    left: -27px
+    border-radius: 0
+    width: 180px
+
+
+
+
+/*       Hamburger-Cross         */
+.hamburger
+  background: transparent
+  border: none
+  height: 32px
+  margin-left: 15px
+  top: 20px
+  width: 32px
+  z-index: 999
+  position: fixed
+
+
+.hamburger:hover, .hamburger:focus, .hamburger:active
+  outline: none
+
+
+.hamburger.is-closed:before
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transition: all 0.35s ease-in-out
+  content: ''
+  display: block
+  font-size: 14px
+  line-height: 32px
+  opacity: 0
+  text-align: center
+  width: 100px
+
+
+.hamburger.is-closed:hover before
+  -webkit-transform: translate3d(-100px, 0, 0)
+  -webkit-transition: all 0.35s ease-in-out
+  display: block
+  opacity: 1
+
+
+.hamburger.is-closed:hover
+  .hamb-top
+    -webkit-transition: all 0.35s ease-in-out
+    top: 0
+
+  .hamb-bottom
+    -webkit-transition: all 0.35s ease-in-out
+    bottom: 0
+
+
+
+.hamburger.is-closed
+  .hamb-top
+    -webkit-transition: all 0.35s ease-in-out
+    background-color: rgba(255, 255, 255, 0.7)
+    top: 5px
+
+  .hamb-middle
+    background-color: rgba(255, 255, 255, 0.7)
+    margin-top: -2px
+    top: 50%
+
+  .hamb-bottom
+    -webkit-transition: all 0.35s ease-in-out
+    background-color: rgba(255, 255, 255, 0.7)
+    bottom: 5px
+
+
+
+.hamburger.is-closed .hamb-top,
+.hamburger.is-closed .hamb-middle,
+.hamburger.is-closed .hamb-bottom,
+.hamburger.is-open .hamb-top,
+.hamburger.is-open .hamb-middle,
+.hamburger.is-open .hamb-bottom
+  height: 4px
+  left: 0
+  position: absolute
+  width: 100%
+  background-color: #333
+
+
+.hamburger.is-open
+  .hamb-top
+    -webkit-transform: rotate(45deg)
+    -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.73, 1, 0.28, 0.08)
+    background-color: #fff
+    margin-top: -2px
+    top: 50%
+
+  .hamb-middle
+    background-color: #fff
+    display: none
+
+  .hamb-bottom
+    -webkit-transform: rotate(-45deg)
+    -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.73, 1, 0.28, 0.08)
+    background-color: #fff
+    margin-top: -2px
+    top: 50%
+
+
+
+.hamburger.is-open:before
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transition: all 0.35s ease-in-out
+  color: $primary-color
+  content: ''
+  display: block
+  font-size: 14px
+  line-height: 32px
+  opacity: 0
+  text-align: center
+  width: 100px
+
+
+.hamburger.is-open:hover before
+  -webkit-transform: translate3d(-100px, 0, 0)
+  -webkit-transition: all 0.35s ease-in-out
+  display: block
+  opacity: 1
+
+
+/*          Dark Overlay         */
+.overlay
+  position: fixed
+  display: none
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background-color: rgba(0, 0, 0, 0.4)
+  z-index: 1
+  overflow-x: hidden
+
+
+/*End of header section */
+
+/* Header and Sidebar section logo */
+div.logo img
+  width: 125px
+  height: 125px
+  margin-top: -30px
+  margin-left: 50px
+
+
+/* End of Header and Sidebar section logo */
+
+/* Footer Section */
+.footer
+  @include header-footer-gradient()
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff', GradientType=1)
+  height: 100%
+  @extend .border-top
+  p
+    padding-top: 5px
+
+
+
+/* End of Footer Section */
+
+/* Main Container */
+
+.main
+  @include header-footer-gradient()
+  min-height: 540px
+
+
+#wrapper
+  @include transition()
+  padding-left: 0
+  #sidebar-wrapper::-webkit-scrollbar
+    display: none
+
+
+  #page-content-wrapper
+    padding-top: 70px
+    width: 100%
+
+
+
+#wrapper.toggled
+  padding-left: 220px
+  #sidebar-wrapper
+    width: 220px
+
+  #page-content-wrapper
+    margin-right: -220px
+    position: absolute
+
+
+
+/* Sidebar wrapper */
+#sidebar-wrapper
+  @include transition()
+  background: #474747
+  height: 100%
+  left: 220px
+  margin-left: -220px
+  overflow-x: hidden
+  overflow-y: auto
+  width: 0
+  z-index: 1000
+  .sidebar-nav
+    list-style: none
+    margin: 0
+    padding: 0
+    position: absolute
+    top: 0
+    width: 220px
+    li
+      display: inline-block
+      line-height: 20px
+      position: relative
+      width: 100%
+      color: #ffffff
+      a
+        color: #dddddd
+        display: block
+        padding: 10px 15px 10px 30px
+        text-decoration: none
+      .dropdown-menu
+        background-color: #474747
+        border-radius: 0
+        border: none
+        box-shadow: none
+        margin: 0
+        padding: 0
+        position: relative
+        width: 100%
+        transition: all 0.35s ease-in-out
+        -webkit-transition: all 0.35s ease-in-out
+        li
+          border-right: solid 2px $primary-color
+          margin: 3px 0 3px 0
+          line-height: 1.5em
+          a
+            color: #fff !important
+        li:last-child
+          border-bottom: solid 1px #ccc
+
+    li:before
+      background-color: #474747
+      content: ''
+      height: 100%
+      left: 0
+      position: absolute
+      top: 0
+      -webkit-transition: width 0.2s ease-in
+      transition: width 0.2s ease-in
+      width: 3px
+      z-index: -1
+
+    li:first-child a
+      background-color: #474747
+      color: #ffffff
+
+    li:nth-child(9):before
+      background-color: #33d3ff
+
+    li:nth-child(8):before
+      background-color: #33d3fe
+
+    li:nth-child(7):before
+      background-color: #33c8fd
+
+    li:nth-child(6):before
+      background-color: #33ccf7
+
+    li:nth-child(5):before
+      background-color: #33b9f4
+
+    li:nth-child(4):before
+      background-color: #33b7f0
+
+    li:nth-child(3):before
+      background-color: #33b6e8
+
+    li:nth-child(2):before
+      background-color: $primary-color
+
+    li:hover:before
+      -webkit-transition: width 0.2s ease-in
+      transition: width 0.2s ease-in
+      width: 100%
+
+    li.open
+      .dropdown-menu
+        margin-bottom: 10px
+    li.open:hover:before
+      -webkit-transition: width 0.2s ease-in
+      transition: width 0.2s ease-in
+      width: 100%
+    li a:active,
+    li a:focus,
+    li.open a:active,
+    li.open a:focus
+      color: white
+      text-decoration: none
+      background-color: #0d87e9 !important
+    li a:hover,
+    li.open a:hover
+      color: white
+      text-decoration: none
+      background-color: $primary-color !important
+
+    .sidebar-brand
+      font-size: 20px
+      line-height: 44px
+      a:hover
+        color: white
+        text-decoration: none
+        background-color: #474747 !important
+
+    .sidebar-brand img
+      margin: -10px 0 0 30px
+
+/* End of Sidebar wrapper */
