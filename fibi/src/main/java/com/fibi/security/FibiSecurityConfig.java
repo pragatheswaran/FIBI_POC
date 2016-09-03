@@ -36,9 +36,11 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		  .authorizeRequests()
 		   //allow signup, login and home pages
-		   .antMatchers("/signup.html", "/login.html", "/home.html").permitAll()
+		   .antMatchers("/signup.html", "/login.html", "/index.html", "/home.html", "/").permitAll()
 		   //allow swagger resources
 		   .antMatchers("/swagger-ui.html/**", "/webjars/**", "/swagger-resources/**", "/v2/**").permitAll()
+		   //allow angular resources
+		   .antMatchers("/js/**", "/css/**").permitAll()
 		   //allow signup request
 		   .antMatchers(HttpMethod.POST,"/users").permitAll()
 		   //for testing
@@ -47,10 +49,9 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 		   .and()
 		   .formLogin()
 		   //Custom login page
-		   //.loginPage("/login").permitAll();
-		   //.and()
-		   //.exceptionHandling().authenticationEntryPoint(entryPoint()); 
-		   
+		   .loginPage("/login").permitAll()
+		   .and()
+		   .exceptionHandling().authenticationEntryPoint(entryPoint())
 		   //disabling csrf for now. should be enabled later
 		   .and().csrf().disable();
 		  

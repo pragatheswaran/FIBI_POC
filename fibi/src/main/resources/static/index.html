@@ -1,34 +1,27 @@
 <!doctype html>
 <html>
 <head>
-  <base href="/">
-  <meta charset="utf-8">
-  <title>Easytree</title>
-  <base href="/">
-
-  <script src="/ember-cli-live-reload.js" type="text/javascript"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="stylesheet" href="../css/reset.css">
-  <link rel='stylesheet' href='../css/vendor/fontawesome/css/font-awesome.min.css'>
-
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/vendor/bootstrap/css/bootstrap.min.css">
-
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<title>Welcome to FIBI</title>
+<link
+	href="css/angular-bootstrap.css"
+	rel="stylesheet">
+<style type="text/css">
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+</style>
 </head>
-<body>
-  <app-root>Loading...</app-root>
 
-    <script src="vendor/es6-shim/es6-shim.js"></script>
-    <script src="vendor/reflect-metadata/Reflect.js"></script>
-    <script src="vendor/systemjs/dist/system.src.js"></script>
-    <script src="vendor/zone.js/dist/zone.js"></script>
-    <script>
-      System.import('system-config.js').then(function () {
-        System.import('main');
-      }).catch(console.error.bind(console));
-    </script>
-
+<body ng-app="sample" ng-cloak class="ng-cloak">
+	<div ng-controller="navigation as nav" class="container">
+		<ul class="nav nav-pills" role="tablist">
+			<li ng-class="{active:nav.tab('home')}"><a href="#/">home</a></li>
+			<li ng-hide='authenticated' ng-class="{active:nav.tab('navigation')}"><a href="#/login">login</a></li>
+			<li ng-show="authenticated"><a href="" ng-click="nav.logout()">logout</a></li>
+		</ul>
+	</div>
+	<div ng-view class="container"></div>
+	<script src="js/angular-bootstrap.js" type="text/javascript"></script>
+	<script src="js/app.js"></script>
 </body>
 </html>
