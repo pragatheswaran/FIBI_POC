@@ -47,18 +47,16 @@ app.directive('compareTo', compareTo);
 //controller
 app.controller('navigation',
 
-		function($rootScope, $http, $location, $route, $scope, ngProgressFactory) {
+		function($rootScope, $http, $location, $route, $scope, ngProgressFactory, $window) {
 			
 			var self = this;
 			
 			$scope.progressbar = ngProgressFactory.createInstance();
 			
-			/*$scope.countries = [
-			                { id: 1, name: 'India' },
-			                { id: 2, name: 'United States' },
-			                { id: 3, name: 'Germany' }
-			              ];*/
-			
+			$scope.redirectToHome = function(){
+				  $window.location = "#/";
+			}
+						
 			$http.get('countries').success(function (data) {
 		        $scope.countries = data;            
 		    })
