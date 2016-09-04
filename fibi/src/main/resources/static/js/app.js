@@ -1,64 +1,28 @@
 
-/*'use strict';
-var app = angular.module('login_app',['ngCookies','ngProgress']);
+var app = angular.module('sample', ['ngRoute', 'ngCookies','ngProgress']);
 
-app.controller('login_ctrl', login_ctrl);
+//for confirm password
+var compareTo = function() {
+    return {
+      require: "ngModel",
+      scope: {
+        otherModelValue: "=compareTo"
+      },
+      link: function(scope, element, attributes, ngModel) {
 
-app.config(['$httpProvider', function ($httpProvider) {
-}]);
+        ngModel.$validators.compareTo = function(modelValue) {
+          return modelValue == scope.otherModelValue;
+        };
 
-
-function login_ctrl($rootScope, $scope, $http, $cookies, $window, ngProgressFactory) {
-	
-	$scope.progressbar = ngProgressFactory.createInstance();
-	
-	$scope.login = function(credentials) {
-			
-		$scope.progressbar.start();
-		
-		if(angular.isUndefined($scope.credentials)) {
-			 $scope.warningmsg = "Fill in your credentials";
-			 $scope.progressbar.complete();
-		 }
-		 else {
-		   var username = $scope.credentials.username;
-	       var password = $scope.credentials.password;
-	       $scope.warningmsg = "";
-	    
-           var postData = 'username=' + username + '&password=' + password;
-        
-           var request = $http({
-             method: "post",
-             headers: {
-            	'Content-Type': 'application/x-www-form-urlencoded'
-             },
-             url: 'login',
-             data: postData,
-             cache: false
-           });
-        
-           request.success(function(data,status) {
-        	
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(data, 'application/xhtml+xml');
-            if(doc.getElementById('loginDiv')!=null) {
-            	$scope.warningmsg = "Authentication failed";
-            	$scope.progressbar.complete();
-            }
-            else {
-            	$window.location.href = '/sponsor';
-            	$scope.progressbar.complete();
-            }
-        })
-        request.error(function(data, status, headers, config) {
-        	$window.location.href = '/sponsor/login';
-        	$scope.progressbar.complete();
-        })
-	  }
-	}	
-}
-*/
-angular.module('sample', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
+        scope.$watch("otherModelValue", function() {
+          ngModel.$validate();
+        });
+      }
+    };
+  };
+  
+//config
+app.config(function($routeProvider, $httpProvider) {
 
 	$routeProvider.when('/', {
 		templateUrl : 'home.html',
@@ -68,15 +32,42 @@ angular.module('sample', [ 'ngRoute' ]).config(function($routeProvider, $httpPro
 		templateUrl : 'login.html',
 		controller : 'navigation',
 		controllerAs: 'controller'
+	}).when('/signup', {
+		templateUrl : 'signup.html',
+		controller : 'navigation',
+		controllerAs: 'controller'
 	}).otherwise('/');
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+});
 
-}).controller('navigation',
+//directive
+app.directive('compareTo', compareTo);
 
-		function($rootScope, $http, $location, $route, $scope) {
+//controller
+app.controller('navigation',
+
+		function($rootScope, $http, $location, $route, $scope, ngProgressFactory) {
 			
 			var self = this;
+			
+			$scope.progressbar = ngProgressFactory.createInstance();
+			
+			/*$scope.countries = [
+			                { id: 1, name: 'India' },
+			                { id: 2, name: 'United States' },
+			                { id: 3, name: 'Germany' }
+			              ];*/
+			
+			$http.get('countries').success(function (data) {
+		        $scope.countries = data;            
+		    })
+		    .error(function () {
+		    	$rootScope.error = true;
+		        //$scope.error = "An Error has occured while loading posts!";           
+		    });
+			
+			$rootScope.error = false;
 
 			self.tab = function(route) {
 				return $route.current && route === $route.current.controller;
@@ -87,6 +78,8 @@ angular.module('sample', [ 'ngRoute' ]).config(function($routeProvider, $httpPro
 				   var username = $scope.controller.credentials.username;
 			       var password = $scope.controller.credentials.password;
 			    
+			       $scope.progressbar.start();
+			       
 		           var postData = 'username=' + username + '&password=' + password;
 		        
 		           var request = $http({
@@ -101,12 +94,55 @@ angular.module('sample', [ 'ngRoute' ]).config(function($routeProvider, $httpPro
 		           
 		           request.success(function(data,status) {
 		        	   console.log("Login succeeded");
+		        	   $rootScope.signupSuccess = false;
 		        	   $location.path("/");
 		        	   $rootScope.authenticated = true;
+				       $scope.progressbar.complete();
 		           })
 		           request.error(function(data, status, headers, config) {
 		        	   console.log("Login failed");
 		        	   $rootScope.authenticated = false;
+		        	   $rootScope.signupSuccess = false;
+		        	   $rootScope.error = true;
+				       $scope.progressbar.complete();
+		           })
+			};
+			
+			self.signup = function(signup) {
+				   var email = $scope.controller.signup.email;
+			       var password = $scope.controller.signup.password;
+			       var firstName = $scope.controller.signup.firstName;
+			       var lastName = $scope.controller.signup.lastName;
+			       var country = $scope.controller.signup.country.name;
+			       
+			       $scope.progressbar.start();
+			    		        
+		           var request = $http({
+		             method: "post",
+		             headers: {
+			            	'Content-Type': 'application/json'
+			            },
+		             url: 'users',
+		             data: {
+			             email: email,
+			             firstName: firstName,
+			             lastName: lastName,
+			             country: country,
+			             password: password
+			         },
+		             cache: false
+		           });
+		           
+		           request.success(function(data,status) {
+		        	   console.log("Signed up successfully");
+		        	   $rootScope.signupSuccess = true;
+		        	   $scope.progressbar.complete();
+		        	   $location.path("/login");
+		           })
+		           request.error(function(data, status, headers, config) {
+		        	   console.log("Sign up failed");
+		        	   $scope.progressbar.complete();
+		        	   $rootScope.error = true;
 		           })
 			};
 
@@ -114,12 +150,14 @@ angular.module('sample', [ 'ngRoute' ]).config(function($routeProvider, $httpPro
 				$http.post('logout', {}).finally(function() {
 					$rootScope.authenticated = false;
 					$location.path("/");
+					 $rootScope.error = false;
 				});
 			}
-
-		}).controller('home', function($http) {
+		});
+		
+  app.controller('home', function($http) {
 	var self = this;
 	$http.get('users/resource/').then(function(response) {
 		self.greeting = response.data;
 	})
-});
+   });

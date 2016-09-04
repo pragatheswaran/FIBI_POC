@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Signup Page</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="alert alert-danger" ng-show="error">
+	There was a problem in signing up. Please contact administrator
+</div>
+<form name="form" role="form" ng-submit="controller.signup()">
+	<div class="form-group">
+		<label for="email">Email:</label> <input type="text"
+			class="form-control" id="email" name="email" ng-model="controller.signup.email" ng-required="true"/>
+	</div>
+    <div class="form-group">
+		<label for="firstName">First Name:</label> <input type="text"
+			class="form-control" id="firstName" name="firstName" ng-model="controller.signup.firstName" ng-required="true"/>
+	</div>
+	<div class="form-group">
+		<label for="lastName">Last Name:</label> <input type="text"
+			class="form-control" id="lastName" name="lastName" ng-model="controller.signup.lastName"/>
+	</div>
+	<div class="form-group">
+		<label for="country">Country:</label> 
+		<select class="form-control" ng-model="controller.signup.country"
+		  ng-options="country as country.name for country in countries" ng-required="true" >
+		  <option value="">Select Country</option>
+		 </select>
+<!-- 		<input type="text" class="form-control" id="country" name="country" ng-model="controller.signup.country" ng-required="true"/>
+ -->	</div>
+    <div class="form-group">
+		<label for="password">Password:</label> <input type="password"
+			class="form-control" id="password" name="password" ng-model="controller.signup.password" ng-required="true"/>
+	</div>
+	<div class="form-group">
+		<label for="password">Confirm Password:</label> <input type="password"
+			class="form-control" id="confirmPassword" name="password" ng-model="controller.signup.confirmPassword" 
+			ng-required="true" compare-to="controller.signup.password"/>
+	</div>
+	
+<!--     <div ng-show="controller.signup.password !== controller.signup.confirmPassword">Password mismatch</div>	
+ -->	
+	<button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Signup</button>
+</form>
