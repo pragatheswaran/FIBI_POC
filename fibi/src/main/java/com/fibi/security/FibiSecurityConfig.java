@@ -43,9 +43,13 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 		   .antMatchers("/js/**", "/css/**").permitAll()
 		   //allow signup request
 		   .antMatchers(HttpMethod.POST,"/users").permitAll()
+		   
 		   //for testing
+		   .antMatchers(HttpMethod.POST,"/travels").permitAll()
+		   
 		   .antMatchers(HttpMethod.GET,"/users").permitAll()
 		   .antMatchers(HttpMethod.GET,"/countries").permitAll()
+		   .antMatchers(HttpMethod.GET,"/travels/**").permitAll()
 		   
 		   .anyRequest().authenticated()
 		   .and()
