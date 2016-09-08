@@ -45,7 +45,7 @@ app.config(function($routeProvider, $httpProvider) {
 		controller : 'travel',
 		controllerAs: 'controller'
 	}).when('/travelDetails', {
-		templateUrl : 'travelDetails.html',
+		templateUrl : 'TravelDetails.html',
 		controller : 'travel',
 		controllerAs: 'controller'
 	})
