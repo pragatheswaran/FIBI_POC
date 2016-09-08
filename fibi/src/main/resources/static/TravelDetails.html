@@ -1,0 +1,42 @@
+<div class="scrollable">
+ <div class="scrollable-content section">
+ <div class="alert alert-danger" ng-show="error">
+	There was a problem in saving the details.
+</div>
+<div class="alert alert-success" ng-show="saveSuccess">
+	<strong>Travel details saved successfully! </strong>
+</div>
+
+ 
+<form name="form" role="form" ng-submit="controller.saveTravelDetails()">
+    <fieldset>
+    <legend>Travel Details</legend>
+	<div class="form-group">
+		<label for="from">From:</label> <input type="text"
+			class="form-control" id="from" name="from" ng-model="controller.travelDetails.from" placeholder="Departure City" ng-required="true"/>
+	</div>
+    <div class="form-group">
+		<label for="to">To:</label> <input type="text"
+			class="form-control" id="to" name="to" ng-model="controller.travelDetails.to" placeholder="Destination City" ng-required="true"/>
+	</div>
+	<div class="form-group">
+		<label for="country">Departure Date:</label> 
+		<input type="datetime-local"
+			class="form-control" id="datetime" name="datetime" placeholder="Date of Departure" ng-model="controller.travelDetails.datetime"/>
+	</div>
+	
+	<div class="form-group">
+		<label for="flightNo">Flight No:</label> <input type="text"
+			class="form-control" id="flightNo" name="flightNo" placeholder="Flight No" ng-model="controller.travelDetails.flightNo"/>
+	</div>
+	<div class="form-group">
+		<label for="weight">Weight you can carry:</label> <input type="text"
+			class="form-control" id="weight" name="weight" placeholder="Weight in kgs" ng-model="controller.travelDetails.weight"/>
+	</div>
+	
+    </fieldset>	
+	<button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Submit</button>
+	<!-- <button type="button" ng-click="redirectToHome()" class="btn btn-primary">Home</button> -->
+</form>
+</div>
+</div>

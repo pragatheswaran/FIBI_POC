@@ -45,7 +45,11 @@ public class UserController {
 	@RequestMapping("/resource")
 	public Map<String, Object> home() {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("content", SecurityContextHolder.getContext().getAuthentication().getName());
+		
+		User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+		if(user!=null) {
+		 model.put("firstName", user.getFirstName());
+		}
 		return model;
 	}
 

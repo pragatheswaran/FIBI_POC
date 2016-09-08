@@ -36,7 +36,20 @@ app.config(function($routeProvider, $httpProvider) {
 		templateUrl : 'signup.html',
 		controller : 'navigation',
 		controllerAs: 'controller'
-	}).otherwise('/');
+	}).when('/travel', {
+		templateUrl : 'travel.html',
+		controller : 'travel',
+		controllerAs: 'controller'
+	}).when('/searchTravels', {
+		templateUrl : 'SearchTravels.html',
+		controller : 'travel',
+		controllerAs: 'controller'
+	}).when('/travelDetails', {
+		templateUrl : 'travelDetails.html',
+		controller : 'travel',
+		controllerAs: 'controller'
+	})
+	.otherwise('/');
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 });
@@ -93,7 +106,7 @@ app.controller('navigation',
 		           request.success(function(data,status) {
 		        	   console.log("Login succeeded");
 		        	   $rootScope.signupSuccess = false;
-		        	   $location.path("/");
+		        	   $location.path("/travel");
 		        	   $rootScope.authenticated = true;
 				       $scope.progressbar.complete();
 		           })
@@ -159,3 +172,107 @@ app.controller('navigation',
 		self.greeting = response.data;
 	})
    });
+  
+  app.controller('travel', function($rootScope, $http, $location, $route, $scope, ngProgressFactory, $window, $filter) {
+		var self = this;
+		
+		$scope.progressbar = ngProgressFactory.createInstance();
+		
+		$rootScope.saveSuccess = false;
+		 $rootScope.searchSuccess = false;
+
+		$http.get('users/resource/').then(function(response) {
+			self.greeting = response.data;
+		})
+		
+		$scope.redirectToTravelDetails = function(){
+			  $window.location = "#/travelDetails";
+		}
+		
+		$scope.redirectToSearchTravel = function(){
+			  $window.location = "#/searchTravels";
+	    }
+		
+		self.saveTravelDetails = function(travelDetails) {
+			   var from = $scope.controller.travelDetails.from;
+		       var to = $scope.controller.travelDetails.to;
+		       var datetime = $scope.controller.travelDetails.datetime;
+		       var flightNo = $scope.controller.travelDetails.flightNo;
+		       var weight = $scope.controller.travelDetails.weight;
+		       
+		       var datetime = $filter('date')(new Date(datetime),'yyyy-MM-dd HH:mm');
+		       		       
+		       $scope.progressbar.start();
+		    		        
+	           var request = $http({
+	             method: "post",
+	             headers: {
+		            	'Content-Type': 'application/json'
+		            },
+	             url: 'travels',
+	             data: {
+	            	 departureCity: from,
+	            	 destinationCity: to,
+	            	 startDate: datetime,
+	            	 flightNo: flightNo,
+		             weight: weight
+		         },
+	             cache: false
+	           });
+	           
+	           request.success(function(data,status) {
+	        	   console.log("Travel details saved successfully");
+	        	   $rootScope.saveSuccess = true;
+	        	   $scope.progressbar.complete();
+	        	   //$location.path("/travel");
+	           })
+	           request.error(function(data, status, headers, config) {
+	        	   console.log("Unable to save travel details");
+	        	   $rootScope.saveSuccess = false;
+	        	   $scope.progressbar.complete();
+	        	   //$rootScope.error = true;
+	           })
+		}
+		
+		self.searchTravellers = function(searchDetails) {
+			   var from = $scope.controller.searchDetails.from;
+		       var to = $scope.controller.searchDetails.to;
+		       var startDate = $scope.controller.searchDetails.startDate;
+		       var endDate = $scope.controller.searchDetails.endDate;
+		       
+		       var startDate = $filter('date')(new Date(startDate),'yyyy-MM-dd HH:mm');
+		       var endDate = $filter('date')(new Date(endDate),'yyyy-MM-dd HH:mm');
+
+		       $scope.progressbar.start();
+		    		        
+	           var request = $http({
+	             method: "GET",
+	             headers: {
+		            	'Content-Type': 'application/json'
+		            },
+	             url: 'travels/search',
+	             params: {
+	            	 departureCity: from,
+	            	 destinationCity: to,
+	            	 startDate: startDate,
+	            	 endDate: endDate
+		         },
+	             cache: false
+	           });
+	           
+	           request.success(function(data,status) {
+	        	   console.log("Search success");
+	        	   self.searchResult = data;
+	        	   $rootScope.searchSuccess = true;
+	        	   $scope.progressbar.complete();
+	        	   //$location.path("/travel");
+	           })
+	           request.error(function(data, status, headers, config) {
+	        	   console.log("Search failure");
+	        	   $rootScope.searchSuccess = false;
+	        	   $scope.progressbar.complete();
+	        	   //$rootScope.error = true;
+	           })
+		}
+ 
+	   });

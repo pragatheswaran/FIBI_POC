@@ -17,6 +17,7 @@ import com.fibi.data.Travel;
  */
 public interface TravelDao extends MongoRepository<Travel, String> {
 
-	@Query(value="{'departureCity' : ?0},{'destinationCity' : ?1},{'startDate' : {'$gt' : ?2, '$lt' : ?3}}")
+	//@Query(value="{'departureCity' : ?0},{'destinationCity' : ?1},{'startDate' : {'$gt' : ?2, '$lt' : ?3}}")
+	@Query(value="{'departureCity' : ?0},{'destinationCity' : ?1},{'startDate' : ?2}")
 	List<Travel> searchTravels(String departureCity, String destinationCity, Date startDate, Date endDate);
 }

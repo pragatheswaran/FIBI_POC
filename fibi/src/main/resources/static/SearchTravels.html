@@ -1,0 +1,34 @@
+<div class="scrollable">
+ <div class="scrollable-content section">
+ <div class="alert alert-danger" ng-show="error">
+	There was a problem in searching travellers
+</div>
+ <div ng-show="searchSuccess">
+	<p>Search Result: {{controller.searchResult}} !</p>
+ </div>
+ 
+<form name="form" role="form" ng-submit="controller.searchTravellers()">
+    <fieldset>
+    <legend>Search Travellers</legend>
+	<div class="form-group">
+		<label for="from">From:</label> <input type="text"
+			class="form-control" id="from" name="from" ng-model="controller.searchDetails.from" placeholder="Departure City" ng-required="true"/>
+	</div>
+    <div class="form-group">
+		<label for="to">To:</label> <input type="text"
+			class="form-control" id="to" name="to" ng-model="controller.searchDetails.to" placeholder="Destination City" ng-required="true"/>
+	</div>
+	<div class="form-group">
+		<label for="country">Time Period:</label> 
+		<input type="datetime-local"
+			class="form-control" id="startDate" name="startDate" placeholder="Start Date" ng-model="controller.searchDetails.startDate"/>
+		<input type="datetime-local"
+			class="form-control" id="endDate" name="endDate" placeholder="End Date" ng-model="controller.searchDetails.endDate"/>
+	</div>
+		
+    </fieldset>	
+	<button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Search</button>
+	<!-- <button type="button" ng-click="redirectToHome()" class="btn btn-primary">Home</button> -->
+</form>
+</div>
+</div>
