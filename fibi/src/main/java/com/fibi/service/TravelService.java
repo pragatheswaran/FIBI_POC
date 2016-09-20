@@ -20,4 +20,5 @@ public interface TravelService {
 
 	List<Travel> getSearchTravels(String departureCity, String destinationCity,
 			Date startDate, Date endDate);		
+	List<Travel> getTravelDetailsById(String userId);
 }

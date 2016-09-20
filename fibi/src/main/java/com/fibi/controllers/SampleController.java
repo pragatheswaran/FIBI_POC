@@ -30,14 +30,17 @@ import com.fibi.util.FibiUtil;
 @RequestMapping(value = "/sample")
 public class SampleController {
 	
+	private final static Logger LOGGER = Logger.getLogger(SampleController.class.getName());
+	
 	@Resource
 	private SampleService sampleService;
+	
 		
 	@RequestMapping(value = "", produces = { APPLICATION_JSON_VALUE }, method = RequestMethod.GET)	
 	public ResponseEntity<List<Sample>> getSamples() {
 		
 		List<Sample> sampleList = new ArrayList<Sample>();;
-		
+	
 		try {
 			
 			//Perform validation using validator for POST|PUT|DELETE
