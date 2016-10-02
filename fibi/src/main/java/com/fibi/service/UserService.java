@@ -13,6 +13,8 @@ import com.fibi.data.User;
  */
 public interface UserService {
 	
+	User getCurrentUser();
+	
 	User createNewUser(User user);
 	
 	List<User> getAllUsers();

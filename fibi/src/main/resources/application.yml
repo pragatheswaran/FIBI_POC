@@ -4,10 +4,40 @@ server:
   port: 9090
   
 #Security  
-security:
-  user:
-    name: fibi
-    password: fibi
+#security:
+#  user:
+#    name: fibi
+#    password: fibi
+
+#security:
+#  oauth2:
+facebook:    
+  client:
+    clientId: 312659449091944
+    clientSecret: 2f7ea73ae766dcbd276145015f385794
+    accessTokenUri: https://graph.facebook.com/oauth/access_token
+    userAuthorizationUri: https://www.facebook.com/dialog/oauth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+    scope: email
+  resource:
+    userInfoUri: https://graph.facebook.com/me?fields=id,first_name,last_name,email,picture.type(large)
+    
+    
+google:    
+  client:
+    clientId: 910266729891-fhjtl2h0o2ankf9d5nbiorr924ih8rh0.apps.googleusercontent.com
+    clientSecret: dtBS8noBZpmZnV49psNaeFiF
+    accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+    scope: profile email
+  resource:
+    userInfoUri: https://www.googleapis.com/userinfo/v2/me
+    
 
 #MongoDB
 spring:
@@ -26,6 +56,6 @@ spring:
 logging:
   level:
     org.springframework.web: INFO
-    org.springframework.security: INFO 
-    org.springframework.data: DEBUG 
+    org.springframework.security: INFO
+    org.springframework.data: INFO
     

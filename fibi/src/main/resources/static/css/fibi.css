@@ -1,0 +1,392 @@
+.app {
+	display: inline-block;
+	width: 150px;
+	height: 50px;
+	background-size: 150px 50px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 10px;
+	text-indent: -9999em;
+	overflow: hidden;
+}
+
+.app-test {
+	background-image:
+		url('data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAKgAAAAyCAYAAADItpCRAAAABHN…RBMEcdf8l3/omW/FrQCCpFQThHskvnJycVk2ePLkWAP4P48vvm8hPGVQAAAAASUVORK5CYII=');
+}
+
+.app-ios {
+	background-image: url("../img/apple.jpg");
+}
+
+.app-android {
+	background-image: url("../img/android.jpg");
+}
+
+.navbar-inverse.navbar-white {
+	background-color: #F05F40;
+	border-bottom-color: #eaeaea;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #f1eeee;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus,
+	.navbar-inverse .navbar-nav>.open>a:hover {
+	color: #fff;
+	background-color: #F05F40;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #F05F40
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+body, html {
+	height: 100%;
+}
+
+/* remove outer padding */
+.main .row {
+	padding: 0px;
+	margin: 0px;
+}
+
+/*Remove rounded coners*/
+nav.sidebar.navbar {
+	border-radius: 0px;
+}
+
+nav.sidebar, .main {
+	-webkit-transition: margin 200ms ease-out;
+	-moz-transition: margin 200ms ease-out;
+	-o-transition: margin 200ms ease-out;
+	transition: margin 200ms ease-out;
+}
+
+/* Add gap to nav and right windows.*/
+.main {
+	padding: 10px 10px 0 10px;
+}
+
+/* .....NavBar: Icon only with coloring/layout.....*/
+
+/*small/medium side display*/
+@media ( min-width : 768px) {
+	/*Allow main to be next to Nav*/
+	.main {
+		position: absolute;
+		width: calc(100% - 40px); /*keeps 100% minus nav size*/
+		margin-left: 40px;
+		float: right;
+	}
+
+	/*lets nav bar to be showed on mouseover*/
+	nav.sidebar:hover+.main {
+		margin-left: 200px;
+	}
+
+	/*Center Brand*/
+	nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand
+		{
+		margin-left: 0px;
+	}
+	/*Center Brand*/
+	nav.sidebar .navbar-brand, nav.sidebar .navbar-header {
+		text-align: center;
+		width: 100%;
+		margin-left: 0px;
+	}
+
+	/*Center Icons*/
+	nav.sidebar a {
+		padding-right: 13px;
+	}
+
+	/*adds border top to first nav box */
+	nav.sidebar .navbar-nav>li:first-child {
+		border-top: 1px #e5e5e5 solid;
+	}
+
+	/*adds border to bottom nav boxes*/
+	nav.sidebar .navbar-nav>li {
+		border-bottom: 1px #e5e5e5 solid;
+	}
+
+	/* Colors/style dropdown box*/
+	nav.sidebar .navbar-nav .open .dropdown-menu {
+		position: static;
+		float: none;
+		width: auto;
+		margin-top: 0;
+		background-color: transparent;
+		border: 0;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+
+	/*allows nav box to use 100% width*/
+	nav.sidebar .navbar-collapse, nav.sidebar .container-fluid {
+		padding: 0 0px 0 0px;
+	}
+
+	/*colors dropdown box text */
+	.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+		color: #777;
+	}
+
+	/*gives sidebar width/height*/
+	nav.sidebar {
+		width: 200px;
+		height: 100%;
+		margin-left: -160px;
+		float: left;
+		z-index: 8000;
+		margin-bottom: 0px;
+	}
+
+	/*give sidebar 100% width;*/
+	nav.sidebar li {
+		width: 100%;
+	}
+
+	/* Move nav to full on mouse over*/
+	nav.sidebar:hover {
+		margin-left: 0px;
+	}
+	/*for hiden things when navbar hidden*/
+	.forAnimate {
+		opacity: 0;
+	}
+}
+
+/* .....NavBar: Fully showing nav bar..... */
+@media ( min-width : 1330px) {
+	/*Allow main to be next to Nav*/
+	.main {
+		width: calc(100% - 200px); /*keeps 100% minus nav size*/
+		margin-left: 200px;
+	}
+
+	/*Show all nav*/
+	nav.sidebar {
+		margin-left: 0px;
+		float: left;
+	}
+	/*Show hidden items on nav*/
+	nav.sidebar .forAnimate {
+		opacity: 1;
+	}
+}
+
+nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus
+	{
+	color: #CCC;
+	background-color: transparent;
+}
+
+nav:hover .forAnimate {
+	opacity: 1;
+}
+
+section {
+	padding-left: 15px;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+	color: #f5f5f5;
+}
+
+
+
+/* Test */
+/* adjust body when menu is open */
+body.slide-active {
+    overflow-x: hidden
+}
+/*first child of #page-content so it doesn't shift around*/
+.no-margin-top {
+    margin-top: 0px!important
+}
+/*wrap the entire page content but not nav inside this div if not a fixed top, don't add any top padding */
+#page-content {
+    position: relative;
+    padding-top: 70px;
+    left: 0;
+}
+#page-content.slide-active {
+    padding-top: 0
+}
+
+
+
+/* put toggle bars on the left :: not using button */
+#slide-nav .navbar-toggle {
+    cursor: pointer;
+    position: relative;
+    line-height: 0;
+    float: left;
+    margin: 0;
+    width: 30px;
+    height: 40px;
+    padding: 10px 0 0 0;
+    border: 0;
+    background: transparent;
+}
+/* icon bar prettyup - optional */
+#slide-nav .navbar-toggle > .icon-bar {
+    width: 100%;
+    display: block;
+    height: 3px;
+    margin: 5px 0 0 0;
+}
+#slide-nav .navbar-toggle.slide-active .icon-bar {
+    background: orange
+}
+.navbar-header {
+    position: relative
+}
+/* un fix the navbar when active so that all the menu items are accessible */
+.navbar.navbar-fixed-top.slide-active {
+    position: relative
+}
+/* screw writing importants and shit, just stick it in max width since these classes are not shared between sizes */
+@media (max-width:767px) { 
+	#slide-nav .container {
+	    margin: 0!important;
+	    padding: 0!important;
+      height:100%;
+	}
+	#slide-nav .navbar-header {
+	    margin: 0 auto;
+	    padding: 0 15px;
+	}
+	#slide-nav .navbar.slide-active {
+	    position: absolute;
+	    width: 80%;
+	    top: -1px;
+	    z-index: 1000;
+	}
+	#slide-nav #slidemenu {
+	    background: #f7f7f7;
+	    left: -100%;
+	    width: 80%;
+	    min-width: 0;
+	    position: absolute;
+	    padding-left: 0;
+	    z-index: 2;
+	    top: -8px;
+	    margin: 0;
+	}
+	#slide-nav #slidemenu .navbar-nav {
+	    min-width: 0;
+	    width: 100%;
+	    margin: 0;
+	}
+	#slide-nav #slidemenu .navbar-nav .dropdown-menu li a {
+	    min-width: 0;
+	    width: 80%;
+	    white-space: normal;
+	}
+	#slide-nav {
+	    border-top: 0
+	}
+	#slide-nav.navbar-inverse #slidemenu {
+	    background: #333
+	}
+	/* this is behind the navigation but the navigation is not inside it so that the navigation is accessible and scrolls*/
+	#navbar-height-col {
+	    position: fixed;
+	    top: 0;
+	    height: 100%;
+      bottom:0;
+	    width: 80%;
+	    left: -80%;
+	    background: #f7f7f7;
+	}
+	#navbar-height-col.inverse {
+	    background: #333;
+	    z-index: 1;
+	    border: 0;
+	}
+	#slide-nav .navbar-form {
+	    width: 100%;
+	    margin: 8px 0;
+	    text-align: center;
+	    overflow: hidden;
+	    /*fast clearfixer*/
+	}
+	#slide-nav .navbar-form .form-control {
+	    text-align: center
+	}
+	#slide-nav .navbar-form .btn {
+	    width: 100%
+	}
+}
+@media (min-width:768px) { 
+	#page-content {
+	    left: 0!important
+	}
+	.navbar.navbar-fixed-top.slide-active {
+	    position: fixed
+	}
+	.navbar-header {
+	    left: 0!important
+	}
+}
+
+<!-- SSO Login -->
+
+/*  #ssoLoginWrapper {
+  width:800px;
+}
+ 
+#fbLoginDiv {
+  width:300px;
+  float:left;
+}
+#googleLoginDiv {
+  width:300px;
+  float:left;
+}
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

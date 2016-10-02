@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fibi.data.Travel;
+import com.fibi.data.User;
 import com.fibi.exceptions.ApiRequestException;
 import com.fibi.exceptions.ErrorCode;
 import com.fibi.service.TravelService;
+import com.fibi.service.UserService;
 import com.fibi.validator.FibiApiValidator;
 
 /**
@@ -35,6 +37,9 @@ public class TravelController {
 
 	@Resource
 	private TravelService travelService;
+	
+	@Resource
+	private UserService userService;
 
 	@RequestMapping(value = "", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public ResponseEntity<List<Travel>> getTravels() {
@@ -60,7 +65,11 @@ public class TravelController {
 			if (!FibiApiValidator.validate(travel)) {
 				throw new ApiRequestException(ErrorCode.MALFORMED, "Validation failed");
 			}
+			
+			User user = userService.getCurrentUser();
 
+			travel.setUser(user);
+			
 			newTravel = travelService.createNewTravel(travel);
 		} catch (Exception e) {
 			// Filter exceptions and set the error code accordingly

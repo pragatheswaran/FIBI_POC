@@ -17,7 +17,7 @@ public class Travel
 	@Id
 	private String id;
 	
-	private String userId;
+	private User user;
 	private String departureCity;
 	private String destinationCity;
 	
@@ -33,12 +33,6 @@ public class Travel
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 	public String getDepartureCity() {
 		return departureCity;
@@ -69,5 +63,11 @@ public class Travel
 	}
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

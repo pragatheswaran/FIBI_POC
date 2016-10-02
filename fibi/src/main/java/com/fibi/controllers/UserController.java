@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,14 +40,19 @@ public class UserController {
 	public Principal user(Principal user) {
 		return user;
 	}
-
+	
 	@RequestMapping("/resource")
 	public Map<String, Object> home() {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+		User user = userService.getCurrentUser();
 		if(user!=null) {
 		 model.put("firstName", user.getFirstName());
+		 if(user.getProfilePic()!=null) {
+		  model.put("profilePic", user.getProfilePic());
+		 }else {
+		  model.put("profilePic", "img/avatarmale.jpg");
+		 }
 		}
 		return model;
 	}

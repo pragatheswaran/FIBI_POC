@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../home/admin1/ang-easytree/easytree/tmp/broccoli_type_script_compiler-input_base_path-xUxpVzTm.tmp/0/src/app/investments/index.ts"],"names":[],"mappings":";;;;AAAA,iBAAc,yBAAyB,CAAC,EAAA","sourcesContent":["export * from './investments.component';\n"]}
