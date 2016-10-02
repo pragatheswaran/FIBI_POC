@@ -7,10 +7,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.websocket.server.PathParam;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -87,15 +89,28 @@ public class TravelController {
 			@RequestParam(value = "endDate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date endDate) {
 
 		List<Travel> travelList = new ArrayList<Travel>();
-		;
 		try {
 			travelList = travelService.getSearchTravels(departureCity, destinationCity, startDate, endDate);
 		} catch (Exception e) {
 			// Filter exceptions and set the error code accordingly
 			throw new ApiRequestException(ErrorCode.SERVER_ERROR, e.getMessage());
 		}
-
 		return new ResponseEntity<List<Travel>>(travelList, HttpStatus.OK);
 	}
 
+
+	@RequestMapping(value = "{userId}", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	public ResponseEntity<List<Travel>> myTravels(@PathVariable String userId) {
+
+		List<Travel> travelList = new ArrayList<Travel>();
+		try {
+			travelList = travelService.getTravelDetailsById(userId);
+			//travelList = travelService.getSearchTravels(departureCity, destinationCity, startDate, endDate);
+		} catch (Exception e) {
+			// Filter exceptions and set the error code accordingly
+			throw new ApiRequestException(ErrorCode.SERVER_ERROR, e.getMessage());
+		}
+	
+		return new ResponseEntity<List<Travel>>(travelList, HttpStatus.OK);
+	}
 }
