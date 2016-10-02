@@ -18,10 +18,8 @@ public class User
 	private String lastName;
 	private String country;
 	private String password;
-	private String profilePic;
-	
-	//TODO:??
-	//private String city;
+	private String profilePic;	
+	private String city;
     //private String pin;
 	
 	public String getEmail() {
@@ -65,6 +63,12 @@ public class User
 	}
 	public void setProfilePic(String profilePic) {
 		this.profilePic = profilePic;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 }

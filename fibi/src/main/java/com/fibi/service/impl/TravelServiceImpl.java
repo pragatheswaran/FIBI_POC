@@ -64,25 +64,23 @@ public class TravelServiceImpl implements TravelService {
 		} 
             return null;
 	}  
+	
 	@Override
 	public List<Travel> getTravelDetailsById(String userId) {
-		try{
+		try {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("userId").is(userId));
 
 			query.with(new Sort(Sort.Direction.ASC, "startDate"));
-			
+
 			List<Travel> travelList = mongoOperations.find(query, Travel.class);
 			return travelList;
 
-
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-            return null;
-		
+		}
+		return null;
 	}
 
 }

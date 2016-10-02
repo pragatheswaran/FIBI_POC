@@ -296,9 +296,18 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 		$scope.login_success = false;
 	}
 	
-	$http.get('countries').success(function (data) {
+	$http.get('countries/names').success(function (data) {
         $scope.countries = data;            
     })
+    
+    $scope.updateCities = function() {
+		
+		var country = $scope.controller.signup.country.name;
+		
+		$http.get('countries/'+country).success(function (data) {
+	        $scope.cities = data.cities;            
+	    })
+	}
     
     $scope.ssoLogin = function() {
 		//$window.location = "/fibi/userhome.html";
@@ -345,6 +354,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 		var firstName = $scope.controller.signup.firstName;
 		var lastName = $scope.controller.signup.lastName;
 		var country = $scope.controller.signup.country.name;
+		var city = $scope.controller.signup.city;
 
 		$scope.signup_error = false;
 		$scope.signup_success = false;
@@ -362,6 +372,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 				firstName : firstName,
 				lastName : lastName,
 				country : country,
+				city : city,
 				password : password
 			},
 			cache : false

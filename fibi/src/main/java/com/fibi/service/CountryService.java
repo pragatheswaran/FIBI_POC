@@ -13,5 +13,11 @@ import com.fibi.data.Country;
  */
 public interface CountryService {
 	
-	List<Country> getAllCountries();		
+	List<Country> getAllCountries();
+
+	void dumpCountries(List<Country> countries);
+
+	Country getCountryByName(String country);
+
+	List<Country> getAllCountryNames();		
 }

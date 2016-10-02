@@ -1,5 +1,8 @@
 package com.fibi.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 
 /**
@@ -14,6 +17,7 @@ public class Country
 	private String id;
 	
 	private String name;
+	private List<String> cities = new ArrayList<String>();
 
 	public String getName() {
 		return name;
@@ -22,5 +26,12 @@ public class Country
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public List<String> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<String> cities) {
+		this.cities = cities;
+	}	
 }
