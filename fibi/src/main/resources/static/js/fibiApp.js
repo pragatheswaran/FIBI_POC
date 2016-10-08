@@ -64,7 +64,7 @@ var compareTo = function() {
 	     objDiv.scrollTop =  objDiv.scrollTop + 1;
 	 }
 	 	 
-	 $scope.postMessage = function(code, firstName) {
+	 $scope.postMessage = function(code, userId, firstName) {
 		 
 			var message = $scope.controller.postMessage;
 			var postedDate = $filter('date')(new Date(),'yyyy-MM-dd HH:mm');
@@ -78,13 +78,11 @@ var compareTo = function() {
 		             data: {
 		            	 postedDate: postedDate,
 		            	 message: message,
-		            	 community: {
-		            		code: code
-		            	 },
+		            	 communityCode: code,
 		            	 user: {
-		            		firstName:firstName 
+		            		userId: userId, 
+		            		firstName:firstName
 		            	 }
-			            
 			         },
 		             cache: false
 		           });

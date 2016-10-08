@@ -3,6 +3,7 @@ package com.fibi.data;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -17,7 +18,9 @@ public class MessageBoard
 	@Id
 	private String id;
 	
-	private Community community;
+	private String communityCode;
+	//private String userId;
+	//private Community community;
 	private User user;
 	private String message;
 	
@@ -32,14 +35,14 @@ public class MessageBoard
 		this.id = id;
 	}
 
-	public Community getCommunity() {
+/*	public Community getCommunity() {
 		return community;
 	}
 
 	public void setCommunity(Community community) {
 		this.community = community;
 	}
-
+*/
 	public User getUser() {
 		return user;
 	}
@@ -62,5 +65,13 @@ public class MessageBoard
 
 	public void setPostedDate(Date postedDate) {
 		this.postedDate = postedDate;
+	}
+
+	public String getCommunityCode() {
+		return communityCode;
+	}
+
+	public void setCommunityCode(String communityCode) {
+		this.communityCode = communityCode;
 	}
 }

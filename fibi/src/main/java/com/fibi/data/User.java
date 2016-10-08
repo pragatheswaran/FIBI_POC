@@ -1,5 +1,8 @@
 package com.fibi.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 
 /**
@@ -20,7 +23,8 @@ public class User
 	private String password;
 	private String profilePic;	
 	private String city;
-	private Community community;
+	private List<String> communityCode = new ArrayList<String>();
+	//private Community community;
 	private boolean enabled;
     //private String pin;
 	
@@ -72,17 +76,23 @@ public class User
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public Community getCommunity() {
+	/*public Community getCommunity() {
 		return community;
 	}
 	public void setCommunity(Community community) {
 		this.community = community;
-	}
+	}*/
 	public boolean isEnabled() {
 		return enabled;
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	public List<String> getCommunityCode() {
+		return communityCode;
+	}
+	public void setCommunityCode(List<String> communityCode) {
+		this.communityCode = communityCode;
 	}
 
 }

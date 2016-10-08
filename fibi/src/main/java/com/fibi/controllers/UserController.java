@@ -65,8 +65,8 @@ public class UserController {
 		User user = userService.getCurrentUser();
 		if(user!=null) {
 		 model.put("firstName", user.getFirstName());
-		 if(user.getCommunity()!=null) {
-		   model.put("community", user.getCommunity().getCode());
+		 if(user.getCommunityCode()!=null && user.getCommunityCode().size()>0) {
+		   model.put("community", user.getCommunityCode().get(0));
 		 }else {
 		   model.put("community", "Open-Community");
 		 }

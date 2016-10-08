@@ -38,21 +38,27 @@ public class UserServiceImpl implements UserService {
 	
 		/*Create community if not exists*/
 		Community community = communityService.findByCode(user.getCity()+"("+user.getCountry()+")");
+		List<String> userCommunities = user.getCommunityCode();
+		
 		if(community==null) {			
+			
 			Community newCommunity = new Community();
-			newCommunity.setName(user.getCity());
-			
-			//String countryChars = user.getCountry().substring(0, Math.min(user.getCountry().length(), 3));
-			//String cityChars = user.getCity().substring(0, Math.min(user.getCity().length(), 3));
-			//newCommunity.setCode(countryChars + "-" + cityChars);
-			
+			newCommunity.setName(user.getCity());			
 			newCommunity.setCode(user.getCity()+"("+user.getCountry()+")");
 			
 			newCommunity = communityService.createCommunity(newCommunity);
 			
-			user.setCommunity(newCommunity);
+			userCommunities.add(newCommunity.getCode());
+		
+			user.setCommunityCode(userCommunities);
+			//user.setCommunity(newCommunity.);
 		} else {
-		    user.setCommunity(community);	
+		    //user.setCommunity(community);	
+			if(user.getId()!=null) {
+				//TODO:
+			}else {
+				userCommunities.add(community.getCode());
+			}
 		}
 		
 		return userDao.save(user);
