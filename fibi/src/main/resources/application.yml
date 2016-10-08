@@ -38,20 +38,41 @@ google:
   resource:
     userInfoUri: https://www.googleapis.com/userinfo/v2/me
     
-
 #MongoDB
 spring:
   data:
     mongodb:
-      host: ds019866.mlab.com
-      port: 19866
-      database: fibi
+      #host: ds019866.mlab.com
+      #port: 19866
+      #database: fibi
       #uri: mongodb://ds019866.mlab.com:19866/fibi
-      username: fibiuser
-      password: fibiuser
-      #uri: mongodb://localhost/fibi
-      
-      
+      #username: fibiuser
+      #password: fibiuser
+      uri: mongodb://localhost/fibi
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: noreply.fibi@gmail.com
+    password: fibiuser123
+    protocol: smtp
+    properties:  
+      mail:
+        smtp: 
+          auth: false
+          starttls: 
+            enable: true
+            required: true
+    
+    
+           
+#spring:
+#    properties:
+#      mail:
+#        smtp.auth=true
+#        smtp.auth.mechanisms=NTLM
+#      mail.properties.mail.smtp.auth.ntlm.domain=DOMAIN
+#      mail.properties.mail.debug=true      
+            
 #Logging
 logging:
   level:

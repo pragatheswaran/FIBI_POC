@@ -79,6 +79,16 @@
 					<li><a href="#messages" ng-click="showMessages()">Messages<span style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown">My Communities <span class="caret"></span><span
+							style="font-size: 16px;"
+							class="pull-right hidden-xs showopacity glyphicon glyphicon-globe"></span></a>
+						<ul class="dropdown-menu forAnimate" role="menu">
+							<li><a href="#messageBoard" ng-click="showCommunityMessageBoard()">{{greeting.community}}<span style="font-size: 16px;"
+									class="pull-right hidden-xs showopacity glyphicon glyphicon-menu-right"></span></a></li>
+							<!-- <li class="divider"></li>-->
+						</ul>
+					</li>		
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">Services <span class="caret"></span><span
 							style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-heart"></span></a>
@@ -166,10 +176,57 @@
 	            <br/>
 		        <p>Welcome {{greeting.firstName}} !</p>			    
 	 </div>
-	 <div ng-show="showprofile" class="header-content-inner"> 
-		        <p>Profile</p>			    
+			<div ng-show="showprofile" class="header-content-inner">
+				<p>Profile</p>
 				<p>Coming Soon!</p>
-	 </div>
+			</div>
+			<div ng-show="showcommunitymessageboard" class="header-content-inner">
+              <form name="form" role="form">
+              <div class="container">
+					<div class="row " style="padding-top: 40px;">
+						<!-- <h3">Messsage Board</h3> -->
+						<br />
+					
+						<div class="col-md-8" style="margin-left: 18%;">
+							<div class="panel panel-info">
+								<div class="panel-heading">Message Board</div>
+								<div class="panel-body">
+								<div id="scrollBarDiv" class="pre-scrollable">
+									<ul class="media-list">
+										<li class="media" ng-repeat="message in messageBoardMessages">
+
+											<div class="media-body" style="color: #202223;">
+												<div class="media">
+													<a class="pull-left" href="#"> <img
+														class="media-object img-circle " src="img/avatarchat.png" />
+													</a>
+													<div class="media-body">
+														{{message.message}} <br /> <small class="text-muted">
+															{{message.user.firstName}} | {{message.postedDate}}</small>
+														<hr style="max-width: 500%; border-color: antiquewhite;">
+													</div>
+												</div>
+
+											</div>
+										</li>
+									</ul>
+									</div>
+								</div>
+								<div class="panel-footer">
+									<div class="input-group">
+										<input type="text" id="messageText" class="form-control" ng-model="controller.postMessage"
+											placeholder="Enter Message" /> <span class="input-group-btn">
+											<button class="btn btn-info" ng-click="postMessage(greeting.community,greeting.firstName)" type="submit">Post Message</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			</div>
+
 	 <div ng-show="showtravels" class="header-content-inner">
 				<div>
 					<p>Choose your option</p>

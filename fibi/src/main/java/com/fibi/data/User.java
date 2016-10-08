@@ -20,6 +20,8 @@ public class User
 	private String password;
 	private String profilePic;	
 	private String city;
+	private Community community;
+	private boolean enabled;
     //private String pin;
 	
 	public String getEmail() {
@@ -69,6 +71,18 @@ public class User
 	}
 	public void setCity(String city) {
 		this.city = city;
+	}
+	public Community getCommunity() {
+		return community;
+	}
+	public void setCommunity(Community community) {
+		this.community = community;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }

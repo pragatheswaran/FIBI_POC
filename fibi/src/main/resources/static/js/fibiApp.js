@@ -34,7 +34,8 @@ var compareTo = function() {
 			$location, ngProgressFactory, $filter) {
 
 	 var self = this;
-	 	 
+	
+	 $scope.showcommunitymessageboard = false;
 	 $scope.showhome = true;
 	 $scope.showprofile = false;
 	 $scope.showmessages = false;
@@ -45,11 +46,11 @@ var compareTo = function() {
 	 $scope.showuseditems = false;
 	 $scope.showSearchTravel = false;
 	 $scope.showImTravelling = false;
-	 
+
 	 $scope.progressbar = ngProgressFactory.createInstance();
 	 
 	 $http.get('users/resource/').then(function(response) {
-			$scope.greeting = response.data;		    
+			$scope.greeting = response.data;
 		})
 	
 	 $scope.logout = function() {
@@ -57,7 +58,51 @@ var compareTo = function() {
 				$window.location = "/fibi/";
 			});
 	 }
-	 
+	 $scope.scrollToBottom = function() {
+	     var objDiv = document.getElementById("scrollBarDiv");
+	     objDiv.scrollTop = objDiv.scrollHeight;
+	     objDiv.scrollTop =  objDiv.scrollTop + 1;
+	 }
+	 	 
+	 $scope.postMessage = function(code, firstName) {
+		 
+			var message = $scope.controller.postMessage;
+			var postedDate = $filter('date')(new Date(),'yyyy-MM-dd HH:mm');
+			
+	        var request = $http({
+		             method: "post",
+		             headers: {
+			            	'Content-Type': 'application/json'
+			            },
+		             url: 'messageBoard',
+		             data: {
+		            	 postedDate: postedDate,
+		            	 message: message,
+		            	 community: {
+		            		code: code
+		            	 },
+		            	 user: {
+		            		firstName:firstName 
+		            	 }
+			            
+			         },
+		             cache: false
+		           });
+		           
+		           request.success(function(data,status) {
+		        	   console.log("Message posted successfully successfully");
+		        	   $scope.controller.postMessage = "";
+		        	   $scope.showCommunityMessageBoard();
+		        	   $scope.scrollToBottom();
+		           })
+		           request.error(function(data, status, headers, config) {
+		        	   console.log("Unable to post message");
+		        	   $scope.controller.postMessage = "";
+		        	   $scope.showCommunityMessageBoard();
+		           })	
+	 }
+	
+	 	  
 	 $scope.showHome = function() {
 		 $scope.showhome = true;
 		 $scope.showprofile = false;
@@ -69,6 +114,7 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = false;
 	 }
 	 
 	 $scope.showProfile = function() {
@@ -82,6 +128,7 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = false;
 	 }
 
 	 $scope.showMessages = function() {
@@ -95,7 +142,44 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = false;
 	 }
+	 
+	 $scope.showCommunityMessageBoard = function() {
+		  
+		 var communityCode = $scope.greeting.community;
+		 
+	     var request = $http({
+	          method: "GET",
+	          url: 'messageBoard/community/'+communityCode,
+	          cache: false
+	      });
+	        
+	     request.success(function(data,status) {
+	     	  console.log("Received messages");
+	     	  $scope.messageBoardMessages = data;
+	     	 $scope.scrollToBottom();
+	     })
+	     request.error(function(data, status, headers, config) {
+	          console.log("Failed to receive messages");
+	     })
+
+		 $scope.showhome = false;
+		 $scope.showprofile = false;
+		 $scope.showmessages = false;
+		 $scope.showtravels = false;
+		 $scope.showapartments = false;
+		 $scope.showrestaurants = false;
+		 $scope.showevents = false;
+		 $scope.showuseditems = false;
+		 $scope.showSearchTravel = false;
+		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = true;
+		 
+		 //showCommunityMessageBoard();
+		
+	 }
+
 	 
 	 $scope.showTravels = function() {
 		 $scope.showhome = false;
@@ -108,6 +192,7 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = false;
 	  }	 
      
  
@@ -122,6 +207,7 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = false;
 	 }
 
 	 $scope.showRestaurants = function() {
@@ -135,6 +221,7 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = false;
 	 }
 	 
 	 $scope.showEvents = function() {
@@ -148,6 +235,7 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = false;
 	 }
 
 	 
@@ -162,6 +250,7 @@ var compareTo = function() {
 		 $scope.showuseditems = true;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = false;
 	 }
 	 
 	 
@@ -176,6 +265,7 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = true;
 		 $scope.showImTravelling = false;
+		 $scope.showcommunitymessageboard = false;
 	 }
 	 
 	 $scope.redirectToTravelDetails = function() {
@@ -189,6 +279,7 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = true;
+		 $scope.showcommunitymessageboard = false;
 	 }
 	 	 
 	 $scope.swapLocations = function() {
@@ -447,5 +538,4 @@ $(document).ready(function () {
 
 
     });
-
 });

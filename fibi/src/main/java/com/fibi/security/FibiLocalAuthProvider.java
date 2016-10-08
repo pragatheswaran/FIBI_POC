@@ -32,7 +32,7 @@ public class FibiLocalAuthProvider extends DaoAuthenticationProvider {
 
 		User user = userService.getUserByEmail(authentication.getPrincipal().toString());
 
-		if (user!=null && user.getPassword().equals(authentication.getCredentials().toString())) {
+		if (user!=null && user.getPassword().equals(authentication.getCredentials().toString()) && user.isEnabled()) {
 			isAuthenticated = true;
 		}
 

@@ -12,7 +12,9 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 
 import com.fibi.dao.UserDao;
+import com.fibi.data.Community;
 import com.fibi.data.User;
+import com.fibi.service.CommunityService;
 import com.fibi.service.UserService;
 
 /**
@@ -27,10 +29,33 @@ public class UserServiceImpl implements UserService {
 
 	@Resource
 	private UserDao userDao;
+	
+	@Resource
+	private CommunityService communityService;
 
 	@Override
 	public User createNewUser(User user) {
-		return userDao.insert(user);
+	
+		/*Create community if not exists*/
+		Community community = communityService.findByCode(user.getCity()+"("+user.getCountry()+")");
+		if(community==null) {			
+			Community newCommunity = new Community();
+			newCommunity.setName(user.getCity());
+			
+			//String countryChars = user.getCountry().substring(0, Math.min(user.getCountry().length(), 3));
+			//String cityChars = user.getCity().substring(0, Math.min(user.getCity().length(), 3));
+			//newCommunity.setCode(countryChars + "-" + cityChars);
+			
+			newCommunity.setCode(user.getCity()+"("+user.getCountry()+")");
+			
+			newCommunity = communityService.createCommunity(newCommunity);
+			
+			user.setCommunity(newCommunity);
+		} else {
+		    user.setCommunity(community);	
+		}
+		
+		return userDao.save(user);
 	}
 
 	@Override
