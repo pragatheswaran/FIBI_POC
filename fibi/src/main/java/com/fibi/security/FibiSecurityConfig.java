@@ -64,7 +64,7 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 				// allow angular resources
 				.antMatchers("/js/**", "/css/**", "/vendor/**", "/img/**").permitAll()
 				// allow signup request
-				.antMatchers(HttpMethod.POST, "/users").permitAll()
+				.antMatchers(HttpMethod.POST, "/users/*").permitAll()
 
 				// for testing
 				.antMatchers(HttpMethod.POST, "/travels").permitAll()

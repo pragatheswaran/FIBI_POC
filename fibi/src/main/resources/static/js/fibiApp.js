@@ -20,11 +20,50 @@ var compareTo = function() {
       }
     };
   };
+  
+  app.config(['$routeProvider', function($routeProvider) {
+/*	   $routeProvider.
+	   
+	   when('/', {
+		      templateUrl: '/',
+		      controller: 'userHomeController'
+		   }).
+	   when('/userhome', {
+			  templateUrl: '/userhome.htm',
+			  controller: 'userHomeController'
+	   }).
+	   when('/userprofile', {
+			  templateUrl: '/usermessages.htm',
+			  controller: 'userHomeController'
+	   }). 
+	   when('/addStudent', {
+	      templateUrl: 'addStudent.htm',
+	      controller: 'userHomeController'
+	   }).
+	   otherwise({
+	      redirectTo: '/userprofile'
+	   });
+		
+*/	}]);  
 
 //config
-  app.config(function($routeProvider, $httpProvider) {
+/*  app.config(function($routeProvider, $httpProvider) {
+	  $routeProvider
+	    .when('/', {
+	      templateUrl: '/', 
+	      controller: 'homeController'
+	    })
+	    .when('/userhome', {
+	      templateUrl: '/userhome.html', 
+	      controller:  'userHomeController'
+	    })
+	    .when('/another', {
+	      templateUrl: '/partials/template1.html', 
+	      controller:  'ctrl1'
+	    })
+	    .otherwise({ redirectTo: '/' });
   });
-    
+*/    
 //directive
   app.directive('compareTo', compareTo);
   
@@ -58,10 +97,8 @@ var compareTo = function() {
 				$window.location = "/fibi/";
 			});
 	 }
-	 $scope.scrollToBottom = function() {
-	     var objDiv = document.getElementById("scrollBarDiv");
-	     objDiv.scrollTop = objDiv.scrollHeight;
-	     objDiv.scrollTop =  objDiv.scrollTop + 1;
+	 $scope.scrollToBottom = function() {		 
+		 $("#scrollBarDiv").animate({ scrollTop: 999999}, 2000);
 	 }
 	 	 
 	 $scope.postMessage = function(code, userId, firstName) {
@@ -156,7 +193,7 @@ var compareTo = function() {
 	     request.success(function(data,status) {
 	     	  console.log("Received messages");
 	     	  $scope.messageBoardMessages = data;
-	     	 $scope.scrollToBottom();
+	     	  $scope.scrollToBottom();
 	     })
 	     request.error(function(data, status, headers, config) {
 	          console.log("Failed to receive messages");
@@ -172,10 +209,7 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
-		 $scope.showcommunitymessageboard = true;
-		 
-		 //showCommunityMessageBoard();
-		
+		 $scope.showcommunitymessageboard = true;		
 	 }
 
 	 
@@ -378,13 +412,33 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 	
 	$scope.progressbar = ngProgressFactory.createInstance();
 	
+	$scope.otpEmailDetails = true;
+
 	$scope.closeModal = function() {
-		$scope.login_error = false;
-		$scope.signup_error = false;
-		$scope.signup_success = false;
-		$scope.login_success = false;
+		$window.location.reload();		
 	}
 	
+/*	$(function(){ // let all dom elements are loaded
+	    $('#loginModal').on('hide.bs.modal', function (e) {
+	        alert('event fired')
+	    });
+	});
+*/	
+	//$('#loginModal').modal('show');
+	
+/*	$('#loginModal').on('hide',function(e){
+	    if(!confirm('You want to close me?'))
+	     e.preventDefault();
+	});
+*/	
+/*	$('#loginModal').on('hidden.bs.modal', function () {
+		  alert("test");
+	})
+	
+	$('#loginModal').on('hidden', function () {
+		alert("test");	
+    })
+*/	
 	$http.get('countries/names').success(function (data) {
         $scope.countries = data;            
     })
@@ -402,6 +456,81 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 		//$window.location = "/fibi/userhome.html";
 		$window.location = "fibi/login/facebook";
 	}
+    
+	$scope.validateAndSendOTP = function(credentials) {
+		var email = $scope.credentials.username;
+
+		$scope.progressbar.start();
+		
+		$scope.otp_success = false;
+		$scope.invalid_email = false;
+		
+		var request = $http({
+			method : "post",
+			headers : {
+				'Content-Type' : 'application/json'
+			},
+			url : 'users/validateAndSendOTP',
+			params: {
+	         	 emailId: email,
+		    },
+			/*data : {
+				email : email,
+			},*/
+			cache : false
+		});
+
+		request.success(function(data, status) {
+			console.log("OTP sent successfully");
+			$scope.otp_success = true;
+			$scope.progressbar.complete();
+			$scope.passwordResetDetails = true;
+			$scope.otpEmailDetails = false;
+		})
+		request.error(function(data, status, headers, config) {
+			console.log("Invalid email");
+			$scope.progressbar.complete();
+			$scope.invalid_email = true;
+		})
+		
+		$scope.progressbar.complete();
+	};
+	
+	$scope.resetUserPassword = function(credentials) {
+		var otp = $scope.credentials.otp;
+		var password = $scope.credentials.password;
+
+		$scope.progressbar.start();
+		
+		$scope.reset_success = false;
+		$scope.invalid_otp = false;
+		
+		var request = $http({
+			method : "post",
+			headers : {
+				'Content-Type' : 'application/json'
+			},
+			url : 'users/resetUserPassword',
+			params: {
+	         	 otp: otp,
+	         	 password: password
+		    },
+			cache : false
+		});
+
+		request.success(function(data, status) {
+			console.log("Password updated successfully");
+			$scope.reset_success = true;
+			$scope.progressbar.complete();
+		})
+		request.error(function(data, status, headers, config) {
+			console.log("Invalid OTP");
+			$scope.progressbar.complete();
+			$scope.invalid_otp = true;
+		})
+		
+		$scope.progressbar.complete();
+	};
 
 	$scope.login = function(credentials) {
 		var username = $scope.credentials.username;
@@ -486,7 +615,7 @@ $(document).ready(function () {
     $('#slide-nav.navbar-inverse').after($('<div class="inverse" id="navbar-height-col"></div>'));
   
     $('#slide-nav.navbar-default').after($('<div id="navbar-height-col"></div>'));  
-
+    
     // Enter your ids or classes
     var toggler = '.navbar-toggle';
     var pagewrapper = '#page-content';
@@ -495,8 +624,7 @@ $(document).ready(function () {
     var slidewidth = '80%';
     var menuneg = '-100%';
     var slideneg = '-80%';
-
-
+    
     $("#slide-nav").on("click", toggler, function (e) {
 
         var selected = $(this).hasClass('slide-active');

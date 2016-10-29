@@ -39,8 +39,8 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        //email.setText(message + "\n\n" + "http://fibi.cfapps.io" + confirmationUrl + "\n\nRegards,\nFIBI Team");
-        email.setText(message + "\n\n" + "http://localhost:9090" + confirmationUrl + "\n\nRegards,\nFIBI Team");
+        email.setText(message + "\n\n" + "http://fibi.cfapps.io" + confirmationUrl + "\n\nRegards,\nFIBI Team");
+        //email.setText(message + "\n\n" + "http://localhost:9090" + confirmationUrl + "\n\nRegards,\nFIBI Team");
         mailSender.send(email);
     }
 }

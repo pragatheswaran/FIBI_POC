@@ -16,8 +16,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		//response.sendRedirect("http://fibi.cfapps.io/fibi/userhome.html");	
-		response.sendRedirect("http://localhost:9090/fibi/userhome.html");
+		response.sendRedirect("http://fibi.cfapps.io/fibi/userhome.html");	
+		//response.sendRedirect("http://localhost:9090/fibi/userhome.html");
 	}
 
 }
