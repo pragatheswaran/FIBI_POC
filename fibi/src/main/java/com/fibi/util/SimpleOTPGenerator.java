@@ -1,4 +1,4 @@
-package com.fibi.data;
+package com.fibi.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

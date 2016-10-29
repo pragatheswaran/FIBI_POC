@@ -1,10 +1,12 @@
-package com.fibi.data;
+package com.fibi.events;
 
 import java.util.Locale;
 
 import org.springframework.context.ApplicationEvent;
 
-public class OnRegistrationCompleteEvent extends ApplicationEvent {
+import com.fibi.data.User;
+
+public class OnPasswordResetEvent extends ApplicationEvent {
 
 	private static final long serialVersionUID = 2609865993718810758L;
 
@@ -12,7 +14,7 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
 	private final String appUrl;
 	private final Locale locale;
 
-	public OnRegistrationCompleteEvent(User user, String appUrl, Locale locale) {
+	public OnPasswordResetEvent(User user, String appUrl, Locale locale) {
 		super(user);
 
 		this.user = user;

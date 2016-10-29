@@ -1,4 +1,4 @@
-package com.fibi.data;
+package com.fibi.listeners;
 
 import java.util.UUID;
 
@@ -10,6 +10,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import com.fibi.data.User;
+import com.fibi.events.OnRegistrationCompleteEvent;
 import com.fibi.service.VerificationTokenService;
 
 @Component
