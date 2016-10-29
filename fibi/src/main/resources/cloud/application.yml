@@ -81,3 +81,8 @@ logging:
     org.springframework.security: INFO
     org.springframework.data: INFO
     
+#Custom
+fibi:
+  domain: http://fibi.cfapps.io
+
+    

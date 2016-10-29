@@ -88,6 +88,39 @@
 		</dependency>
 	</dependencies>
 	
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources/local</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>cloud</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources/cloud</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>		
+	</profiles>
+	
+	
 	<build>
 		<plugins>
 			<plugin>

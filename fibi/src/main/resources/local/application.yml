@@ -1,0 +1,90 @@
+#General
+server:
+  context-path: /fibi
+  port: 9090
+  
+#Security  
+#security:
+#  user:
+#    name: fibi
+#    password: fibi
+
+#security:
+#  oauth2:
+facebook:    
+  client:
+    clientId: 312659449091944
+    clientSecret: 2f7ea73ae766dcbd276145015f385794
+    accessTokenUri: https://graph.facebook.com/oauth/access_token
+    userAuthorizationUri: https://www.facebook.com/dialog/oauth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+    scope: email
+  resource:
+    userInfoUri: https://graph.facebook.com/me?fields=id,first_name,last_name,email,picture.type(large)
+    
+    
+google:    
+  client:
+    clientId: 910266729891-fhjtl2h0o2ankf9d5nbiorr924ih8rh0.apps.googleusercontent.com
+    clientSecret: dtBS8noBZpmZnV49psNaeFiF
+    accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+    scope: profile email
+  resource:
+    userInfoUri: https://www.googleapis.com/userinfo/v2/me
+    
+    
+#MongoDB
+spring:
+  data:
+    mongodb:
+      #host: ds019866.mlab.com
+      #port: 19866
+      #database: fibi
+      #uri: mongodb://ds019866.mlab.com:19866/fibi
+      #username: fibiuser
+      #password: fibiuser
+      uri: mongodb://localhost/fibi
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: noreply.fibi@gmail.com
+    password: fibiuser123
+    protocol: smtp
+    properties:  
+      mail:
+        smtp: 
+          auth: false
+          starttls: 
+            enable: true
+            required: true
+    
+    
+           
+#spring:
+#    properties:
+#      mail:
+#        smtp.auth=true
+#        smtp.auth.mechanisms=NTLM
+#      mail.properties.mail.smtp.auth.ntlm.domain=DOMAIN
+#      mail.properties.mail.debug=true      
+            
+#Logging
+logging:
+  level:
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.data: INFO
+    
+    
+#Custom
+fibi:
+  domain: http://localhost:9090
+  
+        
+    

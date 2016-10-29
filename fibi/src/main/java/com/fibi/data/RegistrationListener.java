@@ -3,6 +3,7 @@ package com.fibi.data;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,6 +21,9 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private MessageSource messages;
     @Autowired
     private JavaMailSender mailSender;
+    
+    @Value("${fibi.domain}")
+	private String domain;
     
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
@@ -39,8 +43,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        email.setText(message + "\n\n" + "http://fibi.cfapps.io" + confirmationUrl + "\n\nRegards,\nFIBI Team");
-        //email.setText(message + "\n\n" + "http://localhost:9090" + confirmationUrl + "\n\nRegards,\nFIBI Team");
+        email.setText(message + "\n\n" + domain + confirmationUrl + "\n\nRegards,\nFIBI Team");
         mailSender.send(email);
     }
 }

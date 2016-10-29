@@ -2,7 +2,12 @@
 applications:
 - name: fibi
   memory: 1024M
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
   buildpack: java_buildpack
   domain: cfapps.io
   random-route: true
   instances: 1
+    
+ 
+     
