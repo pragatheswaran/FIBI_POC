@@ -1,5 +1,7 @@
 package com.fibi.security;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.fibi.data.User;
 import com.fibi.service.UserService;
+import com.fibi.util.FibiCoreUtils;
 
 public class FibiLocalAuthProvider extends DaoAuthenticationProvider {
 
@@ -30,10 +33,19 @@ public class FibiLocalAuthProvider extends DaoAuthenticationProvider {
 		List<GrantedAuthority> grantedAuths = new ArrayList<>();
 		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-		User user = userService.getUserByEmail(authentication.getPrincipal().toString());
+		User user = userService.getUserByEmail(authentication.getPrincipal().toString().toLowerCase());
 
-		if (user!=null && user.getPassword().equals(authentication.getCredentials().toString()) && user.isEnabled()) {
-			isAuthenticated = true;
+		// Decrypt password
+		String hashedPassword;
+		try {
+			hashedPassword = FibiCoreUtils.createHash(authentication.getCredentials().toString(), user.getSalt());
+
+			if (user != null && hashedPassword.equalsIgnoreCase(user.getPassword()) && user.isEnabled()) {
+				isAuthenticated = true;
+			}
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		if (isAuthenticated) {

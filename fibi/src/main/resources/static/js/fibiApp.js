@@ -602,7 +602,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 			$scope.progressbar.complete();
 		})
 		request.error(function(data, status, headers, config) {
-			console.log("Sign up failed");
+			console.log(data.message);
 			$scope.progressbar.complete();
 			$scope.signup_error = true;
 		})

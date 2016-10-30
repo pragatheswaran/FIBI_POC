@@ -21,6 +21,7 @@ public class User
 	private String lastName;
 	private String country;
 	private String password;
+	private byte[] salt;
 	private String profilePic;	
 	private String city;
 	private List<String> communityCode = new ArrayList<String>();
@@ -52,12 +53,6 @@ public class User
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}	
 	public String getId() {
 		return id;
 	}
@@ -94,5 +89,16 @@ public class User
 	public void setCommunityCode(List<String> communityCode) {
 		this.communityCode = communityCode;
 	}
-
+	public byte[] getSalt() {
+		return salt;
+	}
+	public void setSalt(byte[] salt) {
+		this.salt = salt;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

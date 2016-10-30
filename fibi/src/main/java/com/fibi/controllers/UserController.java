@@ -3,7 +3,9 @@ package com.fibi.controllers;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,7 @@ import com.fibi.exceptions.ErrorCode;
 import com.fibi.service.PasswordResetTokenService;
 import com.fibi.service.UserService;
 import com.fibi.service.VerificationTokenService;
+import com.fibi.util.FibiCoreUtils;
 import com.fibi.validator.FibiApiValidator;
 
 /**
@@ -100,9 +103,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> createUser(@RequestBody User user, WebRequest request) {
+	public ResponseEntity<Void> createUser(@RequestBody User user, WebRequest request) throws ApiRequestException {
 
 		User newUser = null;
+		
 		try {
 			// TODO:Validations
 			// TODO: Password encryption
@@ -117,8 +121,11 @@ public class UserController {
 
 			applicationEventPublisher
 					.publishEvent(new OnRegistrationCompleteEvent(newUser, appUrl, request.getLocale()));
-		} catch (Exception e) {
-			// Filter exceptions and set the error code accordingly
+		} 
+		catch(ApiRequestException e) {
+			 throw new ApiRequestException(ErrorCode.USER_ALREADY_EXISTS, e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ApiRequestException(ErrorCode.SERVER_ERROR, e.getMessage());
 		}
 
@@ -155,7 +162,7 @@ public class UserController {
 
 		User user = null;
 		try {
-			user = userService.findByEmail(emailId);
+			user = userService.getUserByEmail(emailId);
 
 			if (user == null) {
 				throw new ApiRequestException(ErrorCode.NOT_FOUND, "Invalid email address");
@@ -184,7 +191,20 @@ public class UserController {
 			}
 
 			User user = passwordResetToken.getUser();
-			user.setPassword(password);
+			
+			// Encrypt password
+			byte[] genSalt;
+			try {
+				genSalt = FibiCoreUtils.generateSalt();
+				String hashedPassword = FibiCoreUtils.createHash(password, genSalt);
+				user.setPassword(hashedPassword);
+				user.setSalt(genSalt);
+			} catch (NoSuchAlgorithmException e) {
+				throw new ApiRequestException(ErrorCode.SERVER_ERROR, e.getMessage());
+			} catch (InvalidKeySpecException e) {
+				throw new ApiRequestException(ErrorCode.SERVER_ERROR, e.getMessage());
+			}
+			
 			userService.createNewUser(user);
 		} catch (Exception e) {
 			// Filter exceptions and set the error code accordingly

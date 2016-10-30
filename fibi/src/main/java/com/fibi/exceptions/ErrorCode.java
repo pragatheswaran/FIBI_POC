@@ -9,11 +9,18 @@ import java.util.HashMap;
  *
  */
 public enum ErrorCode {
-    MALFORMED (400),
+    
+	//Generic errors
+	MALFORMED (400),
     UNAUTHORIZED (401),
     NOT_FOUND (404),
     NOT_ALLOWED (405),
-    SERVER_ERROR (500);
+   
+    //Server errors
+    SERVER_ERROR (500),
+    
+    //User errors
+    USER_ALREADY_EXISTS(300);
 
 	private static final HashMap<Integer, ErrorCode> typesByValue = new HashMap<Integer, ErrorCode>();
 	
