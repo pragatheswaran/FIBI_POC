@@ -10,6 +10,10 @@
 	overflow: hidden;
 }
 
+#map {
+  height: 100%;
+}
+
 .app-test {
 	background-image:
 		url('data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAKgAAAAyCAYAAADItpCRAAAABHN…RBMEcdf8l3/omW/FrQCCpFQThHskvnJycVk2ePLkWAP4P48vvm8hPGVQAAAAASUVORK5CYII=');

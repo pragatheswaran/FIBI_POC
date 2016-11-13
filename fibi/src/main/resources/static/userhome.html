@@ -44,7 +44,10 @@
 
 <script src="js/angular-datepicker.js"></script>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTlG6RUSKEJzv3KaMWHm2heOUllDz4dzM&libraries=places"></script>
+
 </head>
+
 
 
 <body id="page-top" ng-app="fibiApp" ng-controller="userHomeController">
@@ -68,7 +71,7 @@
 					src="img/FIBITransparentLogo.png">
 				</a>
 			</div>
-  
+
 			<!-- <div class="collapse navbar-collapse"
 				id="bs-sidebar-navbar-collapse-1"> -->
               <div style="margin-top: 20%;">
@@ -117,7 +120,7 @@
 			<!-- </div> -->
 		</div>
 	</nav>
-
+	
    <!--  <div id="page-content"> -->
    
   <!-- <div class="container" > -->
@@ -169,7 +172,8 @@
 	</div>
 	<!-- /.modal -->
 
-
+    <div id="map" ng-show="showmap"></div>
+		
 	<!-- DIV CONTAINER -->
 	<header>
 	<div class="header-content">
@@ -246,11 +250,27 @@
 		        <p>Apartments</p>			    
 				<p>Coming Soon!</p>
 	 </div>
-	 <div ng-show="showrestaurants" class="header-content-inner"> 
-		        <p>Restaurants</p>			    
-				<p>Coming Soon!</p>
-	 </div>
-	 <div ng-show="showevents" class="header-content-inner"> 
+			<div ng-show="showrestaurants" class="header-content-inner">
+ 				<form class="navbar-form">
+					<div class="input-group">
+						<input type="Search" id="city" list="cities" placeholder="Choose city" ng-model="controller.searchRestaurants.city" 
+						class="form-control" autocomplete="off" />
+						<div class="input-group-btn">
+							<button type="submit" ng-click="getRestaurants()" class="btn btn-info">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</div>
+						<datalist id="cities">
+							<option value="Chennai">
+							<option value="Coimbatore">
+							<option value="Stuttgart">
+							<option value="New York">
+							<option value="Berlin">
+						</datalist>
+					</div>
+				</form>
+ 			</div>
+			<div ng-show="showevents" class="header-content-inner"> 
 		        <p>Events</p>			    
 				<p>Coming Soon!</p>
 	 </div>
@@ -390,9 +410,8 @@
 
 				</div>
 			</div>
-
 		</div>
-	</header>
+	  </header>
 
 	<!-- </div> -->
 

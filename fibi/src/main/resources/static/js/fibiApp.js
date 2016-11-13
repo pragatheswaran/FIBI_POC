@@ -1,5 +1,141 @@
 var app = angular.module('fibiApp', ['ngRoute', '720kb.datepicker', 'ngCookies','ngProgress']);
 
+
+var map;
+var infowindow;
+var infowindow2;
+var pos;
+
+function currentLocationMap() {
+	
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 10
+   });
+  infoWindow = new google.maps.InfoWindow({map: map});
+  
+ /* google.maps.event.addListener(map, 'resize', function() {
+	    map.setCenter(marker.getPosition());
+	});*/
+  
+  // HTML5 geolocation.
+  if (navigator.geolocation) {
+   navigator.geolocation.getCurrentPosition(function(position) {
+      pos = {
+         lat: position.coords.latitude,
+         lng: position.coords.longitude
+     };
+
+     infoWindow.setPosition(pos);
+     infoWindow.setContent('Location found.');
+     map.setCenter(pos);
+     
+     infowindow2 = new google.maps.InfoWindow();
+     var service = new google.maps.places.PlacesService(map);
+     service.nearbySearch({
+       location: pos,
+       radius: 10000,
+       type: ['restaurant']
+     }, callback);
+     
+  }, function() {
+     handleLocationError(true, infoWindow, map.getCenter());
+  });
+  } else {
+   // Browser doesn't support Geolocation
+   handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+function callback(results, status) {
+	google.maps.event.trigger(map, 'resize');
+	map.setCenter(pos);
+	//map.setZoom( map.getZoom() );
+	
+	  if (status === google.maps.places.PlacesServiceStatus.OK) {
+	    for (var i = 0; i < results.length; i++) {
+	      createMarker(results[i]);
+	    }
+	  }
+}
+
+	function createMarker(place) {
+	  var placeLoc = place.geometry.location;
+	  var marker = new google.maps.Marker({
+	    map: map,
+	    position: place.geometry.location
+	  });
+
+	  google.maps.event.addListener(marker, 'click', function() {
+	    infowindow2.setContent(place.name);
+	    infowindow2.open(map, this);
+	  });
+	}
+
+
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+ infoWindow.setPosition(pos);
+ infoWindow.setContent(browserHasGeolocation ?
+                       'Error: The Geolocation service failed. Please use non-chrome browsers for now :)' :
+                       'Error: Your browser doesn\'t support geolocation.');
+}
+
+/*function initMap(city) {
+	
+  var location = cityLocationMap[city];
+  
+  var geoLocs = location.split(',');
+    
+  var loc = {lat: parseInt(geoLocs[0]), lng: parseInt(geoLocs[1])};
+  
+  var pyrmont = {lat: 13.0827, lng: 80.2707};
+  
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: loc,
+    zoom: 12
+  });
+  
+  infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: loc,
+    radius: 10000,
+    type: ['restaurant']
+  }, callback);
+}
+
+function callback(results, status) {
+  if (status === google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}
+
+*/
+//testdata
+var cityLocationMap= {
+        'Stuttgart': '48.7758,9.1829',
+        'Chennai': '13.0827,80.2707',
+        'Coimbatore': '11.0168,76.9558',
+        'New York': '40.7127840,-74.0059410',
+        'Berlin': '52.5200,13.4050'
+        }
+
 //for confirm password
 var compareTo = function() {
 	
@@ -21,7 +157,9 @@ var compareTo = function() {
     };
   };
   
-  app.config(['$routeProvider', function($routeProvider) {
+  app.config(['$routeProvider', '$httpProvider', function($routeProvider,$httpProvider) {
+	  $httpProvider.defaults.useXDomain = true;
+      delete $httpProvider.defaults.headers.common['X-Requested-With'];
 /*	   $routeProvider.
 	   
 	   when('/', {
@@ -85,9 +223,44 @@ var compareTo = function() {
 	 $scope.showuseditems = false;
 	 $scope.showSearchTravel = false;
 	 $scope.showImTravelling = false;
+	 $scope.showmap = false;
 
 	 $scope.progressbar = ngProgressFactory.createInstance();
 	 
+	 //Search Restaurants
+	 $scope.getRestaurants = function() {
+		 $scope.showmap = true;
+		 //initMap($scope.controller.searchRestaurants.city);
+		 $scope.controller.searchRestaurants.city = "";
+		 
+/*	     var city = $scope.controller.searchRestaurants.city;
+
+	     $scope.progressbar.start();
+	     
+	     var location = cityLocationMap[city];
+	        		        
+	     var request = $http({
+	          method: "GET",
+	          //dataType: 'jsonp',
+	          url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+	        	      +"location="+location+"&radius=500&type=restaurant&key=AIzaSyDTlG6RUSKEJzv3KaMWHm2heOUllDz4dzM",
+	          cache: false
+	      });
+	        
+	      request.success(function(data,status) {
+	     	  console.log("Success");
+	     	  $scope.progressbar.complete();
+	     	  alert(data);
+	     	  //$scope.searchResult = data;
+	     	  //self.searchResult = data;
+	       })
+	       request.error(function(data, status, headers, config) {
+	           console.log("Failure");
+	           $scope.progressbar.complete();
+	        })
+*/		}
+
+		 
 	 $http.get('users/resource/').then(function(response) {
 			$scope.greeting = response.data;
 		})
@@ -150,6 +323,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = false;
 	 }
 	 
 	 $scope.showProfile = function() {
@@ -164,6 +338,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = false;
 	 }
 
 	 $scope.showMessages = function() {
@@ -178,6 +353,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = false;
 	 }
 	 
 	 $scope.showCommunityMessageBoard = function() {
@@ -209,7 +385,8 @@ var compareTo = function() {
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
-		 $scope.showcommunitymessageboard = true;		
+		 $scope.showcommunitymessageboard = true;	
+		 $scope.showmap = false;
 	 }
 
 	 
@@ -225,6 +402,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = false;
 	  }	 
      
  
@@ -240,6 +418,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = false;
 	 }
 
 	 $scope.showRestaurants = function() {
@@ -248,12 +427,15 @@ var compareTo = function() {
 		 $scope.showmessages = false;
 		 $scope.showtravels = false;
 		 $scope.showapartments = false;
-		 $scope.showrestaurants = true;
+		 $scope.showrestaurants = false;
 		 $scope.showevents = false;
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = true;
+		 currentLocationMap();
+		 //$scope.showmap = false;
 	 }
 	 
 	 $scope.showEvents = function() {
@@ -268,6 +450,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = false;
 	 }
 
 	 
@@ -283,6 +466,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = false;
 	 }
 	 
 	 
@@ -298,6 +482,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = true;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = false;
 	 }
 	 
 	 $scope.redirectToTravelDetails = function() {
@@ -312,6 +497,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = true;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.showmap = false;
 	 }
 	 	 
 	 $scope.swapLocations = function() {
