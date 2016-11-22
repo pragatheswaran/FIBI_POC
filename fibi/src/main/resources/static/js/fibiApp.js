@@ -1,10 +1,24 @@
-var app = angular.module('fibiApp', ['ngRoute', '720kb.datepicker', 'ngCookies','ngProgress']);
+var app = angular.module('fibiApp', ['720kb.datepicker','ngProgress', 'ngAutocomplete']);
 
 
 var map;
 var infowindow;
 var infowindow2;
 var pos;
+
+angular.isUndefinedOrNull = function(val) {
+    return angular.isUndefined(val) || val === null 
+}
+
+
+function initDefaultMap() {
+	map = new google.maps.Map(document.getElementById('map'), {
+	    center: {lat: -34.397, lng: 150.644},
+	    zoom: 10
+	   });
+	//infoWindow = new google.maps.InfoWindow({map: map});
+}
+
 
 function currentLocationMap() {
 	
@@ -13,10 +27,6 @@ function currentLocationMap() {
     zoom: 10
    });
   infoWindow = new google.maps.InfoWindow({map: map});
-  
- /* google.maps.event.addListener(map, 'resize', function() {
-	    map.setCenter(marker.getPosition());
-	});*/
   
   // HTML5 geolocation.
   if (navigator.geolocation) {
@@ -47,17 +57,16 @@ function currentLocationMap() {
   }
 }
 
-function callback(results, status) {
-	google.maps.event.trigger(map, 'resize');
-	map.setCenter(pos);
-	//map.setZoom( map.getZoom() );
+    function callback(results, status) {
+	 google.maps.event.trigger(map, 'resize');
+	 map.setCenter(pos);
 	
 	  if (status === google.maps.places.PlacesServiceStatus.OK) {
 	    for (var i = 0; i < results.length; i++) {
 	      createMarker(results[i]);
 	    }
 	  }
-}
+    }
 
 	function createMarker(place) {
 	  var placeLoc = place.geometry.location;
@@ -81,7 +90,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                        'Error: Your browser doesn\'t support geolocation.');
 }
 
-/*function initMap(city) {
+  function initMap(city) {
 	
   var location = cityLocationMap[city];
   
@@ -104,12 +113,33 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     type: ['restaurant']
   }, callback);
 }
+  
+  function handleGeoLocation(loc) {
+			    		  
+	  map = new google.maps.Map(document.getElementById('map'), {
+	    center: loc,
+	    zoom: 14
+	  });
+	  
+	  infowindow = new google.maps.InfoWindow();
+	  var service = new google.maps.places.PlacesService(map);
+	  service.nearbySearch({
+	    location: loc,
+	    radius: 10000,
+	    type: ['restaurant']
+	  }, callback);
+	}
+  
 
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]);
     }
+   
+    var lastCenter=map.getCenter(); 
+    google.maps.event.trigger(map, 'resize');
+    map.setCenter(lastCenter);
   }
 }
 
@@ -119,15 +149,15 @@ function createMarker(place) {
     map: map,
     position: place.geometry.location
   });
-
+  
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
+  
 }
 
-*/
-//testdata
+// testdata
 var cityLocationMap= {
         'Stuttgart': '48.7758,9.1829',
         'Chennai': '13.0827,80.2707',
@@ -136,7 +166,7 @@ var cityLocationMap= {
         'Berlin': '52.5200,13.4050'
         }
 
-//for confirm password
+// for confirm password
 var compareTo = function() {
 	
     return {
@@ -157,56 +187,35 @@ var compareTo = function() {
     };
   };
   
-  app.config(['$routeProvider', '$httpProvider', function($routeProvider,$httpProvider) {
+  app.config(['$httpProvider', function($httpProvider) {
 	  $httpProvider.defaults.useXDomain = true;
       delete $httpProvider.defaults.headers.common['X-Requested-With'];
-/*	   $routeProvider.
-	   
-	   when('/', {
-		      templateUrl: '/',
-		      controller: 'userHomeController'
-		   }).
-	   when('/userhome', {
-			  templateUrl: '/userhome.htm',
-			  controller: 'userHomeController'
-	   }).
-	   when('/userprofile', {
-			  templateUrl: '/usermessages.htm',
-			  controller: 'userHomeController'
-	   }). 
-	   when('/addStudent', {
-	      templateUrl: 'addStudent.htm',
-	      controller: 'userHomeController'
-	   }).
-	   otherwise({
-	      redirectTo: '/userprofile'
-	   });
-		
-*/	}]);  
+/*
+ * $routeProvider.
+ * 
+ * when('/', { templateUrl: '/', controller: 'userHomeController' }).
+ * when('/userhome', { templateUrl: '/userhome.htm', controller:
+ * 'userHomeController' }). when('/userprofile', { templateUrl:
+ * '/usermessages.htm', controller: 'userHomeController' }). when('/addStudent', {
+ * templateUrl: 'addStudent.htm', controller: 'userHomeController' }).
+ * otherwise({ redirectTo: '/userprofile' });
+ * 
+ */	}]);  
 
-//config
-/*  app.config(function($routeProvider, $httpProvider) {
-	  $routeProvider
-	    .when('/', {
-	      templateUrl: '/', 
-	      controller: 'homeController'
-	    })
-	    .when('/userhome', {
-	      templateUrl: '/userhome.html', 
-	      controller:  'userHomeController'
-	    })
-	    .when('/another', {
-	      templateUrl: '/partials/template1.html', 
-	      controller:  'ctrl1'
-	    })
-	    .otherwise({ redirectTo: '/' });
-  });
-*/    
-//directive
+// config
+/*
+ * app.config(function($routeProvider, $httpProvider) { $routeProvider
+ * .when('/', { templateUrl: '/', controller: 'homeController' })
+ * .when('/userhome', { templateUrl: '/userhome.html', controller:
+ * 'userHomeController' }) .when('/another', { templateUrl:
+ * '/partials/template1.html', controller: 'ctrl1' }) .otherwise({ redirectTo:
+ * '/' }); });
+ */    
+// directive
   app.directive('compareTo', compareTo);
   
   
-//controller 
+// controller
  app.controller('userHomeController', function($http, $scope, $rootScope, $window,
 			$location, ngProgressFactory, $filter) {
 
@@ -224,43 +233,25 @@ var compareTo = function() {
 	 $scope.showSearchTravel = false;
 	 $scope.showImTravelling = false;
 	 $scope.showmap = false;
+	 
+	 $scope.result1 = '';   
+	 $scope.options1 = null;
+	 $scope.details1 = '';
 
 	 $scope.progressbar = ngProgressFactory.createInstance();
 	 
-	 //Search Restaurants
-	 $scope.getRestaurants = function() {
-		 $scope.showmap = true;
-		 //initMap($scope.controller.searchRestaurants.city);
-		 $scope.controller.searchRestaurants.city = "";
-		 
-/*	     var city = $scope.controller.searchRestaurants.city;
-
-	     $scope.progressbar.start();
-	     
-	     var location = cityLocationMap[city];
-	        		        
-	     var request = $http({
-	          method: "GET",
-	          //dataType: 'jsonp',
-	          url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
-	        	      +"location="+location+"&radius=500&type=restaurant&key=AIzaSyDTlG6RUSKEJzv3KaMWHm2heOUllDz4dzM",
-	          cache: false
-	      });
-	        
-	      request.success(function(data,status) {
-	     	  console.log("Success");
-	     	  $scope.progressbar.complete();
-	     	  alert(data);
-	     	  //$scope.searchResult = data;
-	     	  //self.searchResult = data;
-	       })
-	       request.error(function(data, status, headers, config) {
-	           console.log("Failure");
-	           $scope.progressbar.complete();
-	        })
-*/		}
-
-		 
+	 // Search Restaurants
+	 $scope.getRestaurants = function() {		 		 
+		 if(angular.isUndefinedOrNull($scope.details1.geometry)) {
+			//alert("Choose your city");
+		 } else {
+			$scope.progressbar.start();	
+		    handleGeoLocation($scope.details1.geometry.location);
+		    $scope.progressbar.complete();
+		    $scope.showmap = true;
+		 }		 
+	}
+	 
 	 $http.get('users/resource/').then(function(response) {
 			$scope.greeting = response.data;
 		})
@@ -427,15 +418,16 @@ var compareTo = function() {
 		 $scope.showmessages = false;
 		 $scope.showtravels = false;
 		 $scope.showapartments = false;
-		 $scope.showrestaurants = false;
+		 $scope.showrestaurants = true;
 		 $scope.showevents = false;
 		 $scope.showuseditems = false;
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
-		 $scope.showmap = true;
-		 currentLocationMap();
-		 //$scope.showmap = false;
+		 //$scope.showmap = true;
+		 //initDefaultMap();
+		 // currentLocationMap();
+		 // $scope.showmap = false;
 	 }
 	 
 	 $scope.showEvents = function() {
@@ -537,7 +529,7 @@ var compareTo = function() {
 	     	  console.log("Search success");
 	     	  $scope.progressbar.complete();
 	     	  $scope.searchResult = data;
-	     	  //self.searchResult = data;
+	     	  // self.searchResult = data;
 	       })
 	       request.error(function(data, status, headers, config) {
 	           console.log("Search failure");
@@ -576,22 +568,22 @@ var compareTo = function() {
 	           request.success(function(data,status) {
 	        	   console.log("Travel details saved successfully");
 	        	   alert("Travel details successfully");
-	        	   //$rootScope.saveSuccess = true;
+	        	   // $rootScope.saveSuccess = true;
 	        	   $scope.progressbar.complete();
-	        	   //$location.path("/travel");
+	        	   // $location.path("/travel");
 	           })
 	           request.error(function(data, status, headers, config) {
 	        	   console.log("Unable to save travel details");
-	        	   //$rootScope.saveSuccess = false;
+	        	   // $rootScope.saveSuccess = false;
 	        	   $scope.progressbar.complete();
-	        	   //$rootScope.error = true;
+	        	   // $rootScope.error = true;
 	           })
 		}
 
  });
 	
  
-//controller
+// controller
 app.controller('homeController', function($http, $scope, $rootScope, $window,
 		$location, ngProgressFactory) {
 	var self = this;
@@ -604,27 +596,22 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 		$window.location.reload();		
 	}
 	
-/*	$(function(){ // let all dom elements are loaded
-	    $('#loginModal').on('hide.bs.modal', function (e) {
-	        alert('event fired')
-	    });
-	});
-*/	
-	//$('#loginModal').modal('show');
+/*
+ * $(function(){ // let all dom elements are loaded
+ * $('#loginModal').on('hide.bs.modal', function (e) { alert('event fired') });
+ * });
+ */	
+	// $('#loginModal').modal('show');
 	
-/*	$('#loginModal').on('hide',function(e){
-	    if(!confirm('You want to close me?'))
-	     e.preventDefault();
-	});
-*/	
-/*	$('#loginModal').on('hidden.bs.modal', function () {
-		  alert("test");
-	})
-	
-	$('#loginModal').on('hidden', function () {
-		alert("test");	
-    })
-*/	
+/*
+ * $('#loginModal').on('hide',function(e){ if(!confirm('You want to close me?'))
+ * e.preventDefault(); });
+ */	
+/*
+ * $('#loginModal').on('hidden.bs.modal', function () { alert("test"); })
+ * 
+ * $('#loginModal').on('hidden', function () { alert("test"); })
+ */	
 	$http.get('countries/names').success(function (data) {
         $scope.countries = data;            
     })
@@ -639,7 +626,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 	}
     
     $scope.ssoLogin = function() {
-		//$window.location = "/fibi/userhome.html";
+		// $window.location = "/fibi/userhome.html";
 		$window.location = "fibi/login/facebook";
 	}
     
@@ -660,9 +647,9 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 			params: {
 	         	 emailId: email,
 		    },
-			/*data : {
-				email : email,
-			},*/
+			/*
+			 * data : { email : email, },
+			 */
 			cache : false
 		});
 
@@ -797,7 +784,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 
 $(document).ready(function () {
 
-    //stick in the fixed 100% height behind the navbar but don't wrap it
+    // stick in the fixed 100% height behind the navbar but don't wrap it
     $('#slide-nav.navbar-inverse').after($('<div class="inverse" id="navbar-height-col"></div>'));
   
     $('#slide-nav.navbar-default').after($('<div id="navbar-height-col"></div>'));  

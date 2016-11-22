@@ -38,25 +38,35 @@
 
 <link rel="icon" href="img/FIBITransparentLogo.png">
 
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<!-- <script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
+ -->
 
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script> 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDTlG6RUSKEJzv3KaMWHm2heOUllDz4dzM&libraries=places&sensor=false"></script>
 
 <script src="js/angular-datepicker.js"></script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTlG6RUSKEJzv3KaMWHm2heOUllDz4dzM&libraries=places"></script>
+<script src="js/ngAutoComplete.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+
 
 </head>
 
 
 
 <body id="page-top" ng-app="fibiApp" ng-controller="userHomeController">
-<!-- <nav class="navbar navbar-default" role="navigation"> -->
-<!-- <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
- --><!-- <nav id="mainNav" class="navbar navbar-inverse navbar-white navbar-fixed-top"> -->	
- 
- <div ng-view></div>
- <nav class="navbar navbar-inverse navbar-white sidebar" role="navigation">
+	<!-- <nav class="navbar navbar-default" role="navigation"> -->
+	<!-- <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+ -->
+	<!-- <nav id="mainNav" class="navbar navbar-inverse navbar-white navbar-fixed-top"> -->
+
+	<div ng-view></div>
+	<nav class="navbar navbar-inverse navbar-white sidebar"
+		role="navigation">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-">
@@ -74,41 +84,52 @@
 
 			<!-- <div class="collapse navbar-collapse"
 				id="bs-sidebar-navbar-collapse-1"> -->
-              <div style="margin-top: 20%;">
+			<div style="margin-top: 20%;">
 				<ul class="nav navbar-nav">
-					<li class="active"><a data-toggle="tab" href="#home" ng-click="showHome()">Home<span
-							style="font-size: 16px;"
+					<li class="active"><a data-toggle="tab" href="#home"
+						ng-click="showHome()">Home<span style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-					<li><a data-toggle="tab" href="#profile" ng-click="showProfile()">Profile<span style="font-size: 16px;"
+					<li><a data-toggle="tab" href="#profile"
+						ng-click="showProfile()">Profile<span style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-					<li><a data-toggle="tab" href="#messages" ng-click="showMessages()">Messages<span style="font-size: 16px;"
+					<li><a data-toggle="tab" href="#messages"
+						ng-click="showMessages()">Messages<span
+							style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">My Communities <span class="caret"></span><span
 							style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-globe"></span></a>
 						<ul class="dropdown-menu forAnimate" role="menu">
-							<li><a href="#messageBoard" data-toggle="tab" ng-click="showCommunityMessageBoard()">{{greeting.community}}<span style="font-size: 16px;"
+							<li><a href="#messageBoard" data-toggle="tab"
+								ng-click="showCommunityMessageBoard()">{{greeting.community}}<span
+									style="font-size: 16px;"
 									class="pull-right hidden-xs showopacity glyphicon glyphicon-menu-right"></span></a></li>
 							<!-- <li class="divider"></li>-->
-						</ul>
-					</li>		
+						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">Services <span class="caret"></span><span
 							style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-heart"></span></a>
 						<ul class="dropdown-menu forAnimate" role="menu">
-							<li><a data-toggle="tab" href="#travels" ng-click="showTravels()">Travel <span style="font-size: 16px;"
+							<li><a data-toggle="tab" href="#travels"
+								ng-click="showTravels()">Travel <span
+									style="font-size: 16px;"
 									class="pull-right hidden-xs showopacity glyphicon glyphicon-plane"></span></a></li>
-							<li><a data-toggle="tab" href="#apartments" ng-click="showApartments()">Apartments<span style="font-size: 16px;"
+							<li><a data-toggle="tab" href="#apartments"
+								ng-click="showApartments()">Apartments<span
+									style="font-size: 16px;"
 									class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-							<li><a data-toggle="tab" href="#restaurants" ng-click="showRestaurants()">Restaurants<span
+							<li><a data-toggle="tab" href="#restaurants"
+								ng-click="showRestaurants()">Restaurants<span
 									style="font-size: 16px;"
 									class="pull-right hidden-xs showopacity glyphicon glyphicon-cutlery"></span></a></li>
-							<li><a data-toggle="tab" href="#events" ng-click="showEvents()">Events<span
-									style="font-size: 16px;"
+							<li><a data-toggle="tab" href="#events"
+								ng-click="showEvents()">Events<span style="font-size: 16px;"
 									class="pull-right hidden-xs showopacity glyphicon glyphicon-pushpin"></span></a></li>
-							<li><a data-toggle="tab" href="#useditems" ng-click="showUseditems()">Used Items<span style="font-size: 16px;"
+							<li><a data-toggle="tab" href="#useditems"
+								ng-click="showUseditems()">Used Items<span
+									style="font-size: 16px;"
 									class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
 							<!-- <li class="divider"></li>-->
 						</ul></li>
@@ -116,14 +137,14 @@
 							style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
 				</ul>
-				</div>
+			</div>
 			<!-- </div> -->
 		</div>
 	</nav>
-	
-   <!--  <div id="page-content"> -->
-   
-  <!-- <div class="container" > -->
+
+	<!--  <div id="page-content"> -->
+
+	<!-- <div class="container" > -->
 	<!-- Modal -->
 	<div class="modal" id="SearchResultsModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
@@ -136,30 +157,32 @@
 				</div>
 				<div class="modal-body">
 					<!-- <a class="custom-close"> Result 1</a> -->
-<!--                     <p>{{searchResult}}</p>
- -->					 <div class="table-responsive">
-                         <table class="table" border="1" id="resultsTable">
-					     <thead class="thead-inverse">
-					      <td> Name </td>
-					      <td> Departure Date</td>
-					      <td> Flight No</td>
-					      <td> Weight(kgs)</td>
-					      <td> Contact(Email) </td>
-					     </thead>
-						 <tbody ng-repeat="result in searchResult">
-						    <tr>
-								<td>{{result.user.firstName}}</td>
-								<td>{{result.startDate}}</td>
-								<td>{{result.flightNo}}</td>
-								<td>{{result.weight}}</td>
-								<td style="width: 16%;"><a href="mailto:{{result.user.email}}?Subject=Hello%20{{result.user.firstName}}" target="_top">
-								  <!-- <img src="img/email-send-icon.png"/></a> -->
-								  <img src="img/email-send-icon.png" style="width: 42%;margin-left: 28%;"></a>
-								</td>
-							</tr>
-						</tbody>
-					   </table>
-				      </div>
+					<!--                     <p>{{searchResult}}</p>
+ -->
+					<div class="table-responsive">
+						<table class="table" border="1" id="resultsTable">
+							<thead class="thead-inverse">
+								<td>Name</td>
+								<td>Departure Date</td>
+								<td>Flight No</td>
+								<td>Weight(kgs)</td>
+								<td>Contact(Email)</td>
+							</thead>
+							<tbody ng-repeat="result in searchResult">
+								<tr>
+									<td>{{result.user.firstName}}</td>
+									<td>{{result.startDate}}</td>
+									<td>{{result.flightNo}}</td>
+									<td>{{result.weight}}</td>
+									<td style="width: 16%;"><a
+										href="mailto:{{result.user.email}}?Subject=Hello%20{{result.user.firstName}}"
+										target="_top"> <!-- <img src="img/email-send-icon.png"/></a> -->
+											<img src="img/email-send-icon.png"
+											style="width: 42%; margin-left: 28%;"></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -171,67 +194,76 @@
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
-
-    <div id="map" ng-show="showmap"></div>
-		
+ 
+	<div id="map" ng-show="showmap"></div>
+	
 	<!-- DIV CONTAINER -->
 	<header>
-	<div class="header-content">
-	 <div ng-show="showhome" class="header-content-inner"> 
-	            <div id="profilePic"><img src="{{greeting.profilePic}}" alt="ProfilePicture"  style="width: 20%"></div>
-	            <br/>
-		        <p>Welcome {{greeting.firstName}} !</p>			    
-	 </div>
+		<div class="header-content">
+			<div ng-show="showhome" class="header-content-inner">
+				<div id="profilePic">
+					<img src="{{greeting.profilePic}}" alt="ProfilePicture"
+						style="width: 20%">
+				</div>
+				<br />
+				<p>Welcome {{greeting.firstName}} !</p>
+			</div>
 			<div ng-show="showprofile" class="header-content-inner">
 				<p>Profile</p>
 				<p>Coming Soon!</p>
 			</div>
 			<div ng-show="showcommunitymessageboard" class="header-content-inner">
-              <form name="form" role="form">
-              <div class="container">
-					<div class="row " style="padding-top: 40px;">
-						<!-- <h3">Messsage Board</h3> -->
-						<br />
-					
-						<div class="col-md-10">
-							<div class="panel panel-info">
-								<div class="panel-heading">Message Board</div>
-								<div id="scrollBarDiv" class="pre-scrollable">
-								<div class="panel-body">
-									<ul class="media-list">
-										<li class="media" ng-repeat="message in messageBoardMessages">
-											<div style="color: #202223;">
-												<div>
-													<a class="pull-left" href="#"> <img
-														class="media-object img-circle " src="img/avatarchat.png" />
-													</a>
-													<div>
-														{{message.message}} <br /> <small class="text-muted">
-															{{message.user.firstName}} | {{message.postedDate}}</small>
-														<hr style="max-width: 500%; border-color: antiquewhite;">
+				<form name="form" role="form">
+					<div class="container">
+						<div class="row " style="padding-top: 40px;">
+							<!-- <h3">Messsage Board</h3> -->
+							<br />
+
+							<div class="col-md-10">
+								<div class="panel panel-info">
+									<div class="panel-heading">Message Board</div>
+									<div id="scrollBarDiv" class="pre-scrollable">
+										<div class="panel-body">
+											<ul class="media-list">
+												<li class="media"
+													ng-repeat="message in messageBoardMessages">
+													<div style="color: #202223;">
+														<div>
+															<a class="pull-left" href="#"> <img
+																class="media-object img-circle "
+																src="img/avatarchat.png" />
+															</a>
+															<div>
+																{{message.message}} <br /> <small class="text-muted">
+																	{{message.user.firstName}} | {{message.postedDate}}</small>
+																<hr style="max-width: 500%; border-color: antiquewhite;">
+															</div>
+														</div>
 													</div>
-												</div>
-											</div>
-										</li>
-									</ul>
-								  </div>
-								</div>
-								<div class="panel-footer">
-									<div class="input-group">
-										<input type="text" id="messageText" class="form-control" ng-model="controller.postMessage"
-											placeholder="Enter Message" /> <span class="input-group-btn">
-											<button class="btn btn-info" ng-click="postMessage(greeting.community,greeting.userId,greeting.firstName)" type="submit">Post Message</button>
-										</span>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="panel-footer">
+										<div class="input-group">
+											<input type="text" id="messageText" class="form-control"
+												ng-model="controller.postMessage"
+												placeholder="Enter Message" /> <span
+												class="input-group-btn">
+												<button class="btn btn-info"
+													ng-click="postMessage(greeting.community,greeting.userId,greeting.firstName)"
+													type="submit">Post Message</button>
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</form>
+				</form>
 			</div>
 
-	 <div ng-show="showtravels" class="header-content-inner">
+			<div ng-show="showtravels" class="header-content-inner">
 				<div>
 					<p>Choose your option</p>
 					<form name="form" role="form">
@@ -241,44 +273,34 @@
 							class="btn btn-primary">I'm Travelling</button>
 					</form>
 				</div>
-	 </div>
-	 <div ng-show="showmessages" class="header-content-inner"> 
-		        <p>Messages</p>			    
+			</div>
+			<div ng-show="showmessages" class="header-content-inner">
+				<p>Messages</p>
 				<p>Coming Soon!</p>
-	 </div>
-	 <div ng-show="showapartments" class="header-content-inner"> 
-		        <p>Apartments</p>			    
+			</div>
+			<div ng-show="showapartments" class="header-content-inner">
+				<p>Apartments</p>
 				<p>Coming Soon!</p>
-	 </div>
-			<div ng-show="showrestaurants" class="header-content-inner">
- 				<form class="navbar-form">
-					<div class="input-group">
-						<input type="Search" id="city" list="cities" placeholder="Choose city" ng-model="controller.searchRestaurants.city" 
-						class="form-control" autocomplete="off" />
-						<div class="input-group-btn">
-							<button type="submit" ng-click="getRestaurants()" class="btn btn-info">
-								<span class="glyphicon glyphicon-search"></span>
-							</button>
-						</div>
-						<datalist id="cities">
-							<option value="Chennai">
-							<option value="Coimbatore">
-							<option value="Stuttgart">
-							<option value="New York">
-							<option value="Berlin">
-						</datalist>
-					</div>
-				</form>
- 			</div>
-			<div ng-show="showevents" class="header-content-inner"> 
-		        <p>Events</p>			    
+			</div>
+		    <div ng-show="showrestaurants" class="header-content-inner">
+				<div class="button_box2">
+					<form class="form-wrapper-2 cf">
+						<input type="text" placeholder="City name" id="Autocomplete"
+							class="form-control" ng-autocomplete="result1" details="details1"
+							options="options1" required>
+						<button type="submit" ng-click="getRestaurants()">Locate</button>
+					</form>
+				</div>
+			</div>
+			<div ng-show="showevents" class="header-content-inner">
+				<p>Events</p>
 				<p>Coming Soon!</p>
-	 </div>
-	 <div ng-show="showuseditems" class="header-content-inner"> 
-		        <p>Used Items</p>			    
+			</div>
+			<div ng-show="showuseditems" class="header-content-inner">
+				<p>Used Items</p>
 				<p>Coming Soon!</p>
-	 </div>
-	 
+			</div>
+
 			<div ng-show="showSearchTravel" class="header-content-inner">
 				<div>
 					<form name="form" role="form">
@@ -287,73 +309,78 @@
 								class="search-controls   opaque-on-desktop">
 								<form class="clearfix">
 									<section class="traditional-search clearfix">
-									      <h3>Search Travellers</h3>
+										<h3>Search Travellers</h3>
 										<div id="js-places" class="search-controls-places clearfix">
 											<div class="origin-place" style="direction: ltr;">
 												<label for="js-origin-input" class="place-label">From</label>
 												<input type="text" id="js-origin-input"
-													placeholder="Enter departure airport" ng-model="controller.searchDetails.from" tabindex="1"
+													placeholder="Enter departure airport"
+													ng-model="controller.searchDetails.from" tabindex="1"
 													autocomplete="off" autocorrect="off" autocapitalize="off"
 													spellcheck="false" class="tt-input" dir="auto"
 													style="position: relative; vertical-align: top;">
 												<pre aria-hidden="true"
-													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; quot; Segoe UI&amp;quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;quot; Fira Sans&amp;quot; , &amp; quot; Droid Sans&amp;quot; , &amp; quot; Helvetica Neue&amp;quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
 												<span class="tt-dropdown-menu"
 													style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
 														class="tt-dataset-origin"></div></span>
 											</div>
-											<button type="button" ng-click="swapLocations()" id="js-places-toggle"
-												class="swap-button" title="Click here to swap locations">
+											<button type="button" ng-click="swapLocations()"
+												id="js-places-toggle" class="swap-button"
+												title="Click here to swap locations">
 												<span class="visuallyhidden">Click here to swap
 													locations</span>
 											</button>
 											<div class="destination-place" style="direction: ltr;">
 												<label for="js-destination-input" class="place-label">To</label>
 												<input type="text" id="js-destination-input"
-													placeholder="Enter destination airport" ng-model="controller.searchDetails.to" tabindex="1"
+													placeholder="Enter destination airport"
+													ng-model="controller.searchDetails.to" tabindex="1"
 													autocomplete="off" autocorrect="off" autocapitalize="off"
 													spellcheck="false" class="tt-input" dir="auto"
 													style="position: relative; vertical-align: top;">
 												<pre aria-hidden="true"
-													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; quot; Segoe UI&amp;quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;quot; Fira Sans&amp;quot; , &amp; quot; Droid Sans&amp;quot; , &amp; quot; Helvetica Neue&amp;quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
 												<span class="tt-dropdown-menu"
 													style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
 														class="tt-dataset-destination"></div></span>
 											</div>
 											<div class="origin-place" style="direction: ltr;">
-												<label for="js-origin-input" class="place-label">Start Date</label>
-												<datepicker date-format="MMMM d, y"> 
-												  <input type="text"
-													placeholder="Enter start date" ng-model="controller.searchDetails.startDate" id="js-destination-input"
-													tabindex="1" autocomplete="off" autocorrect="off"
-													autocapitalize="off" spellcheck="false" class="tt-input"
-													dir="auto" style="position: relative; vertical-align: top;"/>
-												 </datepicker>
+												<label for="js-origin-input" class="place-label">Start
+													Date</label>
+												<datepicker date-format="MMMM d, y"> <input
+													type="text" placeholder="Enter start date"
+													ng-model="controller.searchDetails.startDate"
+													id="js-destination-input" tabindex="1" autocomplete="off"
+													autocorrect="off" autocapitalize="off" spellcheck="false"
+													class="tt-input" dir="auto"
+													style="position: relative; vertical-align: top;" /> </datepicker>
 												<pre aria-hidden="true"
-													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; quot; Segoe UI&amp;quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;quot; Fira Sans&amp;quot; , &amp; quot; Droid Sans&amp;quot; , &amp; quot; Helvetica Neue&amp;quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
 												<span class="tt-dropdown-menu"
 													style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
 														class="tt-dataset-origin"></div></span>
 											</div>
 											<div class="destination-place" style="direction: ltr;">
-												<label for="js-destination-input" class="place-label">End Date</label>
-												<datepicker date-format="MMMM d, y"> 
-												  <input type="text" ng-model="controller.searchDetails.endDate"
+												<label for="js-destination-input" class="place-label">End
+													Date</label>
+												<datepicker date-format="MMMM d, y"> <input
+													type="text" ng-model="controller.searchDetails.endDate"
 													placeholder="Enter end date" id="js-destination-input"
 													tabindex="1" autocomplete="off" autocorrect="off"
 													autocapitalize="off" spellcheck="false" class="tt-input"
-													dir="auto" style="position: relative; vertical-align: top;"/>
-												 </datepicker>
-												 <pre aria-hidden="true"
-													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; quot; Segoe UI&amp;quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;quot; Fira Sans&amp;quot; , &amp; quot; Droid Sans&amp;quot; , &amp; quot; Helvetica Neue&amp;quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+													dir="auto" style="position: relative; vertical-align: top;" />
+												</datepicker>
+												<pre aria-hidden="true"
+													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
 												<span class="tt-dropdown-menu"
 													style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
 														class="tt-dataset-origin"></div></span>
 											</div>
-										</div>										
-										<button
-											class="btn btn-primary"
-											tabindex="1" data-toggle="modal" data-target="#SearchResultsModal" ng-click="searchTravellers()">
+										</div>
+										<button class="btn btn-primary" tabindex="1"
+											data-toggle="modal" data-target="#SearchResultsModal"
+											ng-click="searchTravellers()">
 											<span class="wc-button-point" role="presentation"
 												aria-hidden="true"></span> <span class="wc-button-text">Search</span>
 										</button>
@@ -364,7 +391,7 @@
 					</form>
 				</div>
 			</div>
-		
+
 			<div ng-show="showImTravelling" class="header-content-inner">
 				<div id="travelDetailsDiv">
 					<form name="form" role="form">
@@ -403,15 +430,15 @@
 							</div>
 
 						</fieldset>
-						<button ng-disabled="form.$invalid"
-							class="btn btn-primary" ng-click="saveTravelDetails()">Submit</button>
+						<button ng-disabled="form.$invalid" class="btn btn-primary"
+							ng-click="saveTravelDetails()">Submit</button>
 						<!-- <button type="button" ng-click="redirectToHome()" class="btn btn-primary">Home</button> -->
 					</form>
 
 				</div>
 			</div>
 		</div>
-	  </header>
+	</header>
 
 	<!-- </div> -->
 
