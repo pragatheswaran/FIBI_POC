@@ -58,7 +58,7 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				// allow signup, login and home pages
-				.antMatchers("/signup.html", "/login.html", "/index.html", "/home.html", "/").permitAll()
+				.antMatchers("/signup.html", "/login.html", "/index.html", "/home.html", "/**").permitAll()
 				// allow swagger resources
 				.antMatchers("/swagger-ui.html/**", "/webjars/**", "/swagger-resources/**", "/v2/**").permitAll()
 				// allow angular resources

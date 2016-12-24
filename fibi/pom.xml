@@ -78,8 +78,19 @@
 			<version>2.0.0</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<!-- <optional>true</optional> -->
+		</dependency>
+		
+		<!-- <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>springloaded</artifactId>
+            <version>1.2.0.RELEASE</version>
+        </dependency> -->
 	
-        
         <!-- Junit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -99,9 +110,9 @@
 					<resource>
 						<directory>src/main/resources/local</directory>
 					</resource>
-					<resource>
+					<!-- <resource>
 						<directory>src/main/resources</directory>
-					</resource>
+					</resource> -->
 				</resources>
 			</build>
 		</profile>

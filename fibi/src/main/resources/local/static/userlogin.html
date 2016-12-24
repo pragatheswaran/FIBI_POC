@@ -1,0 +1,304 @@
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="tabs">
+                <ul id="loginTab" class="nav nav-tabs">
+                    <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+                    <li class=""><a href="#signup" data-toggle="tab">Register</a></li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="login">
+                        <div id="ssoLoginWrapper" style="width: 100%; margin-left: 30%;">
+                            <div id="fbLoginDiv">
+                                <a href="login/facebook">
+                                    <img src="img/loginwithfb.jpg"
+                                         style="width: 42%;">
+                                </a>
+                            </div>
+                            <div id="googleLoginDiv">
+                                <a href="login/google">
+                                    <img src="img/loginwithgoogle.png"
+                                         style="width: 42%;">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer"></div>
+
+                        <form role="form" #ff="ngForm" name="loginform" id="login" novalidate (ngSubmit)="login($event)">
+                           <div class="alert alert-danger" [hidden]="!signin_error">
+									<strong>Oops! </strong>Authentication failed. Login with correct credentials
+						   </div>
+						   <div class="alert alert-success" [hidden]="!signin_success">
+									<strong>Login Success!</strong>
+						   </div>
+						    
+                            <div class="form-group">
+                                <label for="username">Email address</label> <input class="form-control" id="email"
+                                                                                   [(ngModel)]="userObj.email" name="email"
+                                                                                   #email="ngModel"
+                                                                                   placeholder="Enter email" type="email"
+                                                                                   required />
+                                                                                   
+                                <div *ngIf="((!email.valid && ff.submitted) || (email.dirty && !email.valid))" class="alert alert-danger">
+                                        <p *ngIf="email.errors.required">Email is required.</p>
+                                        <p *ngIf="!email.errors.required">Email format is invalid.</p>
+                                </div>                                                   
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label> <input class="form-control" id="password" name="password"
+                                                                              placeholder="Enter password"
+                                                                              [(ngModel)]="userObj.password" 
+                                                                              #password="ngModel"
+                                                                              type="password"
+                                                                              required />
+                                 <div *ngIf="((!password.valid && ff.submitted) || (password.dirty && !password.valid))" class="alert alert-danger">
+                                        <p *ngIf="password.errors.required">Password is required.</p>
+                                </div>                                              
+                            </div>
+                            <p class="text-right">
+                                <a href="#pwdResetModal" data-dismiss="modal"
+                                   data-toggle="modal" data-target="#pwdResetModal">
+                                    Trouble
+                                    logging in?
+                                </a>
+                            </p>
+                            <div class="modal-footer">
+                                <a href="#" data-dismiss="modal" (click)="closeModal($event)"
+                                   class="btn">Close</a>
+
+                                <button type="submit"
+                                        class="btn btn-primary">
+                                    Login
+                                </button>
+                                <!--<button (click) = "login($event)" ngDisabled="loginform.$invalid" type="submit"
+                                        class="btn btn-primary">
+                                    Login
+                                </button>-->
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="signup">
+                        <form role="form" #f="ngForm" name="signupform" id="signup" novalidate (ngSubmit)="signup($event)">
+                           <div class="alert alert-danger" [hidden]="!signup_error">
+									<strong>Oops! </strong>There was a problem while signing up.
+									Please try again
+						   </div>
+						   <div class="alert alert-success" [hidden]="!signup_success">
+									<strong>Registration Success!</strong> Please check your mail
+									and confirm your registration
+						   </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label> <input type="email"
+                                                                         class="form-control" id="email" name="email" placeholder="Enter email"
+                                                                         [(ngModel)]="userObj.email" #email="ngModel"
+                                                                         required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}"/>
+
+                                <!--<div *ngIf="((email.dirty && !email.valid) || f.submitted)" class="alert alert-danger">-->
+                                    <div *ngIf="((!email.valid && f.submitted) || (email.dirty && !email.valid))" class="alert alert-danger">
+                                        <p *ngIf="email.errors.required">Email is required.</p>
+                                        <p *ngIf="!email.errors.required">Email format is invalid.</p>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">First Name:</label> <input type="text"
+                                                                                  class="form-control" id="firstName" name="firstName" 
+                                                                                  placeholder="Enter first name "
+                                                                                  [(ngModel)]="userObj.firstName" #firstName="ngModel"
+                                                                                  required minlength="5" maxlength="15"/>
+                                <div *ngIf="((firstName.dirty && !firstName.valid) || (!firstName.valid && f.submitted))" class="alert alert-danger">
+                                    <p *ngIf="firstName.errors.required">First Name is required.</p>
+                                    <p *ngIf="!firstName.errors.required">Should be minimum 5 characters</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name:</label> <input type="text"
+                                                                                class="form-control" id="lastName" name="lastName"
+                                                                                placeholder="Enter last name"
+                                                                                [(ngModel)]="userObj.lastName" #lastName="ngModel"
+                                                                                required minlength="5" maxlength="15"/>
+                                <div *ngIf="((lastName.dirty && !lastName.valid)  || (!lastName.valid && f.submitted))" class="alert alert-danger">
+                                    <p *ngIf="lastName.errors.required">Last Name is required.</p>
+                                    <p *ngIf="!lastName.errors.required">Should be minimum 5 characters</p>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country:</label> <select class="form-control" name="country"
+                                                                              [(ngModel)]="userObj.country"
+                                                                              (ngModelChange)="onCountryChange($event)"
+                                                                              required>
+                                    <option value="">Select Country</option>
+                                    <option *ngFor="let country of countries">{{country.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City:</label> <select class="form-control" name="city"
+                                                                        [(ngModel)]="userObj.city"
+                                                                        required>
+                                    <option value="">Select City</option>
+                                    <option *ngFor="let city of cities">{{city}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label> <input type="password"
+                                                                               class="form-control" id="password" name="password"
+                                                                               placeholder="Enter password"
+                                                                               [(ngModel)]="userObj.password" #password="ngModel"
+                                                                               required validateEqual="confirmPassword" reverse="true"/>
+                                <div *ngIf="((password.dirty && !password.valid)  || (!password.valid && f.submitted))" class="alert alert-danger">
+                                    <p *ngIf="password.errors.required">Password is required.</p>
+                                    <p *ngIf="!password.errors.required">Password mismatch</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Confirm Password:</label> <input type="password" class="form-control" id="confirmPassword"
+                                                                                       name="confirmPassword" placeholder="Re-enter password"
+                                                                                       [(ngModel)]="userObj.confirmPassword" #confirmPassword="ngModel"
+                                                                                       required validateEqual="password"/>
+                                <div *ngIf="((confirmPassword.dirty && !confirmPassword.valid) || (!confirmPassword.valid && f.submitted))" class="alert alert-danger">
+                                    <p>Password mismatch</p>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <a href="#" data-dismiss="modal" (click)="closeModal($event)"
+                                   class="btn">Close</a>
+                                <button type="submit"
+                                        class="btn btn-primary">
+                                    Register
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+	<div class="modal fade" id="pwdResetModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div id="myTabContent" class="tab-content">
+						<fieldset>
+							<legend>Reset Password</legend>
+						</fieldset>
+						<div id="pwdReset" [hidden]="!otpEmailDetails">
+							<form #pwdResetForm="ngForm" name="pwdResetform" role="form" id="pwdReset" 
+								novalidate (ngSubmit)="validateAndSendOTP($event)">
+								<div class="alert alert-danger" [hidden]="!invalid_email">
+									<strong>Oops! </strong> Email is not registered. Try with a
+									valid one!
+								</div>
+								<div class="alert alert-success" [hidden]="!otp_success">
+									<strong>OTP sent successfully!</strong>
+								</div>
+								<div align="center">
+									<p style="font-size: 14px;">Please enter your email address
+										& we will send a confirmation code</p>
+								</div>
+								<div class="form-group">
+									<label for="username">Email address</label> <input class="form-control" id="email"
+                                                                                   [(ngModel)]="userObj.email" name="email"
+                                                                                   #email="ngModel"
+                                                                                   placeholder="Enter email" type="email"
+                                                                                   required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" />
+                                                                                   
+                                     <div *ngIf="((!email.valid && pwdResetForm.submitted) || (email.dirty && !email.valid))" class="alert alert-danger">
+                                        <p *ngIf="email.errors.required">Email is required.</p>
+                                        <p *ngIf="!email.errors.required">Email format is invalid.</p>
+                                    </div>                                                                                
+								</div>
+
+								<div class="modal-footer">
+									<a href="#" data-dismiss="modal" (click)="closeModal($event)"
+										class="btn">Close</a>
+
+									<button type="submit" ng-disabled="pwdResetform.$invalid"
+										class="btn btn-primary">Next</button>
+								</div>
+							</form>
+						</div>
+
+						<div id="newPwdReset" [hidden]="!passwordResetDetails">
+							<form #newPwdResetform="ngForm" name="newPwdResetform" role="form" id="newPwdReset"
+								novalidate (ngSubmit)="resetUserPassword($event)">
+								<div class="alert alert-danger" [hidden]="!invalid_otp">
+									<strong>Oops! </strong> Invalid OTP!
+								</div>
+								<div class="alert alert-success" [hidden]="!reset_success">
+									<strong>Password has been reset successfully!</strong>
+								</div>
+								<div align="center">
+									<p style="font-size: 14px;">Please enter OTP and new
+										password</p>
+								</div>
+								<div class="form-group">
+									<label for="OTP">OTP</label>
+									<input type="text"
+									       class="form-control"
+										   id="otp"
+										   name="otp"
+										   [(ngModel)]="userObj.otp"
+										   #otp="ngModel"
+										   placeholder="Enter OTP"
+										   required />
+									<div *ngIf="((otp.dirty && !otp.valid)  || (!otp.valid && newPwdResetform.submitted))"
+                                     class="alert alert-danger">
+                                       <p *ngIf="otp.errors.required">OTP is required.</p>
+                                    </div> 
+								</div>
+								<div class="form-group">										
+									<label for="password">New Password:</label>
+									<input type="password"
+                                           class="form-control"
+                                           id="password"
+                                           name="password"
+                                           placeholder="Enter New Password"
+                                           [(ngModel)]="userObj.password"
+                                           #password="ngModel"
+                                           required validateEqual="confirmPassword"
+                                           reverse="true"/>
+                                    <div *ngIf="((password.dirty && !password.valid)  || (!password.valid && newPwdResetform.submitted))"
+                                     class="alert alert-danger">
+                                       <p *ngIf="password.errors.required">Password is required.</p>
+                                       <p *ngIf="!password.errors.required">Password mismatch</p>
+                                    </div>                                           	
+								</div>
+								<div class="form-group">
+									<label for="password">Confirm Password:</label> 
+									<input type="password"
+									       class="form-control"
+									       id="confirmPassword"
+                                           name="confirmPassword"
+                                           placeholder="Re-enter password"
+                                           [(ngModel)]="userObj.confirmPassword"
+                                           #confirmPassword="ngModel"
+                                           required validateEqual="password"/>
+                                <div *ngIf="((confirmPassword.dirty && !confirmPassword.valid) || (!confirmPassword.valid && newPwdResetform.submitted))"
+                                 class="alert alert-danger">
+                                    <p>Password mismatch</p>
+                                </div>
+								</div>
+
+								<div class="modal-footer">
+									<a href="#" data-dismiss="modal" (click)="closeModal($event)"
+										class="btn">Close</a>
+
+									<button type="submit" ng-disabled="newPwdResetform.$invalid"
+										class="btn btn-primary">RESET</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+

@@ -1,9 +1,0 @@
-[INFO  - 2016-09-27T21:22:45.896Z] GhostDriver - Main - running on port 60495
-[INFO  - 2016-09-27T21:22:46.144Z] Session [88b025a0-84f8-11e6-8cbd-01fec9670570] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
-[INFO  - 2016-09-27T21:22:46.144Z] Session [88b025a0-84f8-11e6-8cbd-01fec9670570] - page.customHeaders:  - {}
-[INFO  - 2016-09-27T21:22:46.144Z] Session [88b025a0-84f8-11e6-8cbd-01fec9670570] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
-[INFO  - 2016-09-27T21:22:46.145Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 88b025a0-84f8-11e6-8cbd-01fec9670570
-[ERROR - 2016-09-27T21:22:46.469Z] Session [88b025a0-84f8-11e6-8cbd-01fec9670570] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'a("body").scrollspy({target:".navbar-fixed-top",offset:51})')
-[ERROR - 2016-09-27T21:22:46.469Z] Session [88b025a0-84f8-11e6-8cbd-01fec9670570] - page.onError - stack:
-  (anonymous function) (http://localhost:52430/src/creative.min.js:6)
-[INFO  - 2016-09-27T21:22:46.714Z] ShutdownReqHand - _handle - About to shutdown
