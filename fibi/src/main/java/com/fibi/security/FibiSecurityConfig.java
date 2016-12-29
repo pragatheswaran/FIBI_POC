@@ -10,6 +10,7 @@ import javax.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
+import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.filter.CompositeFilter;
 
+import com.fibi.controllers.FibiErrorController;
 import com.fibi.service.UserService;
 
 /**
@@ -53,6 +55,9 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	AuthenticationSuccessHandler customAuthenticationSuccessHandler;
+	
+	@Autowired
+	private ErrorAttributes errorAttributes;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -171,5 +176,10 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private AuthenticationEntryPoint entryPoint() {
 		return new LoginUrlAuthenticationEntryPoint("/");
+	}
+	
+	@Bean
+	public FibiErrorController fibiErrorController() {
+		return new FibiErrorController(errorAttributes);
 	}
 }

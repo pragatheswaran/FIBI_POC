@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fibi.data.Country;
-import com.fibi.data.User;
 import com.fibi.exceptions.ApiRequestException;
 import com.fibi.exceptions.ErrorCode;
 import com.fibi.service.CountryService;
