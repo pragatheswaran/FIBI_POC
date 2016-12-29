@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-
 <title>FIBI - For Indians By Indians</title>
-
-<!-- Bootstrap Core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+</style>
 
 <!-- Custom Fonts -->
 <link href="vendor/font-awesome/css/font-awesome.min.css"
@@ -38,113 +43,106 @@
 
 <link rel="icon" href="img/FIBITransparentLogo.png">
 
-<!-- <script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
- -->
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script type="text/javascript"
 	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDTlG6RUSKEJzv3KaMWHm2heOUllDz4dzM&libraries=places&sensor=false"></script>
 
 <script src="js/angular-datepicker.js"></script>
-
 <script src="js/ngAutoComplete.js"></script>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-
 
 </head>
 
+<body ng-app="fibiApp" ng-controller="userHomeController"
+	id="userhomebody">
 
-
-<body id="page-top" ng-app="fibiApp" ng-controller="userHomeController">
-	<!-- <nav class="navbar navbar-default" role="navigation"> -->
-	<!-- <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
- -->
-	<!-- <nav id="mainNav" class="navbar navbar-inverse navbar-white navbar-fixed-top"> -->
-
-	<div ng-view></div>
-	<nav class="navbar navbar-inverse navbar-white sidebar"
-		role="navigation">
+    <div ng-view></div>
+        
+	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-">
-				<!-- <button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <i
-						class="fa fa-bars"></i>
-				</button> -->
-
-				<a class="navbar-brand" rel="home" href="#" title="fibi"> <img
-					style="max-width: 66px; margin-top: -21px; margin-left: 25%"
-					src="img/FIBITransparentLogo.png">
-				</a>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">FIBI</a>
 			</div>
-
-			<!-- <div class="collapse navbar-collapse"
-				id="bs-sidebar-navbar-collapse-1"> -->
-			<div style="margin-top: 20%;">
+			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a data-toggle="tab" href="#home"
-						ng-click="showHome()">Home<span style="font-size: 16px;"
-							class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-					<li><a data-toggle="tab" href="#profile"
-						ng-click="showProfile()">Profile<span style="font-size: 16px;"
-							class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-					<li><a data-toggle="tab" href="#messages"
-						ng-click="showMessages()">Messages<span
-							style="font-size: 16px;"
-							class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">My Communities <span class="caret"></span><span
-							style="font-size: 16px;"
-							class="pull-right hidden-xs showopacity glyphicon glyphicon-globe"></span></a>
-						<ul class="dropdown-menu forAnimate" role="menu">
-							<li><a href="#messageBoard" data-toggle="tab"
-								ng-click="showCommunityMessageBoard()">{{greeting.community}}<span
-									style="font-size: 16px;"
-									class="pull-right hidden-xs showopacity glyphicon glyphicon-menu-right"></span></a></li>
-							<!-- <li class="divider"></li>-->
-						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Services <span class="caret"></span><span
-							style="font-size: 16px;"
-							class="pull-right hidden-xs showopacity glyphicon glyphicon-heart"></span></a>
-						<ul class="dropdown-menu forAnimate" role="menu">
-							<li><a data-toggle="tab" href="#travels"
-								ng-click="showTravels()">Travel <span
-									style="font-size: 16px;"
-									class="pull-right hidden-xs showopacity glyphicon glyphicon-plane"></span></a></li>
-							<li><a data-toggle="tab" href="#apartments"
-								ng-click="showApartments()">Apartments<span
-									style="font-size: 16px;"
-									class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-							<li><a data-toggle="tab" href="#restaurants"
-								ng-click="showRestaurants()">Restaurants<span
-									style="font-size: 16px;"
-									class="pull-right hidden-xs showopacity glyphicon glyphicon-cutlery"></span></a></li>
-							<li><a data-toggle="tab" href="#events"
-								ng-click="showEvents()">Events<span style="font-size: 16px;"
-									class="pull-right hidden-xs showopacity glyphicon glyphicon-pushpin"></span></a></li>
-							<li><a data-toggle="tab" href="#useditems"
-								ng-click="showUseditems()">Used Items<span
-									style="font-size: 16px;"
-									class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
-							<!-- <li class="divider"></li>-->
-						</ul></li>
-					<li><a data-toggle="tab" href="#" ng-click="logout()">Logout<span
-							style="font-size: 16px;"
-							class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
+					<!-- <li class="active"><a href="#">Home</a></li> -->
+					<!-- <li><a href="#">Messages</a></li> -->
+				</ul>
+				<form class="navbar-form navbar-right" role="search">
+					<div class="form-group input-group">
+						<input type="text" class="form-control" placeholder="Search..">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+					</div>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span>
+							My Account</a></li> -->
+					<li><a href="#" data-toggle="tooltip" title="logout"
+						ng-click="logout()"> <span class="glyphicon glyphicon-log-out"></span>
+					</a></li>
 				</ul>
 			</div>
-			<!-- </div> -->
 		</div>
 	</nav>
-
-	<!--  <div id="page-content"> -->
-
-	<!-- <div class="container" > -->
+	
+    <!-- Modal -->
+	<div class="modal" id="UpcomingTravelSearchResultsModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Upcoming Travels</h4>
+				</div>
+				<div class="modal-body">
+					<div class="table-responsive">
+						<table class="table" border="1" id="resultsTable">
+							<thead class="thead-inverse">
+								<td>Name</td>
+								<td>Departure</td>
+								<td>Destination</td>
+								<td>Date</td>
+								<td>Flight</td>
+								<td>Weight(kgs)</td>
+								<td>Contact</td>
+							</thead>
+							<tbody ng-repeat="result in upcomingTravelSearchResult">
+								<tr>
+									<td>{{result.user.firstName}}</td>
+									<td>{{result.departureCity}}</td>
+									<td>{{result.destinationCity}}</td>
+									<td>{{result.startDate}}</td>
+									<td>{{result.flightNo}}</td>
+									<td>{{result.weight}}</td>
+									<td style="width: 16%;"><a
+										href="mailto:{{result.user.email}}?Subject=Hello%20{{result.user.firstName}}"
+										target="_top"> <!-- <img src="img/email-send-icon.png"/></a> -->
+											<img src="img/email-send-icon.png"
+											style="width: 42%; margin-left: 28%;"></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
 	<!-- Modal -->
 	<div class="modal" id="SearchResultsModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
@@ -156,17 +154,14 @@
 					<h4 class="modal-title" id="myModalLabel">Search Results</h4>
 				</div>
 				<div class="modal-body">
-					<!-- <a class="custom-close"> Result 1</a> -->
-					<!--                     <p>{{searchResult}}</p>
- -->
 					<div class="table-responsive">
 						<table class="table" border="1" id="resultsTable">
 							<thead class="thead-inverse">
 								<td>Name</td>
 								<td>Departure Date</td>
-								<td>Flight No</td>
+								<td>Flight</td>
 								<td>Weight(kgs)</td>
-								<td>Contact(Email)</td>
+								<td>Contact</td>
 							</thead>
 							<tbody ng-repeat="result in searchResult">
 								<tr>
@@ -193,276 +188,344 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal -->
- 
-	<div id="map" ng-show="showmap"></div>
-	
-	<!-- DIV CONTAINER -->
-	<header>
-		<div class="header-content">
-			<div ng-show="showhome" class="header-content-inner">
-				<div id="profilePic">
-					<img src="{{greeting.profilePic}}" alt="ProfilePicture"
-						style="width: 20%">
-				</div>
-				<br />
-				<p>Welcome {{greeting.firstName}} !</p>
-			</div>
-			<div ng-show="showprofile" class="header-content-inner">
-				<p>Profile</p>
-				<p>Coming Soon!</p>
-			</div>
-			<div ng-show="showcommunitymessageboard" class="header-content-inner">
-				<form name="form" role="form">
-					<div class="container">
-						<div class="row " style="padding-top: 40px;">
-							<!-- <h3">Messsage Board</h3> -->
-							<br />
 
-							<div class="col-md-10">
-								<div class="panel panel-info">
-									<div class="panel-heading">Message Board</div>
-									<div id="scrollBarDiv" class="pre-scrollable">
-										<div class="panel-body">
-											<ul class="media-list">
-												<li class="media"
-													ng-repeat="message in messageBoardMessages">
-													<div style="color: #202223;">
+	<div class="container text-center">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="profile-sidebar">
+					<div ng-cloak class="profile-userpic">
+						<img src="{{greeting.profilePic}}" class="img-responsive" alt="">
+					</div>
+					<div class="profile-usertitle">
+						<div ng-cloak class="profile-usertitle-name"><span ng-bind="greeting.firstName"></span></div>
+					</div>
+					<div class="profile-usermenu">
+						<ul class="nav">						   
+						    <li><a href="#"> <i class="glyphicon glyphicon-user"></i>
+									Account Settings
+							</a></li>
+							<li class="active"><a href="#" ng-click="showCommunityMessageBoard()"> <i
+									class="glyphicon glyphicon-home"></i> Message Board
+							</a></li>
+							<li><a href="#" ng-click="redirectToSearchTravel()"> <i
+									class="glyphicon glyphicon-plane"></i> Travel
+							</a></li>
+							<li><a href="#" ng-click="showRestaurants()"> <i
+									class="glyphicon glyphicon-cutlery"></i> Restaurants
+							</a></li>
+							<li><a href="#"> <i class="glyphicon glyphicon-pushpin"></i>
+									Events
+							</a></li>
+							<li><a href="#"> <i class="glyphicon glyphicon-home"></i>
+									Apartments
+							</a></li>
+							<li><a href="#"> <i class="glyphicon glyphicon-book"></i>
+									Used Items
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-7">
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="alert alert-success fade in">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+							<p>
+							 <div ng-cloak>
+                                 <strong>Welcome {{greeting.firstName}} !</strong>
+                             </div>						
+							</p>
+							
+							Good to see you!!
+						</div>
+					</div>
+				</div>
+
+				<div class="row ">
+
+					<div class="col-sm-12" ng-show="showcommunitymessageboard" >
+						<form name="form" role="form">
+							<div class="panel panel-primary" ng-cloak>
+								<div class="panel-heading">Message Board <span class="label label-warning">{{greeting.community}}</span></div>
+								<div id="scrollBarDiv" class="pre-scrollable">
+									<div class="panel-body">
+										<ul class="media-list">
+											<li class="media" ng-repeat="message in messageBoardMessages">
+												<div style="color: #202223;">
+													<div>
+														<a class="pull-left" href="#"> <img
+															class="media-object img-circle " src="img/avatarchat.png" />
+														</a>
 														<div>
-															<a class="pull-left" href="#"> <img
-																class="media-object img-circle "
-																src="img/avatarchat.png" />
-															</a>
-															<div>
-																{{message.message}} <br /> <small class="text-muted">
-																	{{message.user.firstName}} | {{message.postedDate}}</small>
-																<hr style="max-width: 500%; border-color: antiquewhite;">
-															</div>
+															{{message.message}} <br /> <small class="text-muted">
+																{{message.user.firstName}} | {{message.postedDate}}</small>
+															<hr style="max-width: 500%; border-color: antiquewhite;">
 														</div>
 													</div>
-												</li>
-											</ul>
-										</div>
+												</div>
+											</li>
+										</ul>
 									</div>
-									<div class="panel-footer">
-										<div class="input-group">
-											<input type="text" id="messageText" class="form-control"
-												ng-model="controller.postMessage"
-												placeholder="Enter Message" /> <span
-												class="input-group-btn">
-												<button class="btn btn-info"
-													ng-click="postMessage(greeting.community,greeting.userId,greeting.firstName)"
-													type="submit">Post Message</button>
-											</span>
-										</div>
+								</div>
+								<div class="panel-footer">
+									<div class="input-group">
+										<input type="text" id="messageText" class="form-control"
+											ng-model="controller.postMessage" placeholder="Enter Message" />
+										<span class="input-group-btn">
+											<button class="btn btn-info"
+												ng-click="postMessage(greeting.community,greeting.userId,greeting.firstName)"
+												type="submit">Post Message</button>
+										</span>
 									</div>
 								</div>
 							</div>
+						</form>
+					</div>
+					
+					<!-- Travel -->
+					<div class="col-sm-12" ng-show="showtravels">
+						<div>
+							<p>Choose your option</p>
+							<form name="form" role="form">
+								<button type="submit" ng-click="redirectToSearchTravel()"
+									class="btn btn-primary">Travellers</button>
+								<button type="submit" ng-click="redirectToTravelDetails()"
+									class="btn btn-primary">I'm Travelling</button>
+							</form>
 						</div>
 					</div>
-				</form>
-			</div>
 
-			<div ng-show="showtravels" class="header-content-inner">
-				<div>
-					<p>Choose your option</p>
-					<form name="form" role="form">
-						<button type="submit" ng-click="redirectToSearchTravel()"
-							class="btn btn-primary">Travellers</button>
-						<button type="submit" ng-click="redirectToTravelDetails()"
-							class="btn btn-primary">I'm Travelling</button>
-					</form>
-				</div>
-			</div>
-			<div ng-show="showmessages" class="header-content-inner">
-				<p>Messages</p>
-				<p>Coming Soon!</p>
-			</div>
-			<div ng-show="showapartments" class="header-content-inner">
-				<p>Apartments</p>
-				<p>Coming Soon!</p>
-			</div>
-		    <div ng-show="showrestaurants" class="header-content-inner">
-				<div class="button_box2">
-					<form class="form-wrapper-2 cf">
-						<input type="text" placeholder="City name" id="Autocomplete"
-							class="form-control" ng-autocomplete="result1" details="details1"
-							options="options1" required>
-						<button type="submit" ng-click="getRestaurants()">Locate</button>
-					</form>
-				</div>
-			</div>
-			<div ng-show="showevents" class="header-content-inner">
-				<p>Events</p>
-				<p>Coming Soon!</p>
-			</div>
-			<div ng-show="showuseditems" class="header-content-inner">
-				<p>Used Items</p>
-				<p>Coming Soon!</p>
-			</div>
-
-			<div ng-show="showSearchTravel" class="header-content-inner">
-				<div>
-					<form name="form" role="form">
-						<div id="home-content">
-							<section id="js-search-controls-container"
-								class="search-controls   opaque-on-desktop">
-								<form class="clearfix">
-									<section class="traditional-search clearfix">
-										<h3>Search Travellers</h3>
-										<div id="js-places" class="search-controls-places clearfix">
-											<div class="origin-place" style="direction: ltr;">
-												<label for="js-origin-input" class="place-label">From</label>
-												<input type="text" id="js-origin-input"
-													placeholder="Enter departure airport"
-													ng-model="controller.searchDetails.from" tabindex="1"
-													autocomplete="off" autocorrect="off" autocapitalize="off"
-													spellcheck="false" class="tt-input" dir="auto"
-													style="position: relative; vertical-align: top;">
-												<pre aria-hidden="true"
-													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
-												<span class="tt-dropdown-menu"
-													style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
-														class="tt-dataset-origin"></div></span>
-											</div>
-											<button type="button" ng-click="swapLocations()"
-												id="js-places-toggle" class="swap-button"
-												title="Click here to swap locations">
-												<span class="visuallyhidden">Click here to swap
-													locations</span>
-											</button>
-											<div class="destination-place" style="direction: ltr;">
-												<label for="js-destination-input" class="place-label">To</label>
-												<input type="text" id="js-destination-input"
-													placeholder="Enter destination airport"
-													ng-model="controller.searchDetails.to" tabindex="1"
-													autocomplete="off" autocorrect="off" autocapitalize="off"
-													spellcheck="false" class="tt-input" dir="auto"
-													style="position: relative; vertical-align: top;">
-												<pre aria-hidden="true"
-													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
-												<span class="tt-dropdown-menu"
-													style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
-														class="tt-dataset-destination"></div></span>
-											</div>
-											<div class="origin-place" style="direction: ltr;">
-												<label for="js-origin-input" class="place-label">Start
-													Date</label>
-												<datepicker date-format="MMMM d, y"> <input
-													type="text" placeholder="Enter start date"
-													ng-model="controller.searchDetails.startDate"
-													id="js-destination-input" tabindex="1" autocomplete="off"
-													autocorrect="off" autocapitalize="off" spellcheck="false"
-													class="tt-input" dir="auto"
-													style="position: relative; vertical-align: top;" /> </datepicker>
-												<pre aria-hidden="true"
-													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
-												<span class="tt-dropdown-menu"
-													style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
-														class="tt-dataset-origin"></div></span>
-											</div>
-											<div class="destination-place" style="direction: ltr;">
-												<label for="js-destination-input" class="place-label">End
-													Date</label>
-												<datepicker date-format="MMMM d, y"> <input
-													type="text" ng-model="controller.searchDetails.endDate"
-													placeholder="Enter end date" id="js-destination-input"
-													tabindex="1" autocomplete="off" autocorrect="off"
-													autocapitalize="off" spellcheck="false" class="tt-input"
-													dir="auto" style="position: relative; vertical-align: top;" />
-												</datepicker>
-												<pre aria-hidden="true"
-													style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
-												<span class="tt-dropdown-menu"
-													style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
-														class="tt-dataset-origin"></div></span>
-											</div>
-										</div>
-										<button class="btn btn-primary" tabindex="1"
-											data-toggle="modal" data-target="#SearchResultsModal"
-											ng-click="searchTravellers()">
-											<span class="wc-button-point" role="presentation"
-												aria-hidden="true"></span> <span class="wc-button-text">Search</span>
-										</button>
+					<div class="col-sm-12" ng-show="showSearchTravel">
+						<div>
+							<form name="form" role="form">
+								<div id="home-content">
+									<section id="js-search-controls-container"
+										class="search-controls   opaque-on-desktop">
+										<form class="clearfix">
+											<section class="traditional-search clearfix">
+												<h3>Search Travellers</h3>
+												<div id="js-places" class="search-controls-places clearfix">
+													<div class="origin-place" style="direction: ltr;">
+														<label for="js-origin-input" class="place-label">From</label>
+														<input type="text" id="js-origin-input"
+															placeholder="Departure place"
+															ng-model="controller.searchDetails.from" tabindex="1"
+															autocomplete="off" autocorrect="off" autocapitalize="off"
+															spellcheck="false" class="tt-input" dir="auto"
+															style="position: relative; vertical-align: top;"
+															ng-autocomplete="deptAirport" details="deptAirportDetails1" options="options1">
+														<pre aria-hidden="true"
+															style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+														<span class="tt-dropdown-menu"
+															style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
+																class="tt-dataset-origin"></div></span>
+													</div>
+													<button type="button" ng-click="swapLocations()"
+														id="js-places-toggle" class="swap-button"
+														title="Click here to swap locations">
+														<span class="visuallyhidden">Click here to swap
+															locations</span>
+													</button>
+													<div class="destination-place" style="direction: ltr;">
+														<label for="js-destination-input" class="place-label">To</label>
+														<input type="text" id="js-destination-input"
+															placeholder="Destination place"
+															ng-model="controller.searchDetails.to" tabindex="1"
+															autocomplete="off" autocorrect="off" autocapitalize="off"
+															spellcheck="false" class="tt-input" dir="auto"
+															style="position: relative; vertical-align: top;"
+															ng-autocomplete="destAirport" details="destAirportDetails1" options="options1">
+														<pre aria-hidden="true"
+															style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+														<span class="tt-dropdown-menu"
+															style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
+																class="tt-dataset-destination"></div></span>
+													</div>
+													<div class="origin-place" style="direction: ltr;">
+														<label for="js-origin-input" class="place-label">Start
+															Date</label>
+														<datepicker date-format="MMMM d, y"> <input
+															type="text" placeholder="Start date"
+															ng-model="controller.searchDetails.startDate"
+															id="js-destination-input" tabindex="1" autocomplete="off"
+															autocorrect="off" autocapitalize="off" spellcheck="false"
+															class="tt-input" dir="auto"
+															style="position: relative; vertical-align: top;" /> </datepicker>
+														<pre aria-hidden="true"
+															style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+														<span class="tt-dropdown-menu"
+															style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
+																class="tt-dataset-origin"></div></span>
+													</div>
+													<div class="destination-place" style="direction: ltr;">
+														<label for="js-destination-input" class="place-label">End
+															Date</label>
+														<datepicker date-format="MMMM d, y"> <input
+															type="text" ng-model="controller.searchDetails.endDate"
+															placeholder="End date" id="js-destination-input"
+															tabindex="1" autocomplete="off" autocorrect="off"
+															autocapitalize="off" spellcheck="false" class="tt-input"
+															dir="auto"
+															style="position: relative; vertical-align: top;" /> </datepicker>
+														<pre aria-hidden="true"
+															style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont,&amp; amp; amp; amp; amp; quot; Segoe UI&amp;amp; amp; amp; amp; quot; , Roboto , Oxygen, Ubuntu, Cantarell, &amp;amp; amp; amp; amp; quot; Fira Sans&amp;amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; quot; Droid Sans&amp;amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; quot; Helvetica Neue&amp;amp; amp; amp; amp; quot; , Arial , sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+														<span class="tt-dropdown-menu"
+															style="position: absolute; left: 0px; z-index: 100; display: none; right: auto;"><div
+																class="tt-dataset-origin"></div></span>
+													</div>
+												</div>
+												<button class="btn btn-primary" tabindex="1"
+													data-toggle="modal" data-target="#SearchResultsModal"
+													ng-click="searchTravellers()">
+													<span class="wc-button-point" role="presentation"
+														aria-hidden="true"></span> <span class="wc-button-text">Search</span>
+												</button>
+												<button type="submit" ng-click="redirectToTravelDetails()"
+													class="btn btn-primary">Are you travelling ?</button>
+											</section>
+										</form>
 									</section>
-								</form>
-							</section>
+								</div>
+							</form>
 						</div>
-					</form>
+					</div>
+
+                  
+					<div class="col-sm-12" ng-show="showImTravelling">
+						<div id="travelDetailsDiv">
+							<div class="alert alert-success"
+								ng-show="travelDetailsStoreSuccess">
+								<strong>Success!</strong> Travel details added successfully.
+							</div>
+
+							<form name="form" role="form">
+								<fieldset>
+									<legend>Travel Details</legend>
+									<div class="form-group">
+										<label for="from">From:</label> <input type="text"
+											class="form-control" id="from" name="from"
+											ng-model="controller.travelDetails.from"
+											placeholder="Departure City" ng-required="true" 
+											ng-autocomplete="deptAirport" details="deptAirportDetails2" options="options1"/>
+									</div>
+									<div class="form-group">
+										<label for="to">To:</label> <input type="text"
+											class="form-control" id="to" name="to"
+											ng-model="controller.travelDetails.to"
+											placeholder="Destination City" ng-required="true"
+											ng-autocomplete="destAirport" details="destAirportDetails2" options="options1" />
+									</div>
+									<div class="form-group">
+										<label for="country">Departure Date:</label> <input
+											type="datetime-local" class="form-control" id="datetime"
+											name="datetime" placeholder="Date of Departure"
+											ng-model="controller.travelDetails.datetime" />
+									</div>
+
+									<div class="form-group">
+										<label for="flightNo">Flight No:</label> <input type="text"
+											class="form-control" id="flightNo" name="flightNo"
+											placeholder="Flight No"
+											ng-model="controller.travelDetails.flightNo" />
+									</div>
+									<div class="form-group">
+										<label for="weight">Weight you can carry:</label> <input
+											type="text" class="form-control" id="weight" name="weight"
+											placeholder="Weight in kgs"
+											ng-model="controller.travelDetails.weight" />
+									</div>
+
+								</fieldset>
+								<button ng-disabled="form.$invalid" class="btn btn-primary"
+									ng-click="saveTravelDetails()">Submit</button>
+								<!-- <button type="button" ng-click="redirectToHome()" class="btn btn-primary">Home</button> -->
+							</form>
+
+						</div>
+					</div>
+					
+					<!-- Restaurants -->
+					<div class="col-sm-12" ng-show="showrestaurants">
+					 <div class="button_box2">
+						<form class="form-wrapper-2 cf">
+							<input type="text" placeholder="City name" id="Autocomplete" 
+								class="form-control" ng-model="restaurantCityName"
+								ng-autocomplete="result1" details="details1" options="options1" required>
+							<button type="submit" ng-click="getRestaurants()">Locate</button>
+						</form>
+					 </div>
+					</div>
+					
+					<div class="col-sm-12" id="map" ng-show="showmap">  </div>
+					
 				</div>
 			</div>
-
-			<div ng-show="showImTravelling" class="header-content-inner">
-				<div id="travelDetailsDiv">
-					<form name="form" role="form">
-						<fieldset>
-							<legend>Travel Details</legend>
-							<div class="form-group">
-								<label for="from">From:</label> <input type="text"
-									class="form-control" id="from" name="from"
-									ng-model="controller.travelDetails.from"
-									placeholder="Departure City" ng-required="true" />
-							</div>
-							<div class="form-group">
-								<label for="to">To:</label> <input type="text"
-									class="form-control" id="to" name="to"
-									ng-model="controller.travelDetails.to"
-									placeholder="Destination City" ng-required="true" />
-							</div>
-							<div class="form-group">
-								<label for="country">Departure Date:</label> <input
-									type="datetime-local" class="form-control" id="datetime"
-									name="datetime" placeholder="Date of Departure"
-									ng-model="controller.travelDetails.datetime" />
-							</div>
-
-							<div class="form-group">
-								<label for="flightNo">Flight No:</label> <input type="text"
-									class="form-control" id="flightNo" name="flightNo"
-									placeholder="Flight No"
-									ng-model="controller.travelDetails.flightNo" />
-							</div>
-							<div class="form-group">
-								<label for="weight">Weight you can carry:</label> <input
-									type="text" class="form-control" id="weight" name="weight"
-									placeholder="Weight in kgs"
-									ng-model="controller.travelDetails.weight" />
-							</div>
-
-						</fieldset>
-						<button ng-disabled="form.$invalid" class="btn btn-primary"
-							ng-click="saveTravelDetails()">Submit</button>
-						<!-- <button type="button" ng-click="redirectToHome()" class="btn btn-primary">Home</button> -->
-					</form>
-
+			<div class="col-sm-2">
+			  <!-- <div class="affix"> -->
+				<div class="panel panel-primary">
+					<div class="panel-heading">Upcoming Travels</div>
+					<div class="panel-body" ng-repeat="result in upcomingTravelSearchResult | limitTo:1" ng-cloak>
+					    <strong>{{result.user.firstName}}</strong> will be travelling shortly.
+					    <hr>
+					     <button class="btn btn-primary" tabindex="1"
+													data-toggle="modal" data-target="#UpcomingTravelSearchResultsModal"
+													ng-click="searchTravellers()">
+													<span class="wc-button-point" role="presentation"
+														aria-hidden="true"></span> <span class="wc-button-text">More Info</span>
+						</button>
+					</div>
+					<div class="panel-body" ng-show="!upcomingTravelSearchResult.length">
+					    <strong>No travels registered in next three months</strong>
+					    <hr>
+					     <button class="btn btn-primary" tabindex="1"
+													data-toggle="modal" data-target="#UpcomingTravelSearchResultsModal"
+													ng-click="searchTravellers()">
+													<span class="wc-button-point" role="presentation"
+														aria-hidden="true"></span> <span class="wc-button-text">More Info</span>
+						</button>
+					</div>
+					<div class="panel-footer"></div>
 				</div>
 			</div>
+			<div class="col-sm-2">
+			  <!--  <div class="affix"> -->
+				<div class="panel panel-primary">
+					<div class="panel-heading">Upcoming Events</div>
+					<div class="panel-body">
+						<p>27th December 2016</p>
+						<button class="btn btn-primary">Info</button>
+					</div>
+					<div class="panel-footer"></div>
+				</div>
+			</div>
+			</div>
+		<footer class="container-fluid text-center">
+			<p>Copyright © 2016 FIBI</p>
+		</footer>
+		
 		</div>
-	</header>
+       
+		<!-- jQuery -->
+		<script src="vendor/jquery/jquery.min.js"></script>
 
-	<!-- </div> -->
+		<!-- Bootstrap Core JavaScript -->
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-	<!-- jQuery -->
-	<script src="vendor/jquery/jquery.min.js"></script>
+		<!-- Plugin JavaScript -->
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+		<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+		<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!-- Theme JavaScript -->
+		<script src="js/creative.min.js"></script>
 
-	<!-- Plugin JavaScript -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-	<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+		<script src="js/angular-bootstrap.js" type="text/javascript"></script>
+		<!-- FIBI Js -->
+		<script src="js/fibiApp.js"></script>
 
-	<!-- Theme JavaScript -->
-	<script src="js/creative.min.js"></script>
-
-	<script src="js/angular-bootstrap.js" type="text/javascript"></script>
-	<!-- FIBI Js -->
-	<script src="js/fibiApp.js"></script>
-
-	<script type="text/javascript" src="js/ngprogress.js"></script>
-
+		<script type="text/javascript" src="js/ngprogress.js"></script>
 </body>
-
 </html>

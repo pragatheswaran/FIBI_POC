@@ -1,6 +1,6 @@
 ---
 applications:
-- name: fibi
+- name: fibi_new
   memory: 1024M
   buildpack: java_buildpack
   domain: cfapps.io

@@ -50,8 +50,10 @@ public class TravelServiceImpl implements TravelService {
 		try {
 			// TODO
 			Query query = new Query();
-			query.addCriteria(Criteria.where("departureCity").is(departureCity));
-			query.addCriteria(Criteria.where("destinationCity").is(destinationCity));
+			if(departureCity!=null && departureCity.length() > 0)
+			  query.addCriteria(Criteria.where("departureCity").is(departureCity));
+			if(destinationCity!=null && destinationCity.length() > 0 )
+			  query.addCriteria(Criteria.where("destinationCity").is(destinationCity));
 			query.addCriteria(Criteria.where("startDate").gte(startDate).lt(endDate));
 
 			query.with(new Sort(Sort.Direction.ASC, "startDate"));

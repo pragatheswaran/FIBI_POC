@@ -1253,7 +1253,8 @@ keyframes ls-spin { 100%{
 }
 
 .search-controls .traditional-search {
-	clear: left
+	clear: left;
+	padding: 0px;
 }
 
 .search-controls .prefer-directs {

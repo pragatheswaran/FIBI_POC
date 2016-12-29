@@ -10,6 +10,29 @@ angular.isUndefinedOrNull = function(val) {
     return angular.isUndefined(val) || val === null 
 }
 
+function getAirports() {
+	alert("airports");
+	map = new google.maps.Map(document.getElementById('map'), {
+	    center: {lat: 13.0827, lng: 80.2707},
+	    zoom: 10
+	   });
+	var testloc = {lat: 13.0827, lng: 80.2707};
+	var service = new google.maps.places.PlacesService(map);
+	service.nearbySearch({
+	    location: testloc,
+	    radius: 1000000,
+	    type: ['airport']
+	  }, airportsCallback);
+}
+
+function airportsCallback(results, status) {
+	  if (status === google.maps.places.PlacesServiceStatus.OK) {
+	    for (var i = 0; i < results.length; i++) {
+	      alert(results[i].name);
+	    }
+	  }	   
+	}
+
 
 function initDefaultMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -233,11 +256,32 @@ var compareTo = function() {
 	 $scope.showSearchTravel = false;
 	 $scope.showImTravelling = false;
 	 $scope.showmap = false;
+	 $scope.travelDetailsStoreSuccess = false;
 	 
 	 $scope.result1 = '';   
 	 $scope.options1 = null;
 	 $scope.details1 = '';
-
+	 
+	 $scope.deptAirportDetails1 = '';
+	 $scope.deptAirportResults1 = '';
+	 $scope.deptAirportDetails2 = '';
+	 $scope.deptAirportResults2 = '';
+	 
+	 $scope.destAirportDetails1 = '';
+	 $scope.destAirportResults1 = '';
+	 $scope.destAirportDetails2 = '';
+	 $scope.destAirportResults2 = '';
+	 
+	 //$scope.showupcomingtravel = false;
+	 /*$scope.airport = {
+		      country: 'IN',
+		      types: 'airport'
+     };*/
+	 
+	 /*$scope.airport = {
+		      types: '(address)'
+    };*/
+	 
 	 $scope.progressbar = ngProgressFactory.createInstance();
 	 
 	 // Search Restaurants
@@ -248,12 +292,14 @@ var compareTo = function() {
 			$scope.progressbar.start();	
 		    handleGeoLocation($scope.details1.geometry.location);
 		    $scope.progressbar.complete();
+		    //$scope.showrestaurants = false;
 		    $scope.showmap = true;
 		 }		 
 	}
 	 
 	 $http.get('users/resource/').then(function(response) {
 			$scope.greeting = response.data;
+			$scope.showCommunityMessageBoard();
 		})
 	
 	 $scope.logout = function() {
@@ -348,9 +394,11 @@ var compareTo = function() {
 	 }
 	 
 	 $scope.showCommunityMessageBoard = function() {
-		  
-		 var communityCode = $scope.greeting.community;
+		
+		 $scope.searchUpcomingTravellers(); 
 		 
+		 var communityCode = $scope.greeting.community;
+		
 	     var request = $http({
 	          method: "GET",
 	          url: 'messageBoard/community/'+communityCode,
@@ -424,6 +472,7 @@ var compareTo = function() {
 		 $scope.showSearchTravel = false;
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = false;
+		 $scope.restaurantCityName = "";
 		 //$scope.showmap = true;
 		 //initDefaultMap();
 		 // currentLocationMap();
@@ -490,6 +539,7 @@ var compareTo = function() {
 		 $scope.showImTravelling = true;
 		 $scope.showcommunitymessageboard = false;
 		 $scope.showmap = false;
+		 $scope.travelDetailsStoreSuccess = false;
 	 }
 	 	 
 	 $scope.swapLocations = function() {
@@ -497,11 +547,49 @@ var compareTo = function() {
          $scope.controller.searchDetails.from = $scope.controller.searchDetails.to;
          $scope.controller.searchDetails.to = from; 
 	 }
+	 
+	 $scope.searchUpcomingTravellers = function() {
+		 
+		 var startDate = new Date();
+		 var offset = 3;
+		 var endDate = new Date();
+		 endDate.setMonth(startDate.getMonth() + offset);
+		 var startDate = $filter('date')(new Date(startDate),'yyyy-MM-dd HH:mm');
+         var endDate = $filter('date')(new Date(endDate),'yyyy-MM-dd HH:mm');
+         		 
+		 var request = $http({
+	          method: "GET",
+	          headers: {
+		            	'Content-Type': 'application/json'
+		            },
+	          url: 'travels/search',
+	          params: {
+	         	 departureCity: "",
+	         	 destinationCity: "",
+	         	 startDate: startDate,
+	         	 endDate: endDate
+		         },
+	          cache: false
+	      });
+	        
+	      request.success(function(data,status) {
+	     	  console.log("Search success");
+	     	  $scope.upcomingTravelSearchResult = data;
+	     	  //$scope.showupcomingtravel = true;
+	       })
+	       request.error(function(data, status, headers, config) {
+	           console.log("Search failure");
+	        }) 
+	 }
 	 	 
 	 $scope.searchTravellers = function(searchDetails) {
 		 
-	     var from = $scope.controller.searchDetails.from;
+/*	     var from = $scope.controller.searchDetails.from;
 	     var to = $scope.controller.searchDetails.to;
+*/	     
+	     var from =$scope.deptAirportDetails1.formatted_address;
+	     var to = $scope.destAirportDetails1.formatted_address;
+	     
          var startDate = $scope.controller.searchDetails.startDate; 
          var endDate = $scope.controller.searchDetails.endDate;
 		       
@@ -529,18 +617,23 @@ var compareTo = function() {
 	     	  console.log("Search success");
 	     	  $scope.progressbar.complete();
 	     	  $scope.searchResult = data;
-	     	  // self.searchResult = data;
+	     	  $scope.resetSearchTravelDetails();
 	       })
 	       request.error(function(data, status, headers, config) {
 	           console.log("Search failure");
 	           $scope.progressbar.complete();
+	           $scope.resetSearchTravelDetails();
 	        })
 		}
 	 
 	 
 		$scope.saveTravelDetails = function(travelDetails) {
-			   var from = $scope.controller.travelDetails.from;
-		       var to = $scope.controller.travelDetails.to;
+
+			   $scope.travelDetailsStoreSuccess = false;
+			 
+		       var from = $scope.deptAirportDetails2.formatted_address;
+		       var to = $scope.destAirportDetails2.formatted_address;
+
 		       var datetime = $scope.controller.travelDetails.datetime;
 		       var flightNo = $scope.controller.travelDetails.flightNo;
 		       var weight = $scope.controller.travelDetails.weight;
@@ -567,17 +660,30 @@ var compareTo = function() {
 	           
 	           request.success(function(data,status) {
 	        	   console.log("Travel details saved successfully");
-	        	   alert("Travel details successfully");
-	        	   // $rootScope.saveSuccess = true;
+	        	   $scope.travelDetailsStoreSuccess = true;
 	        	   $scope.progressbar.complete();
-	        	   // $location.path("/travel");
+	        	   $scope.resetSavedTravelDetails();
 	           })
 	           request.error(function(data, status, headers, config) {
 	        	   console.log("Unable to save travel details");
-	        	   // $rootScope.saveSuccess = false;
+	        	   $scope.travelDetailsStoreSuccess = false;
 	        	   $scope.progressbar.complete();
-	        	   // $rootScope.error = true;
 	           })
+		}
+		
+		$scope.resetSavedTravelDetails = function() {
+		   $scope.controller.travelDetails.from = "";
+		   $scope.controller.travelDetails.to = "";
+     	   $scope.controller.travelDetails.datetime = "";
+     	   $scope.controller.travelDetails.flightNo = "";
+     	   $scope.controller.travelDetails.weight = "";
+		}
+		
+		$scope.resetSearchTravelDetails = function() {
+		   $scope.controller.searchDetails.from = "";
+		   $scope.controller.searchDetails.to = "";
+	       $scope.controller.searchDetails.startDate = "";
+	       $scope.controller.searchDetails.endDate = "";
 		}
 
  });
@@ -837,4 +943,14 @@ $(document).ready(function () {
 
 
     });
+    
+    $('.nav li').click(function(e) {
+        e.preventDefault()
+
+        $that = $(this);
+
+        $that.parent().find('li').removeClass('active');
+        $that.addClass('active');
+    });
+   
 });
