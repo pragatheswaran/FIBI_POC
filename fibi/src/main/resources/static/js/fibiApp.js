@@ -693,31 +693,37 @@ var compareTo = function() {
 app.controller('homeController', function($http, $scope, $rootScope, $window,
 		$location, ngProgressFactory) {
 	var self = this;
-	
+
+	$http.get('users/resource/').then(function(response) {
+		if (!angular.isUndefinedOrNull(response.data.community)) {
+			$window.location = "/fibi/userhome.html";
+		}
+	});
+
 	$scope.progressbar = ngProgressFactory.createInstance();
 	
 	$scope.otpEmailDetails = true;
 
 	$scope.closeModal = function() {
-		$window.location.reload();		
+		$window.location.reload();
 	}
-	
-/*
- * $(function(){ // let all dom elements are loaded
- * $('#loginModal').on('hide.bs.modal', function (e) { alert('event fired') });
- * });
- */	
+
+	/*
+	 * $(function(){ // let all dom elements are loaded
+	 * $('#loginModal').on('hide.bs.modal', function (e) { alert('event fired') });
+	 * });
+	 */
 	// $('#loginModal').modal('show');
-	
-/*
- * $('#loginModal').on('hide',function(e){ if(!confirm('You want to close me?'))
- * e.preventDefault(); });
- */	
-/*
- * $('#loginModal').on('hidden.bs.modal', function () { alert("test"); })
- * 
- * $('#loginModal').on('hidden', function () { alert("test"); })
- */	
+
+	/*
+	 * $('#loginModal').on('hide',function(e){ if(!confirm('You want to close me?'))
+	 * e.preventDefault(); });
+	 */
+	/*
+	 * $('#loginModal').on('hidden.bs.modal', function () { alert("test"); })
+	 * 
+	 * $('#loginModal').on('hidden', function () { alert("test"); })
+	 */
 	$http.get('countries/names').success(function (data) {
         $scope.countries = data;            
     })
@@ -761,6 +767,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 
 		request.success(function(data, status) {
 			console.log("OTP sent successfully");
+			$scope.credentials.password = "";
 			$scope.otp_success = true;
 			$scope.progressbar.complete();
 			$scope.passwordResetDetails = true;
@@ -944,7 +951,7 @@ $(document).ready(function () {
 
     });
     
-    $('.nav li').click(function(e) {
+    $('.profile-usermenu .nav li').click(function(e) {
         e.preventDefault()
 
         $that = $(this);

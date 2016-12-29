@@ -170,6 +170,6 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	private AuthenticationEntryPoint entryPoint() {
-		return new LoginUrlAuthenticationEntryPoint("/login.html");
+		return new LoginUrlAuthenticationEntryPoint("/");
 	}
 }
