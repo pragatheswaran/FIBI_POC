@@ -1,0 +1,381 @@
+
+ 	<div class="modal fade" id="pwdResetModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div id="myTabContent" class="tab-content">
+						<fieldset>
+							<legend>Reset Password</legend>
+						</fieldset>
+						<div class="tab-pane fade active in" id="pwdReset"
+							ng-show="otpEmailDetails">
+							<form name="pwdResetform" role="form" id="pwdReset"
+								ng-submit="validateAndSendOTP()">
+								<div class="alert alert-danger" ng-show="invalid_email">
+									<strong>Oops! </strong> Email is not registered. Try with a
+									valid one!
+								</div>
+								<div class="alert alert-success" ng-show="otp_success">
+									<strong>OTP sent successfully!</strong>
+								</div>
+								<div align="center">
+									<p style="font-size: 14px;">Please enter your email address
+										& we will send a confirmation code</p>
+								</div>
+								<div class="form-group">
+									<label for="username">Email address</label> <input
+										class="form-control" id="username"
+										ng-model="credentials.username" ng-required="true"
+										placeholder="Enter email" type="email">
+								</div>
+
+								<div class="modal-footer">
+									<!-- <a href="#" data-dismiss="modal" ng-click="closeModal()"
+										class="btn">Close</a> -->
+									<a href="#" data-dismiss="modal" ng-click="closeModal()"
+										class="btn">Close</a>
+
+									<button type="submit" ng-disabled="pwdResetform.$invalid"
+										class="btn btn-primary">Next</button>
+								</div>
+							</form>
+						</div>
+
+						<div id="newPwdReset" ng-show="passwordResetDetails">
+							<form name="newPwdResetform" role="form" id="newPwdReset"
+								ng-submit="resetUserPassword()">
+								<div class="alert alert-danger" ng-show="invalid_otp">
+									<strong>Oops! </strong> Invalid OTP!
+								</div>
+								<div class="alert alert-success" ng-show="reset_success">
+									<strong>Password has been reset successfully!</strong>
+								</div>
+								<div align="center">
+									<p style="font-size: 14px;">Please enter OTP and new
+										password</p>
+								</div>
+								<div class="form-group">
+									<label for="OTP">OTP</label> <input class="form-control"
+										id="otp" ng-model="credentials.otp" ng-required="true"
+										placeholder="Enter OTP">
+								</div>
+								<div class="form-group">
+									<label for="password">New Password:</label> <input
+										type="password" class="form-control" id="password"
+										name="password" placeholder="Enter New Password"
+										ng-model="credentials.password" ng-required="true" />
+								</div>
+								<div class="form-group">
+									<label for="password">Confirm Password:</label> <input
+										type="password" class="form-control" id="confirmPassword"
+										name="password" ng-model="credentials.confirmPassword"
+										placeholder="Re-Enter New Password" ng-required="true"
+										compare-to="credentials.password" />
+									<!-- ng-required="true" /> -->
+								</div>
+
+								<div class="modal-footer">
+									<!-- <a href="#" data-dismiss="modal" ng-click="closeModal()"
+										class="btn">Close</a> -->
+									<a href="#" data-dismiss="modal" ng-click="closeModal()"
+										class="btn">Close</a>
+
+									<button type="submit" ng-disabled="newPwdResetform.$invalid"
+										class="btn btn-primary">RESET</button>
+								</div>
+							</form>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="tabs">
+					<ul id="loginTab" class="nav nav-tabs">
+						<li class="active"><a href="" data-target="#login" data-toggle="tab">Login</a></li>
+						<li class=""><a href="" data-target="#signup" data-toggle="tab">Register</a></li>
+					</ul>
+				</div>
+				<div class="modal-body">
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane fade active in" id="login">
+							<div id="ssoLoginWrapper" style="width: 100%; margin-left: 30%;">
+								<div id="fbLoginDiv">
+									<a target="_self" href="login/facebook"><img src="img/loginwithfb.jpg"
+										style="width: 42%;"></a>
+								</div>
+								<div id="googleLoginDiv">
+									<a target="_self" href="login/google"><img src="img/loginwithgoogle.png"
+										style="width: 42%;"></a>
+								</div>
+							</div>
+
+							<div class="modal-footer"></div>
+
+							<form name="loginform" role="form" id="login" ng-submit="login()"">
+								<div class="alert alert-danger" ng-show="login_error">
+									<strong>Oops! </strong>There was a problem while logging in.
+									Please try again with correct credentials
+								</div>
+								<div class="alert alert-success" ng-show="login_success">
+									<strong>Login Success!</strong>
+								</div>
+								<div class="form-group">
+									<label for="username">Email address</label> <input
+										class="form-control" id="username"
+										ng-model="credentials.username" ng-required="true"
+										placeholder="Enter email" type="email">
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label> <input
+										class="form-control" id="password"
+										ng-model="credentials.password" ng-required="true"
+										placeholder="Enter password" type="password">
+								</div>
+								<p class="text-right">
+									<!-- <a href="#">Trouble logging in?</a> -->
+									<a href="#pwdResetModal" data-dismiss="modal"
+										data-toggle="modal" data-target="#pwdResetModal">Trouble
+										logging in?</a>
+								</p>
+								<div class="modal-footer">
+									<!-- <a href="#" data-dismiss="modal" ng-click="closeModal()"
+										class="btn">Close</a> -->
+									<a href="#" data-dismiss="modal" ng-click="closeModal()"
+										class="btn">Close</a>
+
+									<button type="submit" ng-disabled="loginform.$invalid"
+										class="btn btn-primary">Login</button>
+								</div>
+							</form>
+						</div>
+
+						<div class="tab-pane fade" id="signup">
+							<form role="form" name="signupform" id="signup"
+								ng-submit="signup()"">
+								<div class="alert alert-danger" ng-show="signup_error">
+									<strong>Oops! </strong>There was a problem while signing up.
+									Please try again
+								</div>
+								<div class="alert alert-success" ng-show="signup_success">
+									<strong>Registration Success!</strong> Please check your mail
+									and confirm your registration
+								</div>
+								<!-- <div class="modal-body"> -->
+								<div class="form-group">
+									<label for="email">Email:</label> <input type="email"
+										class="form-control" id="email" name="email"
+										ng-model="controller.signup.email" ng-required="true" />
+								</div>
+								<div class="form-group">
+									<label for="firstName">First Name:</label> <input type="text"
+										class="form-control" id="firstName" name="firstName"
+										ng-model="controller.signup.firstName" ng-required="true" />
+								</div>
+								<div class="form-group">
+									<label for="lastName">Last Name:</label> <input type="text"
+										class="form-control" id="lastName" name="lastName"
+										ng-model="controller.signup.lastName" />
+								</div>
+								<div class="form-group">
+									<label for="country">Country:</label> <select
+										class="form-control" ng-model="controller.signup.country"
+										ng-options="country as country.name for country in countries"
+										ng-required="true" ng-change="updateCities()">
+										<option value="">Select Country</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="city">City:</label> <select class="form-control"
+										ng-model="controller.signup.city"
+										ng-options="city as city for city in cities"
+										ng-required="true">
+										<option value="">Select City</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="password">Password:</label> <input type="password"
+										class="form-control" id="password" name="password"
+										ng-model="controller.signup.password" ng-required="true" />
+								</div>
+								<div class="form-group">
+									<label for="password">Confirm Password:</label> <input
+										type="password" class="form-control" id="confirmPassword"
+										name="password" ng-model="controller.signup.confirmPassword"
+										ng-required="true" compare-to="controller.signup.password" />
+
+								</div>
+								<div class="modal-footer">
+									<a href="#" data-dismiss="modal" ng-click="closeModal()"
+										class="btn">Close</a>
+									<button type="submit" ng-disabled="signupform.$invalid"
+										class="btn btn-primary">Register</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- <nav class="navbar navbar-default" role="navigation"> -->
+	<nav id="mainNav"
+		class="navbar navbar-inverse navbar-white navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> Menu <i
+						class="fa fa-bars"></i>
+				</button>
+
+				<a class="navbar-brand" rel="home" href="#" title="fibi"> <img
+					style="max-width: 62px; margin-top: -18px;"
+					src="img/FIBITransparentLogo.png">
+				</a>
+			</div>
+
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a data-toggle="tab" class="page-scroll" href="#about">About</a></li>
+					<li><a data-toggle="tab" class="page-scroll" href="#services">Services</a></li>
+					<li><a data-toggle="tab" class="page-scroll" href="#contact">Contact
+							us</a></li>
+					<li tabindex="1"><a href="#loginModal" data-toggle="modal"
+						data-target="#loginModal">Login/Register</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<header>
+		<div class="header-content">
+			<div class="header-content-inner">
+				<h1 id="homeHeading">Favourite place for all your localized
+					needs</h1>
+				<hr>
+				<p>Get in touch with your people!</p>
+				<a href="#about" class="btn btn-primary btn-xl page-scroll">Find
+					Out More</a>
+			</div>
+			<div class="col-sm-12 text-center">
+				<a href="#" class="app app-ios" target="_blank"
+					data-ga-event="click" data-ga-category="DownloadTheApp"
+					data-ga-action="AppStoreClicked" data-ga-label="StartPageHero">Available
+					on the App Store</a> <a href="#" class="app app-android"
+					target="_blank" data-ga-event="click"
+					data-ga-category="DownloadTheApp" data-ga-action="PlayStoreClicked"
+					data-ga-label="StartPageHero">Android app on Google play</a>
+			</div>
+		</div>
+	</header>
+
+	<section class="bg-primary" id="about">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 text-center">
+					<h2 class="section-heading">We've got what you need!</h2>
+					<hr class="light">
+					<p class="text-faded">Wanna connect with fellow Indians in ur
+						location?</p>
+					<p class="text-faded">Looking for a place to stay or to have a
+						good Indian meal?</p>
+					<p class="text-faded">Interested in participating
+						get-togethers, tour trip, trekkings etc.,?</p>
+					<p class="text-faded">Thinking to hand-over used items to your
+						fellow people?</p>
+					<p class="text-faded">Highly desired to send newly purchased
+						items to loved ones living in your country ?</p>
+					<p class="text-faded">Then dont worry, you are at right
+						place!!!</p>
+
+					<a href="#services"
+						class="page-scroll btn btn-default btn-xl sr-button">Get
+						Started!</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="services">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">At Your Service</h2>
+					<hr class="primary">
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-4x fa-diamond text-primary sr-icons"></i>
+						<h3>Apartments</h3>
+						<p class="text-muted"></p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
+						<h3>Restaurants</h3>
+						<p class="text-muted"></p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
+						<h3>Events</h3>
+						<p class="text-muted"></p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-4x fa-heart text-primary sr-icons"></i>
+						<h3>Travel</h3>
+						<p class="text-muted"></p>
+					</div>
+				</div>
+				<!--<div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-heart text-primary sr-icons"></i>
+                        <h3>Used items</h3>
+                        <p class="text-muted"></p>
+                    </div> 
+                </div>-->
+			</div>
+		</div>
+	</section>
+
+	<section id="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 text-center">
+					<h2 class="section-heading">Let's Get In Touch!</h2>
+					<hr class="primary">
+					<p>For any queries :</p>
+				</div>
+				<div class="col-lg-4 col-lg-offset-2 text-center">
+					<i class="fa fa-phone fa-3x sr-contact"></i>
+					<p>+91 9489809822</p>
+				</div>
+				<div class="col-lg-4 text-center">
+					<i class="fa fa-envelope-o fa-3x sr-contact"></i>
+					<p>
+						<a href="mailto:support@fibi.com">support@fibi.com</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>

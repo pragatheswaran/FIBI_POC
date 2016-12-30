@@ -31,6 +31,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.filter.CompositeFilter;
 
 import com.fibi.controllers.FibiErrorController;
@@ -63,7 +65,7 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				// allow signup, login and home pages
-				.antMatchers("/signup.html", "/login.html", "/index.html", "/home.html", "/").permitAll()
+				.antMatchers("/signup.html", "/login.html", "/index.html", "/home.htm", "/user.htm", "/").permitAll()
 				// allow swagger resources
 				.antMatchers("/swagger-ui.html/**", "/webjars/**", "/swagger-resources/**", "/v2/**").permitAll()
 				// allow angular resources
@@ -181,5 +183,22 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public FibiErrorController fibiErrorController() {
 		return new FibiErrorController(errorAttributes);
+	}
+	
+	@Controller
+    static class Routes {
+
+        @RequestMapping({
+            "/userhome",
+            "/milages",
+            "/gallery",
+            "/tracks",
+            "/tracks/{id:\\w+}",
+            "/location",
+            "/about"
+        })
+        public String index() {
+            return "forward:/index.html";
+        }
 	}
 }

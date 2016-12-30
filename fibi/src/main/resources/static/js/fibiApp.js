@@ -1,5 +1,4 @@
-var app = angular.module('fibiApp', ['720kb.datepicker','ngProgress', 'ngAutocomplete']);
-
+var app = angular.module('fibiApp', ['ngRoute', '720kb.datepicker','ngProgress', 'ngAutocomplete']);
 
 var map;
 var infowindow;
@@ -210,36 +209,31 @@ var compareTo = function() {
     };
   };
   
-  app.config(['$httpProvider', function($httpProvider) {
+  //config
+  app.config(['$httpProvider','$routeProvider', '$locationProvider', function($httpProvider,  $routeProvider, $locationProvider) {
 	  $httpProvider.defaults.useXDomain = true;
       delete $httpProvider.defaults.headers.common['X-Requested-With'];
-/*
- * $routeProvider.
- * 
- * when('/', { templateUrl: '/', controller: 'userHomeController' }).
- * when('/userhome', { templateUrl: '/userhome.htm', controller:
- * 'userHomeController' }). when('/userprofile', { templateUrl:
- * '/usermessages.htm', controller: 'userHomeController' }). when('/addStudent', {
- * templateUrl: 'addStudent.htm', controller: 'userHomeController' }).
- * otherwise({ redirectTo: '/userprofile' });
- * 
- */	}]);  
+      
+      $locationProvider.html5Mode(true);
+      
+      $routeProvider
+      .when('/', {
+          templateUrl: '/fibi/home.htm',
+          controller : 'homeController'
+      }).when('/userhome', {
+          templateUrl: '/fibi/user.htm',
+          controller : 'userHomeController'
+      }).otherwise({
+          redirectTo : '/'
+      });
+  }]);  
 
-// config
-/*
- * app.config(function($routeProvider, $httpProvider) { $routeProvider
- * .when('/', { templateUrl: '/', controller: 'homeController' })
- * .when('/userhome', { templateUrl: '/userhome.html', controller:
- * 'userHomeController' }) .when('/another', { templateUrl:
- * '/partials/template1.html', controller: 'ctrl1' }) .otherwise({ redirectTo:
- * '/' }); });
- */    
-// directive
+  //directive
   app.directive('compareTo', compareTo);
   
   
-// controller
- app.controller('userHomeController', function($http, $scope, $rootScope, $window,
+  //controller
+  app.controller('userHomeController', function($http, $scope, $rootScope, $window,
 			$location, ngProgressFactory, $filter) {
 
 	 var self = this;
@@ -693,10 +687,11 @@ var compareTo = function() {
 app.controller('homeController', function($http, $scope, $rootScope, $window,
 		$location, ngProgressFactory) {
 	var self = this;
-
+		 
 	$http.get('users/resource/').then(function(response) {
 		if (!angular.isUndefinedOrNull(response.data.community)) {
-			$window.location = "/fibi/userhome.html";
+			//$window.location = "/fibi/userhome.html";
+			$window.location.assign('/fibi/userhome');
 		}
 	});
 
@@ -708,26 +703,10 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 		$window.location.reload();
 	}
 
-	/*
-	 * $(function(){ // let all dom elements are loaded
-	 * $('#loginModal').on('hide.bs.modal', function (e) { alert('event fired') });
-	 * });
-	 */
-	// $('#loginModal').modal('show');
-
-	/*
-	 * $('#loginModal').on('hide',function(e){ if(!confirm('You want to close me?'))
-	 * e.preventDefault(); });
-	 */
-	/*
-	 * $('#loginModal').on('hidden.bs.modal', function () { alert("test"); })
-	 * 
-	 * $('#loginModal').on('hidden', function () { alert("test"); })
-	 */
 	$http.get('countries/names').success(function (data) {
         $scope.countries = data;            
     })
-    
+        
     $scope.updateCities = function() {
 		
 		var country = $scope.controller.signup.country.name;
@@ -738,8 +717,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 	}
     
     $scope.ssoLogin = function() {
-		// $window.location = "/fibi/userhome.html";
-		$window.location = "fibi/login/facebook";
+ 		$window.location = "fibi/login/facebook";
 	}
     
 	$scope.validateAndSendOTP = function(credentials) {
@@ -842,7 +820,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 		request.success(function(data, status) {
 			console.log("Login succeeded");
 			$scope.login_success = true;
-			$window.location = "/fibi/userhome.html";
+			$window.location.assign('/fibi/userhome');
 		})
 		request.error(function(data, status, headers, config) {
 			console.log("Login failed");
