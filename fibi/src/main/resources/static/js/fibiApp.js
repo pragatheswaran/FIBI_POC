@@ -237,7 +237,11 @@ var compareTo = function() {
 			$location, ngProgressFactory, $filter) {
 
 	 var self = this;
-	
+	 
+	 //For facebook redirects
+	 if ($window.location.hash == "#_=_")
+		  $window.location.hash = "";
+	 	
 	 $scope.showcommunitymessageboard = false;
 	 $scope.showhome = true;
 	 $scope.showprofile = false;
@@ -298,7 +302,8 @@ var compareTo = function() {
 	
 	 $scope.logout = function() {
 			$http.post('logout', {}).finally(function() {
-				$window.location = "/fibi/";
+				//$window.location = "/fibi/";
+				$window.location.assign("/fibi/");
 			});
 	 }
 	 $scope.scrollToBottom = function() {		 
@@ -420,6 +425,8 @@ var compareTo = function() {
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = true;	
 		 $scope.showmap = false;
+		 
+		 $("#upcomingeventsdiv").show();
 	 }
 
 	 
@@ -679,7 +686,6 @@ var compareTo = function() {
 	       $scope.controller.searchDetails.startDate = "";
 	       $scope.controller.searchDetails.endDate = "";
 		}
-
  });
 	
  
@@ -874,7 +880,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 });
 
 $(document).ready(function () {
-
+	
     // stick in the fixed 100% height behind the navbar but don't wrap it
     $('#slide-nav.navbar-inverse').after($('<div class="inverse" id="navbar-height-col"></div>'));
   
@@ -925,17 +931,14 @@ $(document).ready(function () {
         if ($(window).width() > 767 && $('.navbar-toggle').is(':hidden')) {
             $(selected).removeClass('slide-active');
         }
-
-
     });
-    
-    $('.profile-usermenu .nav li').click(function(e) {
-        e.preventDefault()
+        
+    $(document).on("click", ".nav li", function(e) {
+    	  e.preventDefault();
+    	  
+    	  $that = $(this);
 
-        $that = $(this);
-
-        $that.parent().find('li').removeClass('active');
-        $that.addClass('active');
+          $that.parent().find('li').removeClass('active');
+          $that.addClass('active');
     });
-   
 });

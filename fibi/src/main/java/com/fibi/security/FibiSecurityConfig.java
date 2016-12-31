@@ -60,12 +60,23 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private ErrorAttributes errorAttributes;
+	
+	@Controller
+    static class Routes {
+
+        @RequestMapping({
+            "/userhome",
+          })
+        public String index() {
+            return "forward:/index.html";
+        }
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				// allow signup, login and home pages
-				.antMatchers("/signup.html", "/login.html", "/index.html", "/home.htm", "/user.htm", "/").permitAll()
+				.antMatchers("/index.html", "/home.htm", "/").permitAll()
 				// allow swagger resources
 				.antMatchers("/swagger-ui.html/**", "/webjars/**", "/swagger-resources/**", "/v2/**").permitAll()
 				// allow angular resources
@@ -183,22 +194,5 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public FibiErrorController fibiErrorController() {
 		return new FibiErrorController(errorAttributes);
-	}
-	
-	@Controller
-    static class Routes {
-
-        @RequestMapping({
-            "/userhome",
-            "/milages",
-            "/gallery",
-            "/tracks",
-            "/tracks/{id:\\w+}",
-            "/location",
-            "/about"
-        })
-        public String index() {
-            return "forward:/index.html";
-        }
-	}
+	}	
 }

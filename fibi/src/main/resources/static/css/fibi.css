@@ -19,7 +19,7 @@
 }
 
 #userhomebody {
-	background: url('../img/people4.jpg') no-repeat center center fixed;
+	background: url('../img/user_background.jpg') no-repeat center center fixed;
     -moz-background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
@@ -749,7 +749,9 @@ body {
   min-height: 460px;
 }
 
-
+#upcomingeventsdiv {
+	display:none;
+}
 
 
 
