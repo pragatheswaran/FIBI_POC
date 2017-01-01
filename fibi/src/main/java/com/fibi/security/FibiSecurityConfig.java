@@ -66,6 +66,9 @@ public class FibiSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @RequestMapping({
             "/userhome",
+            "/messageboard",
+            "/travel",
+            "/restaurants"
           })
         public String index() {
             return "forward:/index.html";

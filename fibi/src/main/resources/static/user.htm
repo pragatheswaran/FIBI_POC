@@ -1,6 +1,5 @@
     
   <div id="userhomebody"> 
-   <img style="display: none;" src="img/user_background.jpg" alt="">
     <nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -147,13 +146,13 @@
 						    <li><a href="#"> <i class="glyphicon glyphicon-user"></i>
 									Account Settings
 							</a></li>
-							<li class="active"><a href="#" ng-click="showCommunityMessageBoard()"> <i
+							<li ng-class="{ active: isActive('/messageboard')}"><a href="/fibi/messageboard" ng-click="showCommunityMessageBoard()"> <i
 									class="glyphicon glyphicon-home"></i> Message Board
 							</a></li>
-							<li><a href="#" ng-click="redirectToSearchTravel()"> <i
+							<li ng-class="{ active: isActive('/travel')}"><a href="/fibi/travel" ng-click="redirectToSearchTravel()"> <i
 									class="glyphicon glyphicon-plane"></i> Travel
 							</a></li>
-							<li><a href="#" ng-click="showRestaurants()"> <i
+							<li ng-class="{ active: isActive('/restaurants')}"><a href="/fibi/restaurants" ng-click="showRestaurants()"> <i
 									class="glyphicon glyphicon-cutlery"></i> Restaurants
 							</a></li>
 							<li><a href="#"> <i class="glyphicon glyphicon-pushpin"></i>
@@ -187,7 +186,6 @@
 				</div>
 
 				<div class="row ">
-
 					<div class="col-sm-12" ng-show="showcommunitymessageboard" >
 						<form name="form" role="form">
 							<div class="panel panel-primary">
@@ -406,7 +404,7 @@
 				</div>
 			</div>
 			<div class="col-sm-2">
-			  <!-- <div class="affix"> -->
+			  <div class="row">
 				<div class="panel panel-primary">
 					<div class="panel-heading">Upcoming Travels</div>
 					<div class="panel-body" ng-repeat="result in upcomingTravelSearchResult | limitTo:1">
@@ -431,9 +429,9 @@
 					</div>
 					<div class="panel-footer"></div>
 				</div>
-			</div>
-			<div class="col-sm-2" id="upcomingeventsdiv">
-			  <!--  <div class="affix"> -->
+			  </div>
+			  <div class="row">
+			   <div id="upcomingeventsdiv">
 				<div class="panel panel-primary">
 					<div class="panel-heading">Upcoming Events</div>
 					<div class="panel-body">
@@ -442,8 +440,10 @@
 					</div>
 					<div class="panel-footer"></div>
 				</div>
+			   </div>
+			  </div>		  	
 			</div>
-			</div>
+		 </div>
 		<footer class="container-fluid text-center">
 			<p>Copyright &copy 2016 FIBI</p>
 		</footer>

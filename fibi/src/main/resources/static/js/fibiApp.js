@@ -223,6 +223,15 @@ var compareTo = function() {
       }).when('/userhome', {
           templateUrl: '/fibi/user.htm',
           controller : 'userHomeController'
+      }).when('/messageboard', {
+          templateUrl: '/fibi/user.htm',
+          controller : 'userHomeController'
+      }).when('/travel', {
+          templateUrl: '/fibi/user.htm',
+          controller : 'userHomeController',
+      }).when('/restaurants', {
+          templateUrl: '/fibi/user.htm',
+          controller : 'userHomeController'
       }).otherwise({
           redirectTo : '/'
       });
@@ -238,10 +247,36 @@ var compareTo = function() {
 
 	 var self = this;
 	 
+	 $scope.isActive = function (viewLocation) { 
+	     return viewLocation === $location.path();
+	 };
+	    
 	 //For facebook redirects
-	 if ($window.location.hash == "#_=_")
+/*	 if ($window.location.hash == "#_=_")
 		  $window.location.hash = "";
-	 	
+*/	 
+	 $scope.$on('$routeChangeSuccess', function(current, next) { 	
+		 
+		 $http.get('users/resource/').then(function(response) {
+				$scope.greeting = response.data;
+				$scope.searchUpcomingTravellers(); 
+				switch(next.originalPath) {
+			    case '/travel':
+			    	$scope.redirectToSearchTravel();
+			        break;
+			    case '/messageboard#':    
+			    case '/messageboard':
+			    	$scope.showCommunityMessageBoard();
+			        break;
+			    case '/restaurants':
+			    	$scope.showRestaurants();
+			        break;    
+			    default:
+			        break;
+			}
+		 })		 
+     });
+	 	 
 	 $scope.showcommunitymessageboard = false;
 	 $scope.showhome = true;
 	 $scope.showprofile = false;
@@ -294,12 +329,7 @@ var compareTo = function() {
 		    $scope.showmap = true;
 		 }		 
 	}
-	 
-	 $http.get('users/resource/').then(function(response) {
-			$scope.greeting = response.data;
-			$scope.showCommunityMessageBoard();
-		})
-	
+	 	
 	 $scope.logout = function() {
 			$http.post('logout', {}).finally(function() {
 				//$window.location = "/fibi/";
@@ -393,9 +423,7 @@ var compareTo = function() {
 	 }
 	 
 	 $scope.showCommunityMessageBoard = function() {
-		
-		 $scope.searchUpcomingTravellers(); 
-		 
+				 
 		 var communityCode = $scope.greeting.community;
 		
 	     var request = $http({
@@ -425,11 +453,8 @@ var compareTo = function() {
 		 $scope.showImTravelling = false;
 		 $scope.showcommunitymessageboard = true;	
 		 $scope.showmap = false;
-		 
-		 $("#upcomingeventsdiv").show();
 	 }
-
-	 
+ 
 	 $scope.showTravels = function() {
 		 $scope.showhome = false;
 		 $scope.showprofile = false;
@@ -697,7 +722,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 	$http.get('users/resource/').then(function(response) {
 		if (!angular.isUndefinedOrNull(response.data.community)) {
 			//$window.location = "/fibi/userhome.html";
-			$window.location.assign('/fibi/userhome');
+			$window.location.assign('/fibi/messageboard');
 		}
 	});
 
@@ -826,7 +851,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 		request.success(function(data, status) {
 			console.log("Login succeeded");
 			$scope.login_success = true;
-			$window.location.assign('/fibi/userhome');
+			$window.location.assign('/fibi/messageboard');
 		})
 		request.error(function(data, status, headers, config) {
 			console.log("Login failed");
@@ -931,14 +956,5 @@ $(document).ready(function () {
         if ($(window).width() > 767 && $('.navbar-toggle').is(':hidden')) {
             $(selected).removeClass('slide-active');
         }
-    });
-        
-    $(document).on("click", ".nav li", function(e) {
-    	  e.preventDefault();
-    	  
-    	  $that = $(this);
-
-          $that.parent().find('li').removeClass('active');
-          $that.addClass('active');
-    });
-});
+    });       
+ });

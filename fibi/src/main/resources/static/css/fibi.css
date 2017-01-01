@@ -13,8 +13,8 @@
 #map {
   /* height: 100%;
    */position: relative;
-   width: 690px;
-   height:320px;
+   width: 673px;
+   height:600px;
    overflow: hidden;
 }
 
@@ -400,7 +400,7 @@ body.slide-active {
 /* search box */
 
 .button_box2 {
-margin:72px auto;
+margin:20px auto;
 }
 /*-------------------------------------*/
 .cf:before, .cf:after{
@@ -747,10 +747,6 @@ body {
   /* padding: 20px; */
  /*  background: #fff; */
   min-height: 460px;
-}
-
-#upcomingeventsdiv {
-	display:none;
 }
 
 
