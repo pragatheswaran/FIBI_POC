@@ -85,8 +85,8 @@ public class TravelController {
 	public ResponseEntity<List<Travel>> searchTravels(
 			@RequestParam(value = "departureCity", required = true) String departureCity,
 			@RequestParam(value = "destinationCity", required = true) String destinationCity,
-			@RequestParam(value = "startDate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date startDate,
-			@RequestParam(value = "endDate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date endDate) {
+			@RequestParam(value = "startDate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+			@RequestParam(value = "endDate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
 
 		List<Travel> travelList = new ArrayList<Travel>();
 		try {

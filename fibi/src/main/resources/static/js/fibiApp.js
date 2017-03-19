@@ -247,6 +247,8 @@ var compareTo = function() {
 
 	 var self = this;
 	 
+	 $scope.todayDate = $filter('date')(new Date(),'yyyy-MM-dd');
+	 
 	 $scope.isActive = function (viewLocation) { 
 	     return viewLocation === $location.path();
 	 };
@@ -580,8 +582,8 @@ var compareTo = function() {
 		 var offset = 3;
 		 var endDate = new Date();
 		 endDate.setMonth(startDate.getMonth() + offset);
-		 var startDate = $filter('date')(new Date(startDate),'yyyy-MM-dd HH:mm');
-         var endDate = $filter('date')(new Date(endDate),'yyyy-MM-dd HH:mm');
+		 var startDate = $filter('date')(new Date(startDate),'yyyy-MM-dd');
+         var endDate = $filter('date')(new Date(endDate),'yyyy-MM-dd');
          		 
 		 var request = $http({
 	          method: "GET",
@@ -619,8 +621,8 @@ var compareTo = function() {
          var startDate = $scope.controller.searchDetails.startDate; 
          var endDate = $scope.controller.searchDetails.endDate;
 		       
-		 var startDate = $filter('date')(new Date(startDate),'yyyy-MM-dd HH:mm');
-         var endDate = $filter('date')(new Date(endDate),'yyyy-MM-dd HH:mm');
+		 var startDate = $filter('date')(new Date(startDate),'yyyy-MM-dd');
+         var endDate = $filter('date')(new Date(endDate),'yyyy-MM-dd');
 
          $scope.progressbar.start();
 		    		        
@@ -660,11 +662,11 @@ var compareTo = function() {
 		       var from = $scope.deptAirportDetails2.formatted_address;
 		       var to = $scope.destAirportDetails2.formatted_address;
 
-		       var datetime = $scope.controller.travelDetails.datetime;
+		       var deptDate = $scope.controller.travelDetails.deptDate;
 		       var flightNo = $scope.controller.travelDetails.flightNo;
 		       var weight = $scope.controller.travelDetails.weight;
 		       
-		       var datetime = $filter('date')(new Date(datetime),'yyyy-MM-dd HH:mm');
+		       var deptDate = $filter('date')(new Date(deptDate),'yyyy-MM-dd');
 		       		       
 		       $scope.progressbar.start();
 		    		        
@@ -677,7 +679,7 @@ var compareTo = function() {
 	             data: {
 	            	 departureCity: from,
 	            	 destinationCity: to,
-	            	 startDate: datetime,
+	            	 startDate: deptDate,
 	            	 flightNo: flightNo,
 		             weight: weight
 		         },
@@ -700,7 +702,7 @@ var compareTo = function() {
 		$scope.resetSavedTravelDetails = function() {
 		   $scope.controller.travelDetails.from = "";
 		   $scope.controller.travelDetails.to = "";
-     	   $scope.controller.travelDetails.datetime = "";
+     	   $scope.controller.travelDetails.deptDate = "";
      	   $scope.controller.travelDetails.flightNo = "";
      	   $scope.controller.travelDetails.weight = "";
 		}
@@ -733,7 +735,7 @@ app.controller('homeController', function($http, $scope, $rootScope, $window,
 	$scope.closeModal = function() {
 		$window.location.reload();
 	}
-
+	
 	$http.get('countries/names').success(function (data) {
         $scope.countries = data;            
     })

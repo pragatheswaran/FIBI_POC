@@ -21,7 +21,7 @@ public class Travel
 	private String departureCity;
 	private String destinationCity;
 	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date startDate;
 	
 	private String flightNo;
