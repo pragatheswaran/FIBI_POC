@@ -31,6 +31,7 @@ import com.fibi.service.MessageBoardService;
 @RequestMapping(value = "/messageBoard")
 public class MessageBoardController {
 	
+	@SuppressWarnings("unused")
 	private final static Logger LOGGER = Logger.getLogger(MessageBoardController.class.getName());
 	
 	@Resource

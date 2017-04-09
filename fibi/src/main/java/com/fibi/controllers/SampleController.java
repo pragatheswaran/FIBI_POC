@@ -18,7 +18,6 @@ import com.fibi.data.Sample;
 import com.fibi.exceptions.ApiRequestException;
 import com.fibi.exceptions.ErrorCode;
 import com.fibi.service.SampleService;
-import com.fibi.util.FibiUtil;
 
 /**
  * Sample REST controller 

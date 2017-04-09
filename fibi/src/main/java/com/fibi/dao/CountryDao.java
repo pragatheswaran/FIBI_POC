@@ -1,7 +1,5 @@
 package com.fibi.dao;
 
-import java.util.List;
-
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.fibi.data.Country;
